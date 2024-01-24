@@ -7,7 +7,7 @@ export const BodyProvider = ({ children }) => {
         const [body, setBody] = useState({
                 code: "",
                 userInput: "",
-                language: "c_cpp",
+                language: "java",
                 font: "18px",
                 tabSize: "2",
                 editorTheme: "monokai",

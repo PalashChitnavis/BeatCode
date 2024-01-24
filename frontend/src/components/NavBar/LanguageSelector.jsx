@@ -7,7 +7,8 @@ import { useBody } from "../../context/BodyContext";
 import "./LanguageSelector.css";
 const LanguageSelector = () => {
         const languageOptions = [
-                { name: "C / C++", value: "c_cpp" },
+                { name: "C", value: "c" },
+                { name: "C++", value: "cpp" },
                 { name: "Java", value: "java" },
                 { name: "JavaScript", value: "javascript" },
                 { name: "Python", value: "python" },

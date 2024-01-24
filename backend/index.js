@@ -14,7 +14,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post("/api/run", (req, res) => {
         const { code, userInput, language } = req.body;
         console.log("Received Data:", { code, userInput, language });
-        res.send({ code, userInput, language });
 });
 
 app.listen(port, () => {

@@ -39,7 +39,7 @@ function CodeEditor() {
         return (
                 <div className="editor">
                         <AceEditor
-                                mode={body.language}
+                                mode={body.language === "c" || body.language === "cpp" ? "c_cpp" : body.language}
                                 theme={body.editorTheme}
                                 fontSize={body.font}
                                 name="ace-editor"
