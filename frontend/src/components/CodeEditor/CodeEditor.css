@@ -1,0 +1,10 @@
+.editor {
+        width: 66.5vw;
+        height: 77.5vh;
+        margin-left: 1.5vw;
+        margin-top: 2.5vh;
+}
+.code-editor {
+        border-radius: 10px;
+        border: 1px solid white;
+}

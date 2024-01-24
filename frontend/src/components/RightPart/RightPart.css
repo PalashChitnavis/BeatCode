@@ -1,0 +1,10 @@
+.right {
+        display: flex;
+        flex-direction: column;
+        width: 30vw;
+        height: 80vh;
+        gap: 2vh;
+        margin-top: 5.5vh;
+        margin-left: 2vw;
+        justify-content: space-around;
+}

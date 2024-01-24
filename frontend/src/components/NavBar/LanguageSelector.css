@@ -1,0 +1,21 @@
+.select-language {
+        height: 30px;
+        width: 150px;
+        padding-left: 10px;
+        background-color: #2f3136;
+        color: white;
+        font-size: 24px;
+        border-radius: 10px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+}
+.custom-select-container:after {
+        content: "▼";
+        position: relative;
+        right: 20px;
+        pointer-events: none;
+}
+.custom-select-container {
+        background-color: #262626;
+}

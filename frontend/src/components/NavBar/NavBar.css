@@ -1,0 +1,23 @@
+.navbar {
+        display: flex;
+        width: 65vw;
+        height: 6.5vh;
+        margin-top: 1.5vh;
+        margin-left: 1.5vw;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 1vw;
+        padding-left: 2vw;
+        gap: 2vw;
+        background-color: #262626;
+        color: white;
+        border-radius: 10px;
+        border: 1px solid whitesmoke;
+}
+.set {
+        display: flex;
+        align-items: center;
+        width: 20%;
+        justify-content: space-around;
+        background-color: #262626;
+}
