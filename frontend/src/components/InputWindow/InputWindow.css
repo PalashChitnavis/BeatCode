@@ -17,3 +17,9 @@
         padding-left: 10px;
         font-size: 14px;
 }
+@media (max-width: 1300px) {
+        .right-input span {
+                font-size: 12px;
+                padding-left: 2px;
+        }
+}
