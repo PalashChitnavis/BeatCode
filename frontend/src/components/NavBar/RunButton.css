@@ -33,3 +33,8 @@
         right: -20px;
         transition: 0.4s;
 }
+.css-button-arrow--green:disabled {
+        background-color: grey;
+        cursor: not-allowed;
+        opacity: 0.5;
+}

@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import { React, useState } from "react";
 import { useBody } from "../../context/BodyContext";
-import axios from "axios";
+import { runCode } from "../../services/onlineCompilerApi";
 import "./RunButton.css";
 const RunButton = () => {
+        const [isLoading, setIsLoading] = useState(false);
         const { body } = useBody();
         const reqBody = {
                 code: body.code,
@@ -12,16 +13,19 @@ const RunButton = () => {
                 language: body.language,
         };
         const handleClick = async () => {
+                setIsLoading(true);
                 try {
-                        const res = await axios.post("http://localhost:3000/api/run", reqBody);
-                        console.log("Backend Response:", res.data);
+                        const result = await runCode(reqBody);
+                        console.log(result);
                 } catch (err) {
-                        console.error("Error:", err.message);
+                        console.error("error : " + err);
+                } finally {
+                        setIsLoading(false);
                 }
         };
         return (
-                <button className="css-button-arrow--green" onClick={handleClick}>
-                        Run
+                <button className="css-button-arrow--green" onClick={handleClick} disabled={isLoading}>
+                        {isLoading ? "Running..." : "Run"}
                 </button>
         );
 };
