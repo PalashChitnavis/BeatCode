@@ -1,0 +1,192 @@
+[
+        {
+                "question_id": 1,
+                "title": "Sum of Array Elements",
+                "description": "Write a function to find the sum of all elements in an array.",
+                "diff": "easy",
+                "category": "array",
+                "example_cases": {
+                        "example1": {
+                                "input": [1, 2, 3],
+                                "output": 6,
+                                "explanation": "Sum of [1, 2, 3] is 6."
+                        },
+                        "example2": {
+                                "input": [5, 5, 5],
+                                "output": 15,
+                                "explanation": "Sum of [5, 5, 5] is 15."
+                        },
+                        "example3": {
+                                "input": [10, -2, 8],
+                                "output": 16,
+                                "explanation": "Sum of [10, -2, 8] is 16."
+                        }
+                },
+                "solution": {
+                        "C": "#include <stdio.h>\nint sum(int arr[], int n) {\n    int sum = 0;\n    for (int i = 0; i < n; i++) {\n        sum += arr[i];\n    }\n    return sum;\n}",
+                        "C++": "#include <iostream>\nusing namespace std;\nint sum(int arr[], int n) {\n    int sum = 0;\n    for (int i = 0; i < n; i++) {\n        sum += arr[i];\n    }\n    return sum;\n}",
+                        "Java": "public class Main {\n    public static int sum(int[] arr) {\n        int sum = 0;\n        for (int num : arr) {\n            sum += num;\n        }\n        return sum;\n    }\n}",
+                        "JavaScript": "function sum(arr) {\n    return arr.reduce((acc, curr) => acc + curr, 0);\n}",
+                        "Python": "def sum(arr):\n    return sum(arr)"
+                },
+                "boilerplate": {
+                        "C": "#include <stdio.h>\nint sum(int arr[], int n) {\n    // Write your code here\n}",
+                        "C++": "#include <iostream>\nusing namespace std;\nint sum(int arr[], int n) {\n    // Write your code here\n}",
+                        "Java": "public class Main {\n    public static int sum(int[] arr) {\n        // Write your code here\n    }\n}",
+                        "JavaScript": "function sum(arr) {\n    // Write your code here\n}",
+                        "Python": "def sum(arr):\n    # Write your code here"
+                }
+        },
+        {
+                "question_id": 2,
+                "title": "Find Maximum Element in Array",
+                "description": "Write a function to find the maximum element in an array.",
+                "diff": "easy",
+                "category": "array",
+                "example_cases": {
+                        "example1": {
+                                "input": [1, 5, 3],
+                                "output": 5,
+                                "explanation": "Maximum element in [1, 5, 3] is 5."
+                        },
+                        "example2": {
+                                "input": [10, 2, 8],
+                                "output": 10,
+                                "explanation": "Maximum element in [10, 2, 8] is 10."
+                        },
+                        "example3": {
+                                "input": [-1, -5, -3],
+                                "output": -1,
+                                "explanation": "Maximum element in [-1, -5, -3] is -1."
+                        }
+                },
+                "solution": {
+                        "C": "#include <stdio.h>\nint maxElement(int arr[], int n) {\n    int max = arr[0];\n    for (int i = 1; i < n; i++) {\n        if (arr[i] > max) {\n            max = arr[i];\n        }\n    }\n    return max;\n}",
+                        "C++": "#include <iostream>\nusing namespace std;\nint maxElement(int arr[], int n) {\n    int max = arr[0];\n    for (int i = 1; i < n; i++) {\n        if (arr[i] > max) {\n            max = arr[i];\n        }\n    }\n    return max;\n}",
+                        "Java": "public class Main {\n    public static int maxElement(int[] arr) {\n        int max = arr[0];\n        for (int num : arr) {\n            if (num > max) {\n                max = num;\n            }\n        }\n        return max;\n    }\n}",
+                        "JavaScript": "function maxElement(arr) {\n    return Math.max(...arr);\n}",
+                        "Python": "def maxElement(arr):\n    return max(arr)"
+                },
+                "boilerplate": {
+                        "C": "#include <stdio.h>\nint maxElement(int arr[], int n) {\n    // Write your code here\n}",
+                        "C++": "#include <iostream>\nusing namespace std;\nint maxElement(int arr[], int n) {\n    // Write your code here\n}",
+                        "Java": "public class Main {\n    public static int maxElement(int[] arr) {\n        // Write your code here\n    }\n}",
+                        "JavaScript": "function maxElement(arr) {\n    // Write your code here\n}",
+                        "Python": "def maxElement(arr):\n    # Write your code here"
+                }
+        },
+        {
+                "question_id": 3,
+                "title": "Find Minimum Element in Array",
+                "description": "Write a function to find the minimum element in an array.",
+                "diff": "easy",
+                "category": "array",
+                "example_cases": {
+                        "example1": {
+                                "input": [1, 5, 3],
+                                "output": 1,
+                                "explanation": "Minimum element in [1, 5, 3] is 1."
+                        },
+                        "example2": {
+                                "input": [10, 2, 8],
+                                "output": 2,
+                                "explanation": "Minimum element in [10, 2, 8] is 2."
+                        },
+                        "example3": {
+                                "input": [-1, -5, -3],
+                                "output": -5,
+                                "explanation": "Minimum element in [-1, -5, -3] is -5."
+                        }
+                },
+                "solution": {
+                        "C": "#include <stdio.h>\nint minElement(int arr[], int n) {\n    int min = arr[0];\n    for (int i = 1; i < n; i++) {\n        if (arr[i] < min) {\n            min = arr[i];\n        }\n    }\n    return min;\n}",
+                        "C++": "#include <iostream>\nusing namespace std;\nint minElement(int arr[], int n) {\n    int min = arr[0];\n    for (int i = 1; i < n; i++) {\n        if (arr[i] < min) {\n            min = arr[i];\n        }\n    }\n    return min;\n}",
+                        "Java": "public class Main {\n    public static int minElement(int[] arr) {\n        int min = arr[0];\n        for (int num : arr) {\n            if (num < min) {\n                min = num;\n            }\n        }\n        return min;\n    }\n}",
+                        "JavaScript": "function minElement(arr) {\n    return Math.min(...arr);\n}",
+                        "Python": "def minElement(arr):\n    return min(arr)"
+                },
+                "boilerplate": {
+                        "C": "#include <stdio.h>\nint minElement(int arr[], int n) {\n    // Write your code here\n}",
+                        "C++": "#include <iostream>\nusing namespace std;\nint minElement(int arr[], int n) {\n    // Write your code here\n}",
+                        "Java": "public class Main {\n    public static int minElement(int[] arr) {\n        // Write your code here\n    }\n}",
+                        "JavaScript": "function minElement(arr) {\n    // Write your code here\n}",
+                        "Python": "def minElement(arr):\n    # Write your code here"
+                }
+        },
+        {
+                "question_id": 4,
+                "title": "Check if Array is Empty",
+                "description": "Write a function to check if an array is empty.",
+                "diff": "easy",
+                "category": "array",
+                "example_cases": {
+                        "example1": {
+                                "input": [],
+                                "output": true,
+                                "explanation": "Array [] is empty."
+                        },
+                        "example2": {
+                                "input": [1, 2, 3],
+                                "output": false,
+                                "explanation": "Array [1, 2, 3] is not empty."
+                        },
+                        "example3": {
+                                "input": ["a", "b", "c"],
+                                "output": false,
+                                "explanation": "Array ['a', 'b', 'c'] is not empty."
+                        }
+                },
+                "solution": {
+                        "C": "#include <stdio.h>\n#include <stdbool.h>\nbool isEmpty(int arr[], int n) {\n    return n == 0;\n}",
+                        "C++": "#include <iostream>\nusing namespace std;\nbool isEmpty(int arr[], int n) {\n    return n == 0;\n}",
+                        "Java": "public class Main {\n    public static boolean isEmpty(int[] arr) {\n        return arr.length == 0;\n    }\n}",
+                        "JavaScript": "function isEmpty(arr) {\n    return arr.length === 0;\n}",
+                        "Python": "def isEmpty(arr):\n    return len(arr) == 0"
+                },
+                "boilerplate": {
+                        "C": "#include <stdio.h>\n#include <stdbool.h>\nbool isEmpty(int arr[], int n) {\n    // Write your code here\n}",
+                        "C++": "#include <iostream>\nusing namespace std;\nbool isEmpty(int arr[], int n) {\n    // Write your code here\n}",
+                        "Java": "public class Main {\n    public static boolean isEmpty(int[] arr) {\n        // Write your code here\n    }\n}",
+                        "JavaScript": "function isEmpty(arr) {\n    // Write your code here\n}",
+                        "Python": "def isEmpty(arr):\n    # Write your code here"
+                }
+        },
+        {
+                "question_id": 5,
+                "title": "Count Occurrences of Element in Array",
+                "description": "Write a function to count the occurrences of a given element in an array.",
+                "diff": "easy",
+                "category": "array",
+                "example_cases": {
+                        "example1": {
+                                "input": [[1, 2, 3, 1], 1],
+                                "output": 2,
+                                "explanation": "Element 1 occurs twice in [1, 2, 3, 1]."
+                        },
+                        "example2": {
+                                "input": [[1, 2, 3], 4],
+                                "output": 0,
+                                "explanation": "Element 4 does not occur in [1, 2, 3]."
+                        },
+                        "example3": {
+                                "input": [[], 5],
+                                "output": 0,
+                                "explanation": "Array is empty, so element 5 does not occur."
+                        }
+                },
+                "solution": {
+                        "C": "#include <stdio.h>\nint countOccurrences(int arr[], int n, int x) {\n    int count = 0;\n    for (int i = 0; i < n; i++) {\n        if (arr[i] == x) {\n            count++;\n        }\n    }\n    return count;\n}",
+                        "C++": "#include <iostream>\nusing namespace std;\nint countOccurrences(int arr[], int n, int x) {\n    int count = 0;\n    for (int i = 0; i < n; i++) {\n        if (arr[i] == x) {\n            count++;\n        }\n    }\n    return count;\n}",
+                        "Java": "public class Main {\n    public static int countOccurrences(int[] arr, int x) {\n        int count = 0;\n        for (int num : arr) {\n            if (num == x) {\n                count++;\n            }\n        }\n        return count;\n    }\n}",
+                        "JavaScript": "function countOccurrences(arr, x) {\n    return arr.filter(num => num === x).length;\n}",
+                        "Python": "def countOccurrences(arr, x):\n    return arr.count(x)"
+                },
+                "boilerplate": {
+                        "C": "#include <stdio.h>\nint countOccurrences(int arr[], int n, int x) {\n    // Write your code here\n}",
+                        "C++": "#include <iostream>\nusing namespace std;\nint countOccurrences(int arr[], int n, int x) {\n    // Write your code here\n}",
+                        "Java": "public class Main {\n    public static int countOccurrences(int[] arr, int x) {\n        // Write your code here\n    }\n}",
+                        "JavaScript": "function countOccurrences(arr, x) {\n    // Write your code here\n}",
+                        "Python": "def countOccurrences(arr, x):\n    # Write your code here"
+                }
+        }
+]
