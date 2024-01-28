@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const onlineCompilerRoute = require("./routes/onlineCompilerRoute");
+const practiceProblemsRoute = require("./routes/practiceProblemsRoute");
 const authRoute = require("./routes/authRoute");
 dotenv.config();
 const mongoose = require("mongoose");
@@ -23,4 +24,5 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/onlinecompiler", onlineCompilerRoute);
+app.use("/practiceproblems", practiceProblemsRoute);
 app.use("/register", authRoute);

@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Define the schema for the question
 const questionSchema = new mongoose.Schema({
         id: {
                 type: Number,
@@ -16,7 +15,7 @@ const questionSchema = new mongoose.Schema({
         },
         diff: {
                 type: String,
-                enum: ["easy", "medium", "hard"], // Assuming difficulty levels
+                enum: ["easy", "medium", "hard"],
                 required: true,
         },
         category: {
@@ -24,29 +23,19 @@ const questionSchema = new mongoose.Schema({
                 required: true,
         },
         example_cases: {
-                type: {
-                        example1: {
-                                input: [Number],
-                                output: Number,
+                type: [
+                        {
+                                input: [mongoose.Schema.Types.Mixed],
+                                output: mongoose.Schema.Types.Mixed,
                                 explanation: String,
                         },
-                        example2: {
-                                input: [Number],
-                                output: Number,
-                                explanation: String,
-                        },
-                        example3: {
-                                input: [Number],
-                                output: Number,
-                                explanation: String,
-                        },
-                },
+                ],
                 required: true,
         },
         solution: {
                 type: {
                         C: String,
-                        "C++": String,
+                        CPP: String,
                         Java: String,
                         JavaScript: String,
                         Python: String,
@@ -56,7 +45,7 @@ const questionSchema = new mongoose.Schema({
         boilerplate: {
                 type: {
                         C: String,
-                        "C++": String,
+                        CPP: String,
                         Java: String,
                         JavaScript: String,
                         Python: String,
@@ -65,7 +54,6 @@ const questionSchema = new mongoose.Schema({
         },
 });
 
-// Create the model from the schema
 const Question = mongoose.model("Question", questionSchema);
 
 module.exports = Question;
