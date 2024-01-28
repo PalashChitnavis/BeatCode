@@ -12,11 +12,11 @@ const InputWindow = () => {
 
         return (
                 <>
-                        <p className="right-input">
-                                Input <span>(Enter input if required before pressing run)</span>
+                        <p className="text-[white] text-2xl">
+                                Input <span className="text-sm pl-2.5">(Enter input if required before pressing run)</span>
                         </p>
                         <textarea
-                                className="input"
+                                className="bg-[#272822] text-[aliceblue] w-[28.5vw] h-[48%] resize-none text-[28px] leading-[1.3] border p-2.5 rounded-[10px] border-solid border-[white]"
                                 name="userInput"
                                 id="userInput"
                                 cols="50"

@@ -1,6 +1,7 @@
 // controllers/authController.js
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 async function signup(req, res) {
         const { username, email, password } = req.body;
         console.log(req.body);
@@ -15,7 +16,7 @@ async function signup(req, res) {
                 const newUser = new User({ username, email, password });
                 await newUser.save();
 
-                res.status(201).json({ message: "User registered successfully" });
+                res.status(201).json({ message: "User registered successfully", success: true });
         } catch (error) {
                 console.error("Error registering user:", error);
                 res.status(500).json({ message: "Internal server error" });
@@ -37,7 +38,12 @@ async function login(req, res) {
                 if (!isMatch) {
                         return res.status(400).json({ error: "password is incorrect" });
                 }
-                res.json({ message: "Login successful", username: user.username });
+
+                const token = jwt.sign({ userId: user._id, email: user.email }, "palashbuzo", {
+                        expiresIn: "10h",
+                });
+
+                res.json({ message: "Login successful", username: user.username, token, email: user.email });
         } catch (error) {
                 console.error(error);
                 res.status(500).json({ error: "Server error" });

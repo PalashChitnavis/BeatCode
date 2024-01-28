@@ -11,9 +11,9 @@ import "./NavBar.css";
 const NavBar = () => {
         const { body } = useBody();
         return (
-                <div className="navbar">
+                <div className="flex w-[65vw] h-[6.5vh] justify-between items-center gap-[2vw] bg-neutral-800 text-[white] border ml-[1.5vw] mt-[1.5vh] pl-[2vw] pr-[1vw] rounded-[10px] border-solid border-[whitesmoke]">
                         <LanguageSelector />
-                        <div className="set">
+                        <div className="flex items-center w-1/5 justify-around bg-neutral-800">
                                 <ResetCode />
                                 <Settings />
                                 <RunButton />

@@ -37,7 +37,7 @@ function CodeEditor() {
                 editor.getSession().setTabSize(body.tabSize);
         });
         return (
-                <div className="editor">
+                <div className="w-[66.5vw] h-[77.5vh] ml-[1.5vw] mt-[2.5vh]">
                         <AceEditor
                                 mode={body.language === "c" || body.language === "cpp" ? "c_cpp" : body.language}
                                 theme={body.editorTheme}

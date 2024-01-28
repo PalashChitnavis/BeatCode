@@ -3,7 +3,6 @@
 import React from "react";
 import { useBody } from "../../context/BodyContext";
 import "@fortawesome/fontawesome-svg-core";
-import "./Button.css";
 const ResetCode = () => {
         const { body, updateBody } = useBody();
         const handleResetClick = () => {
@@ -11,7 +10,10 @@ const ResetCode = () => {
         };
 
         return (
-                <button className="btn" onClick={handleResetClick}>
+                <button
+                        className="h-[30px] text-[white] cursor-pointer bg-neutral-800 border-[none]"
+                        onClick={handleResetClick}
+                >
                         <i className="fas fa-undo fa-xl"></i>
                 </button>
         );

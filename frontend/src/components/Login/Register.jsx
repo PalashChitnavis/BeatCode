@@ -11,15 +11,31 @@ const Register = () => {
 
         const handleRegister = async (type) => {
                 console.log(userData);
-                try {
-                        if (type === "signup") {
-                                await signup(userData);
+                if (type === "signup") {
+                        if (!userData.username) {
+                                alert("Username is required");
+                                return;
                         }
-                        if (type === "login") {
-                                await login(userData);
-                        }
-                } catch (error) {
-                        console.error("Registration failed:", error.message);
+                }
+                if (!userData.email) {
+                        alert("Email is required");
+                        return;
+                } else if (!/\S+@\S+\.\S+/.test(userData.email)) {
+                        alert("Invalid email format");
+                        return;
+                }
+                if (!userData.password) {
+                        alert("Password is required");
+                        return;
+                } else if (userData.password.length < 6) {
+                        alert("Password must be at least 6 characters long");
+                        return;
+                }
+                if (type === "signup") {
+                        await signup(userData);
+                }
+                if (type === "login") {
+                        await login(userData);
                 }
         };
         const [toggleRegister, setToggleRegister] = useState(false);

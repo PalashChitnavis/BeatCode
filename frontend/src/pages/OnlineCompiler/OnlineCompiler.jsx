@@ -11,7 +11,7 @@ function OnlineCompiler() {
                 <>
                         <BodyProvider>
                                 <Header />
-                                <div className="middle">
+                                <div className="flex">
                                         <LeftPart />
                                         <RightPart />
                                 </div>

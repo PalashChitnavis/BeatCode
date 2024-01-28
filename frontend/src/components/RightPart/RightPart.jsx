@@ -3,10 +3,10 @@
 import React from "react";
 import OutputWindow from "../OutputWindow/OutputWindow";
 import InputWindow from "../InputWindow/InputWindow";
-import "./RightPart.css";
+
 const RightPart = () => {
         return (
-                <div className="right">
+                <div className="flex flex-col w-[30vw] h-[80vh] gap-[2vh] justify-around ml-[2vw] mt-[5.5vh]">
                         <InputWindow />
                         <OutputWindow />
                 </div>
