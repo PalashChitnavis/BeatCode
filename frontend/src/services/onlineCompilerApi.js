@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/onlinecompiler";
+const API_URL = "http://localhost:3000/onlinecompiler";
 
 const runCode = async (reqBody) => {
         try {

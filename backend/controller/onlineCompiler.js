@@ -1,32 +1,26 @@
 const { validateC, validateCpp, validateJava, validateJavaScript, validatePython } = require("../middleware/validate");
-const writeCodeToFile = require("../middleware/writeCodeToFile");
 const onlineCompiler = (code, language, userInput) => {
         try {
                 switch (language) {
                         case "c":
-                                validateC(code);
+                                validateC(code, userInput);
                                 break;
                         case "cpp":
-                                validateCpp(code);
+                                validateCpp(code, userInput);
                                 break;
                         case "java":
-                                validateJava(code);
+                                validateJava(code, userInput);
                                 break;
                         case "javascript":
-                                validateJavaScript(code);
+                                validateJavaScript(code, userInput);
                                 break;
                         case "python":
-                                validatePython(code);
+                                validatePython(code, userInput);
                                 break;
                         default:
                                 throw new Error(`Unsupported language: ${language}`);
                 }
-
-                const fileName = writeCodeToFile(code, language);
-
-                console.log(`Request for ${language} compilation received.`);
-                console.log(`Code has been validated for ${language}.`);
-                console.log(`File saved as: ${fileName}`);
+                console.log("code is validated");
         } catch (error) {
                 console.error(`Validation error for ${language}: ${error.message}`);
         }
