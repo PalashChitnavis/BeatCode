@@ -4,8 +4,17 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const onlineCompilerRoute = require("./routes/onlineCompilerRoute");
 const authRoute = require("./routes/authRoute");
-const db = require("./database/db");
 dotenv.config();
+const mongoose = require("mongoose");
+
+mongoose.connect(process.env.DB_URL, {})
+        .then(() => {
+                console.log("MongoDB connected");
+                app.listen(port, () => {
+                        console.log(`Server is running on http://localhost:${port}`);
+                });
+        })
+        .catch((err) => console.error("MongoDB connection error:", err));
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,6 +24,3 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/onlinecompiler", onlineCompilerRoute);
 app.use("/register", authRoute);
-app.listen(port, () => {
-        console.log(`Server is running on http://localhost:${port}`);
-});
