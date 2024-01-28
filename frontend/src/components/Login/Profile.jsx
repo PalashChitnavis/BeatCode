@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { React, useState } from "react";
-import "./Profile.css";
+
 const Profile = () => {
         const [isDropdownOpen, setIsDropdownOpen] = useState(false);
         const email = localStorage.getItem("email");
