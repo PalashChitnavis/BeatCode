@@ -9,7 +9,7 @@ function App() {
                         {" "}
                         <Router>
                                 <Routes>
-                                        <Route path="/" element={<HomePage/>} />
+                                        <Route path="/" element={<HomePage />} />
                                         <Route path="/onlinecompiler" element={<OnlineCompiler />} />
                                         <Route path="/practiceproblems" element={<PracticeProblems />} />
                                 </Routes>
