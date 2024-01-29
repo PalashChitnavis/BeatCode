@@ -1,6 +1,7 @@
-.left {
-        margin-top: 1.5vh;
-        width: 50vw;
-        background-color: #262626;
-        height: 85vh;
+button {
+        width: 25%;
+        color: white;
+}
+button.active {
+        border-bottom: 1px solid white;
 }
