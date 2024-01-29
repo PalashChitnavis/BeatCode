@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import { Link } from "react-router-dom";
 function HomePage() {
         return (
@@ -19,8 +20,9 @@ function HomePage() {
                                                 </button>
                                         </div>
                                 </div>
-                                <img src="Home-Page-Tree.svg" alt="Coding Tree Image" className="w-[40%] mt-16 " />
+                                <img src="Home-Page-Tree.svg" alt="Coding Tree Image" className="w-[40%]  mt-10 " />
                         </div>
+                        <Footer />
                 </>
         );
 }

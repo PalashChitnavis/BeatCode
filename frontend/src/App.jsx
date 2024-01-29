@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./main.css";
 import HomePage from "./pages/HomePage/HomePage";
 import QuestionPage from "./components/QuestionPage/QuestionPage";
+
 function App() {
         return (
                 <>
-                        {" "}
                         <Router>
                                 <Routes>
                                         <Route path="/" element={<HomePage />} />

@@ -2,6 +2,9 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchQuestionById } from "../../services/practiceProblemsApi";
+import Header from "../Header/Header.jsx";
+import Footer from "../Footer/Footer.jsx";
+import "./QuestionPage.css";
 const QuestionPage = () => {
         const { id } = useParams();
         const [question, setQuestion] = useState(null);
@@ -19,7 +22,16 @@ const QuestionPage = () => {
 
                 fetchData();
         }, [id]);
-        return <div></div>;
+        return (
+                <div>
+                        <Header />
+                        <div className="partition">
+                                <div className="left"></div>
+                                <div className="right"></div>
+                        </div>
+                        <Footer />
+                </div>
+        );
 };
 
 export default QuestionPage;
