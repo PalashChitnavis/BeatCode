@@ -11,11 +11,11 @@ function HomePage() {
                                 <div className=" max-w-[32%] font-bold mt-44">
                                         <p className="text-6xl">BeatCode</p>
                                         <p className="text-4xl mt-6">A better way to level up your coding.</p>
-                                        <div className="flex justify-between mt-12 ">
-                                                <button className="text-green-600 text-2xl border-2 border-green-600 rounded-full p-4  hover:bg-green-600 hover:text-white">
+                                        <div className="flex justify-between mt-12 gap-2 ">
+                                                <button className="text-green-600 w-[16vw] text-2xl border-2 border-green-600 rounded-full p-4  hover:bg-green-600 hover:text-white">
                                                         <Link to="/practiceproblems">Practice Problems</Link>
                                                 </button>
-                                                <button className="text-green-600 text-2xl border-2 border-green-600 rounded-full p-4  hover:bg-green-600 hover:text-white">
+                                                <button className="text-green-600 w-[16vw] text-2xl border-2 border-green-600 rounded-full p-4  hover:bg-green-600 hover:text-white">
                                                         <Link to="/onlinecompiler">Online Compiler</Link>
                                                 </button>
                                         </div>
