@@ -5,19 +5,16 @@ import Header from "../../components/Header/Header";
 import LeftPart from "../../components/LeftPart/LeftPart";
 import RightPart from "../../components/RightPart/RightPart";
 
-import { BodyProvider } from "../../context/BodyProvider";
 function OnlineCompiler() {
         return (
                 <>
-                        <BodyProvider>
-                                <Header />
-                                <div className="flex">
-                                        <LeftPart />
-                                        <RightPart />
-                                </div>
+                        <Header />
+                        <div className="flex">
+                                <LeftPart />
+                                <RightPart />
+                        </div>
 
-                                <Footer />
-                        </BodyProvider>
+                        <Footer />
                 </>
         );
 }

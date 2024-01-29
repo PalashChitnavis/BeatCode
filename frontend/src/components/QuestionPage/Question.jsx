@@ -15,14 +15,24 @@ const Question = ({ question }) => {
                                 {example_cases.map((example, index) => {
                                         return (
                                                 <div className="pt-[20px] pl-[20px]" key={index}>
-                                                        <div className="text-lg font-bold">Example {index + 1} : </div>
-                                                        <div>
-                                                                {example.input.map((input, index) => {
-                                                                        return <div key={index}>[{input}]</div>;
-                                                                })}
+                                                        <div className="text-lg font-bold mb-3">Example {index + 1} : </div>
+                                                        <div className="bg-[#222222] w-[70%] rounded-lg">
+                                                                <div className="ml-3 ">
+                                                                        <span className="text-[#4ec9b0]">Input</span> :{" "}
+                                                                        <span className="text-[#ce9178]">
+                                                                                {example.input}
+                                                                        </span>
+                                                                </div>
+                                                                <div className="ml-3">
+                                                                        <span className="text-[#4ec9b0]">Output</span> :{" "}
+                                                                        <span className="text-[#ce9178]">
+                                                                                {example.output}
+                                                                        </span>
+                                                                </div>
+                                                                <div className="ml-3">
+                                                                        Explanation : {example.explanation}
+                                                                </div>
                                                         </div>
-                                                        <div>Output : {example.output}</div>
-                                                        <div>Explanation : {example.explanation}</div>
                                                 </div>
                                         );
                                 })}

@@ -6,6 +6,7 @@ import { fetchQuestionById } from "../../services/practiceProblemsApi";
 import Header from "../Header/Header.jsx";
 import Footer from "../Footer/Footer.jsx";
 import Question from "./Question.jsx";
+import NavBar from "../NavBar/NavBar.jsx";
 import "./QuestionPage.css";
 const QuestionPage = () => {
         const [loading, setLoading] = useState(false);
@@ -75,7 +76,11 @@ const QuestionPage = () => {
                                                         }
                                                 })()}
                                         </div>
-                                        <div className="w-[48vw] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]"></div>
+                                        <div className="w-[48vw] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]">
+                                                {/* <div className="w-[45vw]">
+                                                        <NavBar />
+                                                </div> */}
+                                        </div>
                                 </div>
                         )}
                         <Footer />

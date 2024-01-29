@@ -16,6 +16,7 @@ const fetchAllQuestions = async () => {
 const fetchQuestionById = async (questionId) => {
         try {
                 const response = await axios.get(`${API_URL}/practiceproblems/questions/${questionId}`);
+                console.log(response);
                 return response.data;
         } catch (error) {
                 console.error("Error fetching question by ID:", error);
