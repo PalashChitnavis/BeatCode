@@ -3,7 +3,7 @@ import PracticeProblems from "./pages/PracticeProblems/PracticeProblems";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./main.css";
 import HomePage from "./pages/HomePage/HomePage";
-import QuestionPage from "./components/QuestionPage/QuestionPage";
+import QuestionPage from "./pages/QuestionPage/QuestionPage";
 
 function App() {
         return (
