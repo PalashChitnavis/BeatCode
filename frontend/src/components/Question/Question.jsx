@@ -1,16 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import "./Question.css";
 import capitalizeString from "../../services/capitaliseWord";
 const Question = ({ question }) => {
         const { title, diff, description, example_cases } = question;
         return (
                 <div>
-                        <div className="title">{title}</div>
-                        <div className="diff">{capitalizeString(diff)}</div>
-                        <div className="desc">{description}</div>
-                        <div className="example">
+                        <div className="text-[white] text-2xl font-bold pl-5 pt-2.5">{title}</div>
+                        <div className="text-[#42fea6] text-xl pl-5 pt-2.5">{capitalizeString(diff)}</div>
+                        <div className="text-[white] text-xl pl-5 pt-2.5">{description}</div>
+                        <div className="text-[white]">
                                 {example_cases.map((example, index) => {
                                         return (
                                                 <div className="pt-[20px] pl-[20px]" key={index}>

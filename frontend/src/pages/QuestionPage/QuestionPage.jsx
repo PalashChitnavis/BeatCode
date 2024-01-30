@@ -5,10 +5,12 @@ import { useParams } from "react-router-dom";
 import { fetchQuestionById } from "../../services/practiceProblemsApi";
 import Header from "../../components/Header/Header.jsx";
 import Footer from "../../components/Footer/Footer.jsx";
-import Question from "./Question.jsx";
+import Question from "../../components/Question/Question.jsx";
 import "./QuestionPage.css";
 import ProblemList from "../../components/ProblemList/ProblemList.jsx";
-import ProblemSolutions from "../../components/ProblemSolutions/ProblemSolutions.jsx"
+import NavBar from "../../components/NavBar/NavBar.jsx";
+import CodeEditor from "../../components/CodeEditor/CodeEditor.jsx";
+import ProblemSolutions from "../../components/ProblemSolutions/ProblemSolutions.jsx";
 
 const QuestionPage = () => {
         const [loading, setLoading] = useState(false);
@@ -70,15 +72,24 @@ const QuestionPage = () => {
                                                                 case "question":
                                                                         return question && <Question question={question} />;
                                                                 case "solution":
-                                                                        return question && <ProblemSolutions/>;
+                                                                        return question && <ProblemSolutions />;
                                                                 case "submissions":
                                                                         return `<h1>submissions</h1>`;
                                                                 case "problemlist":
-                                                                        return <ProblemList/>;
+                                                                        return <ProblemList />;
                                                         }
                                                 })()}
                                         </div>
-                                        <div className="w-[48vw] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]">Editor</div>
+                                        <div className="w-[48vw] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]">
+                                                <div className="w-[48vw] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]">
+                                                        <div className="w-[95%] h-[8%]">
+                                                                <NavBar />
+                                                        </div>
+                                                        <div className="h-[85%]">
+                                                                {question && <CodeEditor question={question} />}
+                                                        </div>
+                                                </div>
+                                        </div>
                                 </div>
                         )}
                         <Footer />
