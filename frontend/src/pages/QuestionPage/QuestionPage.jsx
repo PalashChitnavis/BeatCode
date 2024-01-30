@@ -29,7 +29,7 @@ const QuestionPage = () => {
                                 console.error("Error fetching questions:", error);
                         }
                 };
-
+                setNavigation("question");
                 fetchData();
         }, [id]);
 
@@ -72,7 +72,13 @@ const QuestionPage = () => {
                                                                 case "question":
                                                                         return question && <Question question={question} />;
                                                                 case "solution":
-                                                                        return question && <ProblemSolutions />;
+                                                                        return (
+                                                                                question && (
+                                                                                        <ProblemSolutions
+                                                                                                question={question}
+                                                                                        />
+                                                                                )
+                                                                        );
                                                                 case "submissions":
                                                                         return `<h1>submissions</h1>`;
                                                                 case "problemlist":
