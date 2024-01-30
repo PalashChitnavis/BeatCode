@@ -17,6 +17,7 @@ const QuestionPage = () => {
         const { id } = useParams();
         const [question, setQuestion] = useState(null);
         const [navigation, setNavigation] = useState("question");
+
         useEffect(() => {
                 const fetchData = async () => {
                         try {
@@ -40,7 +41,7 @@ const QuestionPage = () => {
                                 <h1>Loading</h1>
                         ) : (
                                 <div className="h-[88vh] w-screen flex items-center justify-evenly">
-                                        <div className="w-[48vw] bg-neutral-800 h-[85vh] border rounded-[10px] border-solid border-[white]">
+                                        <div className={`w-[38%] bg-neutral-800 h-[85vh] border rounded-[10px] border-solid border-[white] overflow-y-scroll pb-4`}>
                                                 <div className="h-[7.5vh] w-full flex justify-around border-b-[rgb(76,76,76)] border-b border-solid">
                                                         <button
                                                                 className={navigation === `question` ? `active` : ``}
@@ -67,6 +68,7 @@ const QuestionPage = () => {
                                                                 Problem List
                                                         </button>
                                                 </div>
+                                                <div>
                                                 {(() => {
                                                         switch (navigation) {
                                                                 case "question":
@@ -84,10 +86,10 @@ const QuestionPage = () => {
                                                                 case "problemlist":
                                                                         return <ProblemList />;
                                                         }
-                                                })()}
+                                                })()}</div>
                                         </div>
-                                        <div className="w-[48vw] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]">
-                                                <div className="w-[48vw] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]">
+                                        <div className="w-[58%] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]">
+                                                <div className="w-[100%] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]">
                                                         <div className="w-[95%] h-[8%]">
                                                                 <NavBar />
                                                         </div>
