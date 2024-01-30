@@ -5,3 +5,13 @@ button {
 button.active {
         border-bottom: 1px solid white;
 }
+.navbar {
+        margin-top: 1.5vh;
+        margin-left: 1vw;
+        width: 46vw;
+        height: 7vh;
+        border: 1px solid white;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+}

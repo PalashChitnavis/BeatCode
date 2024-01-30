@@ -5,7 +5,6 @@ import "./Question.css";
 import capitalizeString from "../../services/capitaliseWord";
 const Question = ({ question }) => {
         const { title, diff, description, example_cases } = question;
-        console.log(question);
         return (
                 <div>
                         <div className="title">{title}</div>

@@ -1,22 +1,19 @@
 .select-language {
-        height: 38px;
-        width: 150px;
-        padding-left: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90%; /* Set height relative to parent's height */
+        width: 90%; /* Set width relative to parent's width */
         background-color: #2f3136;
         color: white;
-        font-size: 24px;
+        font-size: 24px; /* Adjust font-size relative to viewport width */
         border-radius: 10px;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
         border: 1px solid white;
 }
-.custom-select-container:after {
-        content: "▼";
-        position: relative;
-        right: 20px;
-        pointer-events: none;
-}
+
 .custom-select-container {
         background-color: #262626;
+        width: 90%; /* Set width of the container relative to parent's width */
+        height: 90%; /* Set height of the container relative to parent's height */
+        margin: auto; /* Center the container horizontally */
 }

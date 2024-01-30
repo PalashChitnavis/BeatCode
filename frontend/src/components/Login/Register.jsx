@@ -9,7 +9,6 @@ const Register = () => {
         });
 
         const handleRegister = async (type) => {
-                console.log(userData);
                 if (type === "signup") {
                         if (!userData.username) {
                                 alert("Username is required");
@@ -45,7 +44,6 @@ const Register = () => {
         const handleButtonClick = (buttonName) => {
                 setActiveButton(buttonName);
         };
-        console.log(activeButton);
         return (
                 <div>
                         <button

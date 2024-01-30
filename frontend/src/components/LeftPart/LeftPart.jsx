@@ -7,7 +7,9 @@ import CodeEditor from "../CodeEditor/CodeEditor";
 const LeftPart = () => {
         return (
                 <div className="flex flex-col w-[68vw]">
-                        <NavBar />
+                        <div className="w-[65vw] h-[7.5vh]">
+                                <NavBar />
+                        </div>
                         <CodeEditor />
                 </div>
         );

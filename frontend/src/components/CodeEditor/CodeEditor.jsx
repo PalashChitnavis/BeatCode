@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
@@ -27,24 +28,37 @@ import "ace-builds/src-noconflict/theme-terminal";
 
 import "ace-builds/src-noconflict/ext-language_tools";
 import "./CodeEditor.css";
-function CodeEditor() {
+import { useLocation } from "react-router-dom";
+import { getBoilerplateCode } from "../../services/getBoilerPlateCode";
+function CodeEditor({ question }) {
         const { body, updateBody } = useBody();
         const handleChange = (value) => {
                 updateBody({ ...body, code: value });
         };
+        let location = useLocation();
+        const starterCodes = {
+                c: `#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`,
+                cpp: `#include <iostream>\n\nusing namespace std;\n\nint main() {\n    cout << "Hello, World!" << endl;\n    return 0;\n}`,
+                java: `public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}`,
+                python: `print("Hello, World!")`,
+                javascript: `console.log("Hello, World!");`,
+        };
+
         useEffect(() => {
                 const editor = ace.edit("ace-editor");
                 editor.getSession().setTabSize(body.tabSize);
-        });
+                const boilerplateCode = getBoilerplateCode(location, body, question);
+                editor.setValue(boilerplateCode);
+        }, [body.tabSize, body.language, location.pathname]);
         return (
-                <div className="w-[66.5vw] h-[77.5vh] ml-[1.5vw] mt-[2.5vh]">
+                <div className="flex justify-center items-center w-[100%] h-[100%] mt-[1%]">
                         <AceEditor
                                 mode={body.language === "c" || body.language === "cpp" ? "c_cpp" : body.language}
                                 theme={body.editorTheme}
                                 fontSize={body.font}
                                 name="ace-editor"
-                                width="65vw"
-                                height="75vh"
+                                width="96%"
+                                height="96%"
                                 value={body.code}
                                 onChange={handleChange}
                                 showPrintMargin={false}
@@ -54,6 +68,7 @@ function CodeEditor() {
                                         enableLiveAutocompletion: true,
                                         enableSnippets: true,
                                 }}
+                                wrapEnabled={true}
                                 className="code-editor"
                         />
                 </div>

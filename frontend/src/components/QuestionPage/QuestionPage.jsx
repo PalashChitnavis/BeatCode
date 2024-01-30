@@ -8,6 +8,7 @@ import Footer from "../Footer/Footer.jsx";
 import Question from "./Question.jsx";
 import NavBar from "../NavBar/NavBar.jsx";
 import "./QuestionPage.css";
+import CodeEditor from "../CodeEditor/CodeEditor.jsx";
 const QuestionPage = () => {
         const [loading, setLoading] = useState(false);
         const { id } = useParams();
@@ -77,9 +78,12 @@ const QuestionPage = () => {
                                                 })()}
                                         </div>
                                         <div className="w-[48vw] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]">
-                                                {/* <div className="w-[45vw]">
+                                                <div className="w-[95%] h-[8%]">
                                                         <NavBar />
-                                                </div> */}
+                                                </div>
+                                                <div className="h-[85%]">
+                                                        {question && <CodeEditor question={question} />}
+                                                </div>
                                         </div>
                                 </div>
                         )}

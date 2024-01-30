@@ -30,7 +30,7 @@ const Settings = () => {
         return (
                 <div>
                         <button
-                                className="h-[30px] text-[white] cursor-pointer bg-neutral-800 border-[none]"
+                                className="h-[100%] w-[20%] text-[white] cursor-pointer bg-neutral-800 border-[none]"
                                 onClick={toggle}
                         >
                                 <i className="fas fa-cog fa-xl"></i>
