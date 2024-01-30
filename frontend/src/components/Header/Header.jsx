@@ -11,7 +11,7 @@ const Header = () => {
                         <div className="w-3/6 flex flex-row justify-between bg-[#2f3136]">
                                 <Link to="/">
                                         <div className="icon w-[15vw] flex justify-center rounded-[10px] bg-[#fb690a]">
-                                                <img className="h-[35px] w-[80%]" src="/logo.svg" alt="beatcode-logo" />
+                                                <img className="h-[35px] w-[90%]" src="/logo.svg" alt="beatcode-logo" />
                                         </div>
                                 </Link>
                                 <div className="bg-[#2f3136] w-[28vw] gap-[1vw] flex justify-between items-center">
