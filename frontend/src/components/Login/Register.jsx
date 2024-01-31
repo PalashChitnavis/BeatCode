@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signup, login, googleLogin } from "../../services/registerApi";
+import { signup, login } from "../../services/registerApi";
 
 const Register = () => {
         const [userData, setUserData] = useState({
@@ -9,10 +9,6 @@ const Register = () => {
         });
 
         const handleRegister = async (type) => {
-                if (type === "google") {
-                        await googleLogin();
-                        return;
-                }
                 if (type === "signup") {
                         if (!userData.username) {
                                 alert("Username is required");
@@ -185,13 +181,6 @@ const Register = () => {
                                                                         }}
                                                                 >
                                                                         Log In
-                                                                </button>
-                                                                <button
-                                                                        onClick={() => {
-                                                                                handleRegister("google");
-                                                                        }}
-                                                                >
-                                                                        Google Sign In
                                                                 </button>
                                                         </form>
                                                 )}
