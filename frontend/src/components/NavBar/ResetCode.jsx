@@ -28,12 +28,12 @@ const ResetCode = () => {
 
         const handleResetClick = async () => {
                 const code = getBoilerplateCode(location, body, question);
-                updateBody({ ...body, code: code });
+                updateBody({ ...body, code: code, userInput: "", output: "" });
         };
 
         return (
                 <button
-                        className="h-[100%] w-[20%] text-[white] cursor-pointer bg-neutral-800 border-[none]"
+                        className="h-[100%] w-[100%] text-[white] cursor-pointer bg-neutral-800 border-[none]"
                         onClick={handleResetClick}
                 >
                         <i className="fas fa-undo fa-xl"></i>

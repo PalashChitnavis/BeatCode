@@ -11,6 +11,7 @@ export const BodyProvider = ({ children }) => {
                 font: "18px",
                 tabSize: "2",
                 editorTheme: "monokai",
+                output: "",
         });
 
         const updateBody = (newBody) => {

@@ -6,6 +6,7 @@ import "./InputWindow.css";
 import { useBody } from "../../context/BodyContext";
 const InputWindow = () => {
         const { body, updateBody } = useBody();
+        const { userInput } = body;
         const handleInputChange = (event) => {
                 updateBody({ ...body, userInput: event.target.value });
         };
@@ -21,6 +22,7 @@ const InputWindow = () => {
                                 id="userInput"
                                 cols="50"
                                 rows="4"
+                                value={userInput}
                                 placeholder="Enter Input Value Here"
                                 onChange={handleInputChange}
                         />

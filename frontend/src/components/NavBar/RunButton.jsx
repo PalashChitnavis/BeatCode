@@ -6,7 +6,7 @@ import { runCode } from "../../services/onlineCompilerApi";
 import "./RunButton.css";
 const RunButton = () => {
         const [isLoading, setIsLoading] = useState(false);
-        const { body } = useBody();
+        const { body, updateBody } = useBody();
         const reqBody = {
                 code: body.code,
                 userInput: body.userInput,
@@ -17,6 +17,7 @@ const RunButton = () => {
                 try {
                         const result = await runCode(reqBody);
                         console.log(result);
+                        updateBody({ ...body, output: result.stdout });
                 } catch (err) {
                         console.error("error : " + err);
                 } finally {
