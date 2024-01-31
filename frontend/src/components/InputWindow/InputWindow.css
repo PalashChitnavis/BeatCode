@@ -1,6 +1,16 @@
 @media (max-width: 1300px) {
         .right-input span {
-                font-size: 12px;
+                font-size: 1rem;
                 padding-left: 2px;
         }
+}
+#userInput:active{
+        outline: none;
+}
+#userInput:focus{
+        outline: none;
+        border-width: 1px;
+        resize: none;
+        border-color: #e2700c; /* Change border color when focused */
+        box-shadow: 0 0 5px rgba(203, 144, 8, 0.5);
 }
