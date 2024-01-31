@@ -40,7 +40,7 @@ const Register = () => {
         const toggle = () => {
                 setToggleRegister(!toggleRegister);
         };
-        const [activeButton, setActiveButton] = useState("signup");
+        const [activeButton, setActiveButton] = useState("login");
         const handleButtonClick = (buttonName) => {
                 setActiveButton(buttonName);
         };
@@ -61,17 +61,6 @@ const Register = () => {
                                         <div className="bg-[#2f3136] fixed -translate-x-2/4 -translate-y-2/4 z-[1001] w-[30vw] h-[70vh]  border p-5 rounded-[10px] border-solid border-[#ccc] left-2/4 top-2/4">
                                                 <div className="flex w-full items-center justify-center">
                                                         <button
-                                                                className={`border w-[10vw] h-10 bg-[#179b77]  border-solid border-[white] hover:bg-[#179b77]  
-                                                                        ${
-                                                                                activeButton === "signup"
-                                                                                        ? `bg-[#179b77]`
-                                                                                        : `bg-[#435359]`
-                                                                        }`}
-                                                                onClick={() => handleButtonClick("signup")}
-                                                        >
-                                                                Sign Up
-                                                        </button>
-                                                        <button
                                                                 className={`border w-[10vw] h-10 bg-[#179b77] border-solid border-[white] hover:bg-[#179b77]   
                                                                         ${
                                                                                 activeButton === "login"
@@ -81,6 +70,17 @@ const Register = () => {
                                                                 onClick={() => handleButtonClick("login")}
                                                         >
                                                                 Log In
+                                                        </button>
+                                                        <button
+                                                                className={`border w-[10vw] h-10 bg-[#179b77]  border-solid border-[white] hover:bg-[#179b77]  
+                                                                        ${
+                                                                                activeButton === "signup"
+                                                                                        ? `bg-[#179b77]`
+                                                                                        : `bg-[#435359]`
+                                                                        }`}
+                                                                onClick={() => handleButtonClick("signup")}
+                                                        >
+                                                                Sign Up
                                                         </button>
                                                 </div>
                                                 {activeButton === "signup" ? (
