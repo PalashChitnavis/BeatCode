@@ -13,9 +13,6 @@ const onlineCompiler = (code, language, userInput, res) => {
                         case "java":
                                 validateJava(code, userInput);
                                 break;
-                        case "javascript":
-                                validateJavaScript(code, userInput);
-                                break;
                         case "python":
                                 validatePython(code, userInput);
                                 break;

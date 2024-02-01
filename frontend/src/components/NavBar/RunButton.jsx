@@ -9,7 +9,7 @@ const RunButton = () => {
         const { body, updateBody } = useBody();
         const reqBody = {
                 code: body.code,
-                userInput: body.userInput,
+                userInput: body.userInput.trim(),
                 language: body.language,
         };
         const handleClick = async () => {
@@ -17,7 +17,11 @@ const RunButton = () => {
                 try {
                         const result = await runCode(reqBody);
                         console.log(result);
-                        updateBody({ ...body, output: result.stdout });
+                        if (result.stdout) {
+                                updateBody({ ...body, output: result.stdout });
+                        } else {
+                                updateBody({ ...body, output: `Error During Execution : \n ${result.stderr}` });
+                        }
                 } catch (err) {
                         console.error("error : " + err);
                 } finally {

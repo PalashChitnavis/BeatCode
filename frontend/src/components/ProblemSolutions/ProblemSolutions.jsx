@@ -29,12 +29,6 @@ export default function ProblemSolutions({ question }) {
                                                 Java
                                         </button>
                                         <button
-                                                className={navigation === `javascript` ? `active` : ``}
-                                                onClick={() => setNavigation("javascript")}
-                                        >
-                                                JavaScript
-                                        </button>
-                                        <button
                                                 className={navigation === `python` ? `active` : ``}
                                                 onClick={() => setNavigation("python")}
                                         >

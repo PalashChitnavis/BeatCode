@@ -42,22 +42,6 @@ const validateJava = (code, userInput) => {
         }
 };
 
-// JavaScript (Node.js) Validation
-const validateJavaScript = (code, userInput) => {
-        const maliciousWordsJavaScript = [
-                "child_process.exec",
-                "child_process.spawn",
-                "fs.readFileSync",
-                "fs.writeFileSync",
-        ];
-
-        for (const word of maliciousWordsJavaScript) {
-                if (code.includes(word) || userInput.includes(word)) {
-                        throw new Error(`JavaScript Code or user input contains forbidden word: ${word}`);
-                }
-        }
-};
-
 // Python Validation
 const validatePython = (code, userInput) => {
         const maliciousWordsPython = [
@@ -85,6 +69,5 @@ module.exports = {
         validateC,
         validateCpp,
         validateJava,
-        validateJavaScript,
         validatePython,
 };

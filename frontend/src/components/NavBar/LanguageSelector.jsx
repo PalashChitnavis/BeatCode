@@ -10,7 +10,6 @@ const LanguageSelector = () => {
                 { name: "C", value: "c" },
                 { name: "C++", value: "cpp" },
                 { name: "Java", value: "java" },
-                { name: "JavaScript", value: "javascript" },
                 { name: "Python", value: "python" },
         ];
         const { body, updateBody } = useBody();
