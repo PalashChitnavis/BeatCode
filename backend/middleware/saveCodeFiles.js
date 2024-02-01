@@ -8,7 +8,7 @@ const saveCodeFiles = (code, userInput, language) => {
                 const filename = uuidv4();
 
                 // Define file paths
-                const codeFilePath = path.join(__dirname, `../${filename}.${language}`);
+                const codeFilePath = path.join(__dirname, `../${filename}.${language === "python" ? "py" : language}`);
                 const userInputFilePath = path.join(__dirname, `../${filename}.txt`);
 
                 // Write code to file

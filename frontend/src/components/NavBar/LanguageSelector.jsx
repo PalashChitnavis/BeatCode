@@ -21,7 +21,9 @@ const LanguageSelector = () => {
                                 className="select-language"
                                 id="language"
                                 value={body.language}
-                                onChange={(e) => updateBody({ ...body, language: e.target.value })}
+                                onChange={(e) =>
+                                        updateBody({ ...body, userInput: "", output: "", language: e.target.value })
+                                }
                         >
                                 {languageOptions.map((language) => (
                                         <option key={language.value} value={language.value}>
