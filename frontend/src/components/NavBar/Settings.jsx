@@ -118,7 +118,7 @@ const Settings = () => {
                                                 </label>
                                                 <button
                                                         onClick={toggle}
-                                                        className="w-[5vw] h-10  font-[bold] cursor-pointer font-bold transition-all duration-[0.3s] ease-[ease] text-[#d90429] ml-[45%] rounded-[5px] border-4 border-solid border-[#d90429]
+                                                        className="w-[5vw] h-10   cursor-pointer font-bold transition-all duration-[0.3s] ease-[ease] text-[#d90429] ml-[45%] rounded-[5px] border-4 border-solid border-[#d90429]
                                                         bg-white hover:bg-[#d90429] hover:text-[#fff] font-sans"
                                                 >
                                                         Close

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { React, useState } from "react";
-
+import { Link } from "react-router-dom";
 const Profile = () => {
         const [isDropdownOpen, setIsDropdownOpen] = useState(false);
         const email = localStorage.getItem("email");
@@ -27,10 +27,10 @@ const Profile = () => {
                                 {isDropdownOpen && (
                                         <div>
                                                 <div
-                                                        className="fixed w-full h-full z-[999] bg-[rgba(0,0,0,0.5)] left-0 top-0"
+                                                        className="fixed w-full h-full z-[1999] bg-[rgba(0,0,0,0.5)] left-0 top-0"
                                                         onClick={toggleDropdown}
                                                 ></div>
-                                                <div className="absolute w-[15vw] h-[28vh] flex flex-col justify-center items-center bg-[#272822] border z-[1000] rounded-[10px] border-solid border-[white] right-[2.5vw] top-[8vh]">
+                                                <div className="absolute w-[15vw] h-[28vh] flex flex-col justify-center items-center bg-[#272822] border z-[2000] rounded-[10px] border-solid border-[white] right-[2.5vw] top-[8vh]">
                                                         <div className="flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid">
                                                                 {username}
                                                         </div>
@@ -38,10 +38,10 @@ const Profile = () => {
                                                                 {email}
                                                         </div>
                                                         <div
-                                                                className="flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid"
+                                                                className="flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid hover:bg-[#16a34a]"
                                                                 onClick={() => console.log("View Submissions")}
                                                         >
-                                                                View Submissions
+                                                                <Link to={"/submissions"}>View Submissions</Link>
                                                         </div>
 
                                                         <div

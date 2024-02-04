@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const onlineCompilerRoute = require("./routes/onlineCompilerRoute");
 const practiceProblemsRoute = require("./routes/practiceProblemsRoute");
 const authRoute = require("./routes/authRoute");
+const submissionsRoute = require("./routes/submissionsRoute");
 dotenv.config();
 const mongoose = require("mongoose");
 
@@ -26,3 +27,4 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/onlinecompiler", onlineCompilerRoute);
 app.use("/practiceproblems", practiceProblemsRoute);
 app.use("/register", authRoute);
+app.use("/submissions", submissionsRoute);

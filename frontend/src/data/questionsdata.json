@@ -178,14 +178,12 @@
                         "c": "#include <stdio.h>\nint countOccurrences(int arr[], int n, int x) {\n    int count = 0;\n    for (int i = 0; i < n; i++) {\n        if (arr[i] == x) {\n            count++;\n        }\n    }\n    return count;\n}",
                         "cpp": "#include <iostream>\nusing namespace std;\nint countOccurrences(int arr[], int n, int x) {\n    int count = 0;\n    for (int i = 0; i < n; i++) {\n        if (arr[i] == x) {\n            count++;\n        }\n    }\n    return count;\n}",
                         "java": "public class Main {\n    public static int countOccurrences(int[] arr, int x) {\n        int count = 0;\n        for (int num : arr) {\n            if (num == x) {\n                count++;\n            }\n        }\n        return count;\n    }\n}",
-
                         "python": "def countOccurrences(arr, x):\n    return arr.count(x)"
                 },
                 "boilerplate": {
                         "c": "#include <stdio.h>\nint countOccurrences(int arr[], int n, int x) {\n    // Parameters: arr (array of integers), n (number of elements), x (element to count)\n    // Write your code here\n}",
                         "cpp": "#include <iostream>\nusing namespace std;\nint countOccurrences(int arr[], int n, int x) {\n    // Parameters: arr (array of integers), n (number of elements), x (element to count)\n    // Write your code here\n}",
                         "java": "public class Main {\n    public static int countOccurrences(int[] arr, int x) {\n        // Parameters: arr (array of integers), x (element to count)\n        // Write your code here\n    }\n}",
-
                         "python": "def countOccurrences(arr, x):\n    # Parameters: arr (list), x (element to count)\n    # Write your code here\n}"
                 }
         }

@@ -1,25 +1,27 @@
 const { stderr } = require("process");
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
+const fs = require("fs");
 const isWindows = process.platform === "win32";
-const runDockerContainer = (filename, language, res) => {
+const CompilerSubmission = require("../models/CompilerSubmission");
+const runDockerContainer = (filename, language, userEmail, res) => {
         switch (language) {
                 case "cpp":
-                        cppDocker(filename, language, res);
+                        cppDocker(filename, language, userEmail, res);
                         break;
                 case "c":
-                        cppDocker(filename, language, res);
+                        cppDocker(filename, language, userEmail, res);
                         break;
                 case "java":
-                        javaDocker(filename, res);
+                        javaDocker(filename, userEmail, res);
                         break;
                 case "python":
-                        pythonDocker(filename, res);
+                        pythonDocker(filename, userEmail, res);
                         break;
         }
 };
 
-const cppDocker = (filename, language, res) => {
+const cppDocker = (filename, language, userEmail, res) => {
         let containerID; // Define containerID variable outside of the promise chain
         exec(`docker run -d -it cpp:v1 sh`)
                 .then((response) => {
@@ -36,12 +38,26 @@ const cppDocker = (filename, language, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
+                        if (userEmail != "") {
+                                try {
+                                        const submission = new CompilerSubmission({
+                                                user_email: userEmail,
+                                                language: language,
+                                                code: fs.readFileSync(`${filename}.${language}`, "utf-8"),
+                                                input: fs.readFileSync(`${filename}.txt`, "utf-8"),
+                                                output: resp.stdout,
+                                        });
+                                        submission.save();
+                                } catch (err) {
+                                        console.log(err);
+                                }
+                        }
                         const deleteCmd = isWindows
                                 ? `del ${filename}.${language} ${filename}.txt`
                                 : `rm ${filename}.${language} ${filename}.txt`;
                         exec(`docker rm -f ${containerID} && ${deleteCmd}`).then(() => {
                                 console.log("container and files removed");
-                                res.status(201).json(resp); // Send the response here
+                                res.status(201).json(resp);
                         });
                 })
                 .catch((error) => {
@@ -55,7 +71,7 @@ const cppDocker = (filename, language, res) => {
                         });
                 });
 };
-const pythonDocker = (filename, res) => {
+const pythonDocker = (filename, userEmail, res) => {
         let containerID;
         exec(`docker run -d -it py:v1 sh`)
                 .then((response) => {
@@ -72,6 +88,20 @@ const pythonDocker = (filename, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
+                        if (userEmail != "") {
+                                try {
+                                        const submission = new CompilerSubmission({
+                                                user_email: userEmail,
+                                                language: "python",
+                                                code: fs.readFileSync(`${filename}.py`, "utf-8"),
+                                                input: fs.readFileSync(`${filename}.txt`, "utf-8"),
+                                                output: resp.stdout,
+                                        });
+                                        submission.save();
+                                } catch (err) {
+                                        console.log(err);
+                                }
+                        }
                         const deleteCmd = isWindows
                                 ? `del ${filename}.py ${filename}.txt`
                                 : `rm ${filename}.py ${filename}.txt`;
@@ -92,7 +122,7 @@ const pythonDocker = (filename, res) => {
                 });
 };
 
-const javaDocker = (filename, res) => {
+const javaDocker = (filename, userEmail, res) => {
         let containerID;
         exec(`docker run -d -it java:v1 sh`)
                 .then((response) => {
@@ -112,6 +142,20 @@ const javaDocker = (filename, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
+                        if (userEmail != "") {
+                                try {
+                                        const submission = new CompilerSubmission({
+                                                user_email: userEmail,
+                                                language: "java",
+                                                code: fs.readFileSync(`${filename}.java`, "utf-8"),
+                                                input: fs.readFileSync(`${filename}.txt`, "utf-8"),
+                                                output: resp.stdout,
+                                        });
+                                        submission.save();
+                                } catch (err) {
+                                        console.log(err);
+                                }
+                        }
                         const deleteCmd = isWindows
                                 ? `del ${filename}.java ${filename}.txt`
                                 : `rm ${filename}.java ${filename}.txt`;
