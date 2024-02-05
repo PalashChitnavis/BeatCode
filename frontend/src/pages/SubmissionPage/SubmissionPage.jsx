@@ -13,7 +13,7 @@ const SubmissionPage = () => {
                                         <SubmissionList />
                                 </div>
                         ) : (
-                                <div>bye world</div>
+                                <div>bye bye</div>
                         )}
                         <Footer />
                 </div>

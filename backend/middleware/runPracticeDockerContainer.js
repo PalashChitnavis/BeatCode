@@ -3,25 +3,25 @@ const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 const fs = require("fs");
 const isWindows = process.platform === "win32";
-const CompilerSubmission = require("../models/CompilerSubmission");
-const runDockerContainer = (filename, language, userEmail, res) => {
+const PracticeSubmission = require("../models/PracticeSubmission");
+const runPracticeDockerContainer = (filename, language, userEmail, questionID, res) => {
         switch (language) {
                 case "cpp":
-                        cppDocker(filename, language, userEmail, res);
+                        cppDocker(filename, language, userEmail, questionID, res);
                         break;
                 case "c":
-                        cppDocker(filename, language, userEmail, res);
+                        cppDocker(filename, language, userEmail, questionID, res);
                         break;
                 case "java":
-                        javaDocker(filename, userEmail, res);
+                        javaDocker(filename, userEmail, questionID, res);
                         break;
                 case "python":
-                        pythonDocker(filename, userEmail, res);
+                        pythonDocker(filename, userEmail, questionID, res);
                         break;
         }
 };
 
-const cppDocker = (filename, language, userEmail, res) => {
+const cppDocker = (filename, language, userEmail, questionID, res) => {
         let containerID; // Define containerID variable outside of the promise chain
         exec(`docker run -d -it cpp:v1 sh`)
                 .then((response) => {
@@ -40,12 +40,12 @@ const cppDocker = (filename, language, userEmail, res) => {
                         console.log(resp);
                         if (userEmail != "") {
                                 try {
-                                        const submission = new CompilerSubmission({
+                                        const submission = new PracticeSubmission({
                                                 user_email: userEmail,
                                                 language: language,
                                                 code: fs.readFileSync(`${filename}.${language}`, "utf-8"),
-                                                input: fs.readFileSync(`${filename}.txt`, "utf-8"),
                                                 output: resp.stdout,
+                                                question_id: questionID,
                                         });
                                         submission.save();
                                 } catch (err) {
@@ -71,7 +71,7 @@ const cppDocker = (filename, language, userEmail, res) => {
                         });
                 });
 };
-const pythonDocker = (filename, userEmail, res) => {
+const pythonDocker = (filename, userEmail, questionID, res) => {
         let containerID;
         exec(`docker run -d -it py:v1 sh`)
                 .then((response) => {
@@ -90,12 +90,12 @@ const pythonDocker = (filename, userEmail, res) => {
                         console.log(resp);
                         if (userEmail != "") {
                                 try {
-                                        const submission = new CompilerSubmission({
+                                        const submission = new PracticeSubmission({
                                                 user_email: userEmail,
                                                 language: "python",
                                                 code: fs.readFileSync(`${filename}.py`, "utf-8"),
-                                                input: fs.readFileSync(`${filename}.txt`, "utf-8"),
                                                 output: resp.stdout,
+                                                question_id: questionID,
                                         });
                                         submission.save();
                                 } catch (err) {
@@ -122,7 +122,7 @@ const pythonDocker = (filename, userEmail, res) => {
                 });
 };
 
-const javaDocker = (filename, userEmail, res) => {
+const javaDocker = (filename, userEmail, questionID, res) => {
         let containerID;
         exec(`docker run -d -it java:v1 sh`)
                 .then((response) => {
@@ -144,12 +144,12 @@ const javaDocker = (filename, userEmail, res) => {
                         console.log(resp);
                         if (userEmail != "") {
                                 try {
-                                        const submission = new CompilerSubmission({
+                                        const submission = new PracticeSubmission({
                                                 user_email: userEmail,
                                                 language: "java",
                                                 code: fs.readFileSync(`${filename}.java`, "utf-8"),
-                                                input: fs.readFileSync(`${filename}.txt`, "utf-8"),
                                                 output: resp.stdout,
+                                                question_id: questionID,
                                         });
                                         submission.save();
                                 } catch (err) {
@@ -176,4 +176,4 @@ const javaDocker = (filename, userEmail, res) => {
                 });
 };
 
-module.exports = runDockerContainer;
+module.exports = runPracticeDockerContainer;

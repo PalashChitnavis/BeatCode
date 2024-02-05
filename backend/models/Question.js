@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema({
         id: {
-                type: Number,
+                type: String,
                 required: true,
         },
         title: {
@@ -18,10 +18,6 @@ const questionSchema = new mongoose.Schema({
                 enum: ["easy", "medium", "hard"],
                 required: true,
         },
-        category: {
-                type: String,
-                required: true,
-        },
         example_cases: {
                 type: [
                         {
@@ -34,21 +30,28 @@ const questionSchema = new mongoose.Schema({
         },
         solution: {
                 type: {
-                        C: String,
-                        CPP: String,
-                        Java: String,
-                        JavaScript: String,
-                        Python: String,
+                        c: String,
+                        cpp: String,
+                        java: String,
+                        python: String,
                 },
                 required: true,
         },
         boilerplate: {
                 type: {
-                        C: String,
-                        CPP: String,
-                        Java: String,
-                        JavaScript: String,
-                        Python: String,
+                        c: String,
+                        cpp: String,
+                        java: String,
+                        python: String,
+                },
+                required: true,
+        },
+        templatecode: {
+                type: {
+                        c: String,
+                        cpp: String,
+                        java: String,
+                        python: String,
                 },
                 required: true,
         },

@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const onlineCompilerRoute = require("./routes/onlineCompilerRoute");
+const runCodeRoute = require("./routes/runCodeRoute");
 const practiceProblemsRoute = require("./routes/practiceProblemsRoute");
 const authRoute = require("./routes/authRoute");
 const submissionsRoute = require("./routes/submissionsRoute");
@@ -24,7 +24,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/onlinecompiler", onlineCompilerRoute);
+app.use("/run", runCodeRoute);
 app.use("/practiceproblems", practiceProblemsRoute);
 app.use("/register", authRoute);
 app.use("/submissions", submissionsRoute);

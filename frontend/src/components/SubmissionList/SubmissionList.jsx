@@ -6,18 +6,18 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 const SubmissionList = () => {
         const [toggleSubmission, setToggleSubmission] = useState("practiceproblems");
         const email = localStorage.getItem("email");
-        const [submissions, setSubmissions] = useState(null);
+        const [compilersubmissions, setCompilerSubmissions] = useState(null);
+        const [practicesubmissions, setPracticeSubmissions] = useState(null);
         function handleToggle(name) {
                 setToggleSubmission(name);
                 if (name === "practiceproblems") {
                         practiceProblemsSubmissions(email).then((res) => {
-                                setSubmissions([...res].reverse());
+                                setPracticeSubmissions([...res].reverse());
                         });
                 }
                 if (name === "onlinecompiler") {
                         onlineCompilerSubmissions(email).then((res) => {
-                                setSubmissions([...res].reverse());
-                                console.log(submissions);
+                                setCompilerSubmissions([...res].reverse());
                         });
                 }
         }
@@ -56,11 +56,57 @@ const SubmissionList = () => {
                                         </button>
                                 </div>
                                 {toggleSubmission === "practiceproblems" ? (
-                                        <h1>Practice shit</h1>
+                                        <div className="onlinecompilersub">
+                                                {practicesubmissions &&
+                                                        practicesubmissions.map((submission, index) => (
+                                                                <div key={submission._id} className="xyzabcd">
+                                                                        <div className="abcd">
+                                                                                {index + 1}]{" "}
+                                                                                <span className="ml-[1vw]">
+                                                                                        {" "}
+                                                                                        Created :{" "}
+                                                                                        {formatDateTime(
+                                                                                                submission.createdAt
+                                                                                        )}
+                                                                                </span>
+                                                                        </div>
+                                                                        <div className="flex justify-between ml-[3vw] mb-[2vh] mt-[2vh] mr-[2vw]">
+                                                                                <div>
+                                                                                        <SyntaxHighlighter
+                                                                                                className="xyz"
+                                                                                                language={
+                                                                                                        submission.language
+                                                                                                }
+                                                                                        >
+                                                                                                {submission.code}
+                                                                                        </SyntaxHighlighter>
+                                                                                </div>
+                                                                                <div className="flex flex-col bcd">
+                                                                                        <div>
+                                                                                                <span className="text-[#4ec9b0]">
+                                                                                                        Status :
+                                                                                                </span>{" "}
+                                                                                                <span className="text-[#ce9178]">
+                                                                                                        Empty For Now
+                                                                                                </span>
+                                                                                        </div>
+                                                                                        <div>
+                                                                                                <span className="text-[#4ec9b0]">
+                                                                                                        Output :
+                                                                                                </span>{" "}
+                                                                                                <span className="text-[#ce9178]">
+                                                                                                        {submission.output}
+                                                                                                </span>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                        ))}
+                                        </div>
                                 ) : (
                                         <div className="onlinecompilersub">
-                                                {submissions &&
-                                                        submissions.map((submission, index) => (
+                                                {compilersubmissions &&
+                                                        compilersubmissions.map((submission, index) => (
                                                                 <div key={submission._id} className="xyzabcd">
                                                                         <div className="abcd">
                                                                                 {index + 1}]{" "}

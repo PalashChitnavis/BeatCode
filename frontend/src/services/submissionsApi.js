@@ -15,7 +15,9 @@ const onlineCompilerSubmissions = async (email) => {
 
 const practiceProblemsSubmissions = async (email) => {
         try {
-                console.log("working on this ", email);
+                const response = await axios.post(`${API_URL}/submissions/practiceproblems`, { email: email });
+                console.log(response.data.submissions);
+                return response.data.submissions;
         } catch (error) {
                 console.error("API call error : ", error.message);
                 throw error;

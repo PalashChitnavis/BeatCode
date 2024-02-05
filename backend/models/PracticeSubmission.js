@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 const practicesubmissionSchema = new mongoose.Schema(
         {
-                user_id: {
+                user_email: {
                         type: String,
                         required: true,
                 },
                 question_id: {
-                        type: Number,
+                        type: String,
                         required: true,
                 },
                 code: {
@@ -20,7 +20,9 @@ const practicesubmissionSchema = new mongoose.Schema(
                 },
                 status: {
                         type: String,
-                        required: true,
+                },
+                output: {
+                        type: String,
                 },
         },
         { timestamps: true }

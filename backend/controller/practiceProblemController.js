@@ -1,30 +1,30 @@
 const { validateC, validateCpp, validateJava, validateJavaScript, validatePython } = require("../middleware/validate");
-const saveCodeFiles = require("../middleware/saveCodeFiles");
-const runCompilerDockerContainer = require("../middleware/runCompilerDockerContainer");
-const onlineCompiler = (code, language, userInput, userEmail, res) => {
+const saveProblemFiles = require("../middleware/saveProblemFiles");
+const runPracticeDockerContainer = require("../middleware/runPracticeDockerContainer");
+const practiceProblemController = async (code, language, questionID, userEmail, res) => {
         try {
                 switch (language) {
                         case "c":
-                                validateC(code, userInput);
+                                validateC(code);
                                 break;
                         case "cpp":
-                                validateCpp(code, userInput);
+                                validateCpp(code);
                                 break;
                         case "java":
-                                validateJava(code, userInput);
+                                validateJava(code);
                                 break;
                         case "python":
-                                validatePython(code, userInput);
+                                validatePython(code);
                                 break;
                         default:
                                 throw new Error(`Unsupported language: ${language}`);
                 }
                 console.log("code is validated");
-                const filename = saveCodeFiles(code, userInput, language);
-                runCompilerDockerContainer(filename, language, userEmail, res);
+                const filename = await saveProblemFiles(code, questionID, language);
+                runPracticeDockerContainer(filename, language, userEmail, questionID, res);
         } catch (error) {
                 console.error(`Validation error for ${language}: ${error.message}`);
         }
 };
 
-module.exports = onlineCompiler;
+module.exports = practiceProblemController;
