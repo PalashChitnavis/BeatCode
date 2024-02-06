@@ -8,7 +8,7 @@ export default function ProblemSolutions({ question }) {
 
         return (
                 <>
-                        <div>
+                        <div className="w-[100%]">
                                 <div className="w-full flex justify-around border-b-[rgb(76,76,76)] border-b border-solid h-[7vh]">
                                         <button
                                                 className={navigation === `c` ? `active` : ``}

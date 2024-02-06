@@ -11,6 +11,7 @@ import ProblemList from "../../components/ProblemList/ProblemList.jsx";
 import NavBar from "../../components/NavBar/NavBar.jsx";
 import CodeEditor from "../../components/CodeEditor/CodeEditor.jsx";
 import ProblemSolutions from "../../components/ProblemSolutions/ProblemSolutions.jsx";
+import QuestionSubmission from "../../components/SubmissionList/QuestionSubmission.jsx";
 import { useBody } from "../../context/BodyContext.jsx";
 const QuestionPage = () => {
         const [loading, setLoading] = useState(false);
@@ -24,7 +25,6 @@ const QuestionPage = () => {
                         try {
                                 setLoading(true);
                                 const question = await fetchQuestionById(id);
-                                console.log(question);
                                 setQuestion(question);
                                 setLoading(false);
                         } catch (error) {
@@ -65,7 +65,9 @@ const QuestionPage = () => {
                                                         </button>
                                                         <button
                                                                 className={navigation === `submissions` ? `active` : ``}
-                                                                onClick={() => setNavigation("submissions")}
+                                                                onClick={() => {
+                                                                        setNavigation("submissions");
+                                                                }}
                                                         >
                                                                 Submissions
                                                         </button>
@@ -76,7 +78,7 @@ const QuestionPage = () => {
                                                                 Problem List
                                                         </button>
                                                 </div>
-                                                <div>
+                                                <div className="w-[100%]">
                                                         {(() => {
                                                                 switch (navigation) {
                                                                         case "question":
@@ -96,7 +98,7 @@ const QuestionPage = () => {
                                                                                         )
                                                                                 );
                                                                         case "submissions":
-                                                                                return `<h1>submissions</h1>`;
+                                                                                return question && <QuestionSubmission />;
                                                                         case "problemlist":
                                                                                 return <ProblemList />;
                                                                 }

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { onlineCompilerSubmissions, practiceProblemsSubmissions } from "../../services/submissionsApi";
 import "./SubmissionList.css";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -28,6 +28,14 @@ const SubmissionList = () => {
                 const timeString = date.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit", hour12: true });
                 return `${dateString} at ${timeString}`;
         };
+        useEffect(() => {
+                practiceProblemsSubmissions(email).then((res) => {
+                        setPracticeSubmissions([...res].reverse());
+                });
+                onlineCompilerSubmissions(email).then((res) => {
+                        setCompilerSubmissions([...res].reverse());
+                });
+        }, []);
         return (
                 <div>
                         <div className=" fixed -translate-x-2/4 -translate-y-2/4 z-[1001] w-[90vw] h-[80vh]   p-5 rounded-[10px]  left-2/4 top-2/4">

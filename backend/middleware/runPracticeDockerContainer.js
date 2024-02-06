@@ -4,24 +4,24 @@ const exec = util.promisify(require("child_process").exec);
 const fs = require("fs");
 const isWindows = process.platform === "win32";
 const PracticeSubmission = require("../models/PracticeSubmission");
-const runPracticeDockerContainer = (filename, language, userEmail, questionID, res) => {
+const runPracticeDockerContainer = (filename, language, userEmail, questionID, code, res) => {
         switch (language) {
                 case "cpp":
-                        cppDocker(filename, language, userEmail, questionID, res);
+                        cppDocker(filename, language, userEmail, questionID, code, res);
                         break;
                 case "c":
-                        cppDocker(filename, language, userEmail, questionID, res);
+                        cppDocker(filename, language, userEmail, questionID, code, res);
                         break;
                 case "java":
-                        javaDocker(filename, userEmail, questionID, res);
+                        javaDocker(filename, userEmail, questionID, code, res);
                         break;
                 case "python":
-                        pythonDocker(filename, userEmail, questionID, res);
+                        pythonDocker(filename, userEmail, questionID, code, res);
                         break;
         }
 };
 
-const cppDocker = (filename, language, userEmail, questionID, res) => {
+const cppDocker = (filename, language, userEmail, questionID, code, res) => {
         let containerID; // Define containerID variable outside of the promise chain
         exec(`docker run -d -it cpp:v1 sh`)
                 .then((response) => {
@@ -43,7 +43,7 @@ const cppDocker = (filename, language, userEmail, questionID, res) => {
                                         const submission = new PracticeSubmission({
                                                 user_email: userEmail,
                                                 language: language,
-                                                code: fs.readFileSync(`${filename}.${language}`, "utf-8"),
+                                                code: code,
                                                 output: resp.stdout,
                                                 question_id: questionID,
                                         });
@@ -71,7 +71,7 @@ const cppDocker = (filename, language, userEmail, questionID, res) => {
                         });
                 });
 };
-const pythonDocker = (filename, userEmail, questionID, res) => {
+const pythonDocker = (filename, userEmail, questionID, code, res) => {
         let containerID;
         exec(`docker run -d -it py:v1 sh`)
                 .then((response) => {
@@ -93,7 +93,7 @@ const pythonDocker = (filename, userEmail, questionID, res) => {
                                         const submission = new PracticeSubmission({
                                                 user_email: userEmail,
                                                 language: "python",
-                                                code: fs.readFileSync(`${filename}.py`, "utf-8"),
+                                                code: code,
                                                 output: resp.stdout,
                                                 question_id: questionID,
                                         });
@@ -122,7 +122,7 @@ const pythonDocker = (filename, userEmail, questionID, res) => {
                 });
 };
 
-const javaDocker = (filename, userEmail, questionID, res) => {
+const javaDocker = (filename, userEmail, questionID, code, res) => {
         let containerID;
         exec(`docker run -d -it java:v1 sh`)
                 .then((response) => {
@@ -147,7 +147,7 @@ const javaDocker = (filename, userEmail, questionID, res) => {
                                         const submission = new PracticeSubmission({
                                                 user_email: userEmail,
                                                 language: "java",
-                                                code: fs.readFileSync(`${filename}.java`, "utf-8"),
+                                                code: code,
                                                 output: resp.stdout,
                                                 question_id: questionID,
                                         });

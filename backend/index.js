@@ -8,6 +8,7 @@ const authRoute = require("./routes/authRoute");
 const submissionsRoute = require("./routes/submissionsRoute");
 dotenv.config();
 const mongoose = require("mongoose");
+const getSubmissionsRoute = require("./routes/getSubmissionsRoute");
 
 mongoose.connect(process.env.DB_URL, {})
         .then(() => {
@@ -28,3 +29,4 @@ app.use("/run", runCodeRoute);
 app.use("/practiceproblems", practiceProblemsRoute);
 app.use("/register", authRoute);
 app.use("/submissions", submissionsRoute);
+app.use("/getsubmissions", getSubmissionsRoute);

@@ -21,7 +21,7 @@ const practiceProblemController = async (code, language, questionID, userEmail, 
                 }
                 console.log("code is validated");
                 const filename = await saveProblemFiles(code, questionID, language);
-                runPracticeDockerContainer(filename, language, userEmail, questionID, res);
+                runPracticeDockerContainer(filename, language, userEmail, questionID, code, res);
         } catch (error) {
                 console.error(`Validation error for ${language}: ${error.message}`);
         }
