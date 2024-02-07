@@ -3,8 +3,6 @@ const PracticeSubmissions = require("../models/PracticeSubmission");
 const practiceproblemsSubmissions = async (req, res) => {
         try {
                 const { email } = req.body;
-                console.log(req.body);
-                console.log(email);
                 const submissions = await PracticeSubmissions.find({ user_email: email });
 
                 // Check if any submissions were found

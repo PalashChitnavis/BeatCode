@@ -38,7 +38,9 @@ const cppDocker = (filename, language, userEmail, questionID, code, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
-                        if (userEmail != "") {
+                        const failedStatus = resp.stdout.includes("Failed");
+                        const status = !failedStatus;
+                        if (userEmail) {
                                 try {
                                         const submission = new PracticeSubmission({
                                                 user_email: userEmail,
@@ -57,7 +59,7 @@ const cppDocker = (filename, language, userEmail, questionID, code, res) => {
                                 : `rm ${filename}.${language} ${filename}.txt`;
                         exec(`docker rm -f ${containerID} && ${deleteCmd}`).then(() => {
                                 console.log("container and files removed");
-                                res.status(201).json(resp);
+                                res.status(201).json({ resp: resp, status: status });
                         });
                 })
                 .catch((error) => {
@@ -88,7 +90,9 @@ const pythonDocker = (filename, userEmail, questionID, code, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
-                        if (userEmail != "") {
+                        const failedStatus = resp.stdout.includes("Failed");
+                        const status = !failedStatus;
+                        if (userEmail) {
                                 try {
                                         const submission = new PracticeSubmission({
                                                 user_email: userEmail,
@@ -107,7 +111,7 @@ const pythonDocker = (filename, userEmail, questionID, code, res) => {
                                 : `rm ${filename}.py ${filename}.txt`;
                         exec(`docker rm -f ${containerID} && ${deleteCmd}`).then(() => {
                                 console.log("Container and files removed");
-                                res.status(201).json(resp);
+                                res.status(201).json({ resp: resp, status: status });
                         });
                 })
                 .catch((error) => {
@@ -142,7 +146,10 @@ const javaDocker = (filename, userEmail, questionID, code, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
-                        if (userEmail != "") {
+
+                        const failedStatus = resp.stdout.includes("Failed");
+                        const status = !failedStatus;
+                        if (userEmail) {
                                 try {
                                         const submission = new PracticeSubmission({
                                                 user_email: userEmail,
@@ -161,7 +168,7 @@ const javaDocker = (filename, userEmail, questionID, code, res) => {
                                 : `rm ${filename}.java ${filename}.txt`;
                         exec(`docker rm -f ${containerID} && ${deleteCmd}`).then(() => {
                                 console.log("Container and files removed");
-                                res.status(201).json(resp);
+                                res.status(201).json({ resp: resp, status: status });
                         });
                 })
                 .catch((error) => {

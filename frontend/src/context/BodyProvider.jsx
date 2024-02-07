@@ -13,6 +13,7 @@ export const BodyProvider = ({ children }) => {
                 editorTheme: "monokai",
                 output: "",
                 toggleOutput: false,
+                practiceStatus: false,
         });
 
         const updateBody = (newBody) => {

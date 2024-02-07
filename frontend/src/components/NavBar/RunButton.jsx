@@ -13,13 +13,16 @@ const RunButton = () => {
         const location = useLocation();
         const { id } = useParams();
         useEffect(() => {
-                if (isLoggedIn) {
+                if (isLoggedIn()) {
                         const email = localStorage.getItem("email");
                         setUserEmail(email);
                 }
         }, []);
 
         const handleClick = async () => {
+                if (!isLoggedIn()) {
+                        alert("To save your submissions please register");
+                }
                 setIsLoading(true);
                 try {
                         if (location.pathname.startsWith("/onlinecompiler")) {
@@ -52,8 +55,13 @@ const RunButton = () => {
                                 console.log(reqBody);
                                 const result = await runPracticeCode(reqBody);
                                 console.log(result);
-                                if (result.stdout) {
-                                        updateBody({ ...body, toggleOutput: true, output: result.stdout });
+                                if (result.resp.stdout) {
+                                        updateBody({
+                                                ...body,
+                                                toggleOutput: true,
+                                                output: result.resp.stdout,
+                                                practiceStatus: result.status,
+                                        });
                                 } else {
                                         updateBody({
                                                 ...body,

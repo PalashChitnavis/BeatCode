@@ -27,7 +27,7 @@ const QuestionSubmission = () => {
         };
         return (
                 <div className="w-[100%] overscroll-x-contain">
-                        {submissions &&
+                        {submissions?.length != 0 ? (
                                 submissions.map((submission, index) => {
                                         return (
                                                 <div key={submission._id} className="w-[100%] border-b-2">
@@ -79,7 +79,12 @@ const QuestionSubmission = () => {
                                                         </div>
                                                 </div>
                                         );
-                                })}
+                                })
+                        ) : (
+                                <div className="text-[#fff] text-2xl flex justify-center mt-5">
+                                        No submissions yet , be the first one 😊
+                                </div>
+                        )}
                 </div>
         );
 };

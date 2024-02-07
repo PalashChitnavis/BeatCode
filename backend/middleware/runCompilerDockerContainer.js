@@ -38,7 +38,7 @@ const cppDocker = (filename, language, userEmail, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
-                        if (userEmail != "") {
+                        if (userEmail) {
                                 try {
                                         const submission = new CompilerSubmission({
                                                 user_email: userEmail,
@@ -88,7 +88,7 @@ const pythonDocker = (filename, userEmail, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
-                        if (userEmail != "") {
+                        if (userEmail) {
                                 try {
                                         const submission = new CompilerSubmission({
                                                 user_email: userEmail,
@@ -142,7 +142,7 @@ const javaDocker = (filename, userEmail, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
-                        if (userEmail != "") {
+                        if (userEmail) {
                                 try {
                                         const submission = new CompilerSubmission({
                                                 user_email: userEmail,
