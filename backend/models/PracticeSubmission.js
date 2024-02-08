@@ -20,6 +20,7 @@ const practicesubmissionSchema = new mongoose.Schema(
                 },
                 status: {
                         type: String,
+                        required: true,
                 },
                 output: {
                         type: String,

@@ -206,5 +206,28 @@
                         "java": "public class Main {\n\tpublic static void main(String[] args) {\n\t\t// Initialize test cases\n\t\tint[] arr1 = {1, 2, 3, 1};\n\t\tint[] arr2 = {1, 2, 3};\n\t\tint[] arr3 = {};\n\n\t\t// Create solution object\n\t\tSolution sol = new Solution();\n\n\t\t// Initialize flag to track test case status\n\t\tboolean allPassed = true;\n\n\t\t// Run test cases\n\t\tSystem.out.print(\"Test case 1: [1,2,3,1], 1 => \");\n\t\tint output1 = sol.countOccurrences(arr1, 1);\n\t\tif (output1 == 2) {\n\t\t\tSystem.out.println(output1 + \" - Passed\");\n\t\t} else {\n\t\t\tSystem.out.println(output1 + \" - Failed\");\n\t\t\tallPassed = false;\n\t\t}\n\n\t\tSystem.out.print(\"Test case 2: [1,2,3], 4 => \");\n\t\tint output2 = sol.countOccurrences(arr2, 4);\n\t\tif (output2 == 0) {\n\t\t\tSystem.out.println(output2 + \" - Passed\");\n\t\t} else {\n\t\t\tSystem.out.println(output2 + \" - Failed\");\n\t\t\tallPassed = false;\n\t\t}\n\n\t\tSystem.out.print(\"Test case 3: [], 5 => \");\n\t\tint output3 = sol.countOccurrences(arr3, 5);\n\t\tif (output3 == 0) {\n\t\t\tSystem.out.println(output3 + \" - Passed\");\n\t\t} else {\n\t\t\tSystem.out.println(output3 + \" - Failed\");\n\t\t\tallPassed = false;\n\t\t}\n\n\t\t// Display final message\n\t\tif (allPassed) {\n\t\t\tSystem.out.println(\"Congratulations! You've successfully solved the question.\");\n\t\t} else {\n\t\t\tSystem.out.println(\"Please try again.\");\n\t\t}\n\t}\n}",
                         "python": "class Main:\n\t@staticmethod\n\tdef main():\n\t\t# Initialize test cases\n\t\tarr1 = [1, 2, 3, 1]\n\t\tarr2 = [1, 2, 3]\n\t\tarr3 = []\n\n\t\t# Create solution object\n\t\tsol = Solution()\n\n\t\t# Initialize flag to track test case status\n\t\tall_passed = True\n\n\t\t# Run test cases\n\t\tprint(\"Test case 1: [1,2,3,1], 1 => \", end=\"\")\n\t\toutput1 = sol.countOccurrences(arr1, 1)\n\t\tif output1 == 2:\n\t\t\tprint(f\"{output1} - Passed\")\n\t\telse:\n\t\t\tprint(f\"{output1} - Failed\")\n\t\t\tall_passed = False\n\n\t\tprint(\"Test case 2: [1,2,3], 4 => \", end=\"\")\n\t\toutput2 = sol.countOccurrences(arr2, 4)\n\t\tif output2 == 0:\n\t\t\tprint(f\"{output2} - Passed\")\n\t\telse:\n\t\t\tprint(f\"{output2} - Failed\")\n\t\t\tall_passed = False\n\n\t\tprint(\"Test case 3: [], 5 => \", end=\"\")\n\t\toutput3 = sol.countOccurrences(arr3, 5)\n\t\tif output3 == 0:\n\t\t\tprint(f\"{output3} - Passed\")\n\t\telse:\n\t\t\tprint(f\"{output3} - Failed\")\n\t\t\tall_passed = False\n\n\t\t# Display final message\n\t\tif all_passed:\n\t\t\tprint(\"Congratulations! You've successfully solved the question.\")\n\t\telse:\n\t\t\tprint(\"Please try again.\")\n\n\nif __name__ == '__main__':\n\tMain.main()"
                 }
+        },
+        {
+                "id": "6",
+                "title": "Container with most water",
+                "description": "Given an array of non-negative integers representing the heights of walls, find the maximum area of water that can be trapped between the walls.",
+                "diff": "medium",
+                "example_cases": [
+                        {
+                                "input": "[1, 8, 6, 2, 5, 4, 8, 3, 7]",
+                                "output": "49",
+                                "explanation": "For the input [1, 8, 6, 2, 5, 4, 8, 3, 7], the maximum area of water is obtained between the walls at indices 1 and 8. The height difference is min(8,7) = 7, and the width is 8 - 1 = 7. So, the maximum area is 7 * 7 = 49."
+                        },
+                        {
+                                "input": "[4, 3, 2, 1, 4]",
+                                "output": "16",
+                                "explanation": "For the input [4, 3, 2, 1, 4], the maximum area of water is obtained between the walls at indices 0 and 4. The height difference is min(4,4) = 4, and the width is 4 - 0 = 4. So, the maximum area is 4 * 4 = 16."
+                        },
+                        {
+                                "input": "[1, 2, 1]",
+                                "output": "2",
+                                "explanation": "For the input [1, 2, 1], the maximum area of water is obtained between the walls at indices 0 and 2. The height difference is min(1,1) = 1, and the width is 2 - 0 = 2. So, the maximum area is 1 * 2 = 2."
+                        }
+                ]
         }
 ]

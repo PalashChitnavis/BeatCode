@@ -43,7 +43,9 @@ const Profile = () => {
                                                         >
                                                                 <Link to={"/submissions"}>View Submissions</Link>
                                                         </div>
-
+                                                        <div className="flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid hover:bg-[#908383]">
+                                                                <Link to={"/settings"}>Settings</Link>
+                                                        </div>
                                                         <div
                                                                 className="flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid"
                                                                 onClick={handleLogout}

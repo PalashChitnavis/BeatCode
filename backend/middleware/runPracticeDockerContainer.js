@@ -4,6 +4,8 @@ const exec = util.promisify(require("child_process").exec);
 const fs = require("fs");
 const isWindows = process.platform === "win32";
 const PracticeSubmission = require("../models/PracticeSubmission");
+const Question = require("../models/Question");
+const UserStats = require("../models/UserStats");
 const runPracticeDockerContainer = (filename, language, userEmail, questionID, code, res) => {
         switch (language) {
                 case "cpp":
@@ -36,10 +38,11 @@ const cppDocker = (filename, language, userEmail, questionID, code, res) => {
                                 `docker exec -t ${containerID} sh -c "g++ ${filename}.${language} -o ./a && ./a<${filename}.txt"`
                         );
                 })
-                .then((resp) => {
+                .then(async (resp) => {
                         console.log(resp);
                         const failedStatus = resp.stdout.includes("Failed");
                         const status = !failedStatus;
+                        const practiceStatus = status ? "Passed" : "Failed";
                         if (userEmail) {
                                 try {
                                         const submission = new PracticeSubmission({
@@ -48,8 +51,21 @@ const cppDocker = (filename, language, userEmail, questionID, code, res) => {
                                                 code: code,
                                                 output: resp.stdout,
                                                 question_id: questionID,
+                                                status: practiceStatus,
                                         });
                                         submission.save();
+                                        if (status) {
+                                                const question = await Question.findOne({ id: questionID });
+                                                let userStats = await UserStats.findOne({ emailID: userEmail });
+                                                if (!userStats) {
+                                                        userStats = new UserStats({ emailID: userEmail });
+                                                }
+                                                if (!userStats.attemptedQuestions.includes(question.id)) {
+                                                        userStats.attempts[question.diff]++;
+                                                        userStats.attemptedQuestions.push(question.id);
+                                                }
+                                                await userStats.save();
+                                        }
                                 } catch (err) {
                                         console.log(err);
                                 }
@@ -64,7 +80,7 @@ const cppDocker = (filename, language, userEmail, questionID, code, res) => {
                 })
                 .catch((error) => {
                         console.error("Error:", error);
-                        res.json({ stderr: error.stderr });
+                        res.json({ stderr: error.stdout });
                         const deleteCmd = isWindows
                                 ? `del ${filename}.${language} ${filename}.txt`
                                 : `rm ${filename}.${language} ${filename}.txt`;
@@ -88,10 +104,11 @@ const pythonDocker = (filename, userEmail, questionID, code, res) => {
                                 `docker exec -t ${containerID} sh -c "python3 /usr/py/${filename}.py < /usr/py/${filename}.txt"`
                         );
                 })
-                .then((resp) => {
+                .then(async (resp) => {
                         console.log(resp);
                         const failedStatus = resp.stdout.includes("Failed");
                         const status = !failedStatus;
+                        const practiceStatus = status ? "Passed" : "Failed";
                         if (userEmail) {
                                 try {
                                         const submission = new PracticeSubmission({
@@ -100,8 +117,21 @@ const pythonDocker = (filename, userEmail, questionID, code, res) => {
                                                 code: code,
                                                 output: resp.stdout,
                                                 question_id: questionID,
+                                                status: practiceStatus,
                                         });
                                         submission.save();
+                                        if (status) {
+                                                const question = await Question.findOne({ id: questionID });
+                                                let userStats = await UserStats.findOne({ emailID: userEmail });
+                                                if (!userStats) {
+                                                        userStats = new UserStats({ emailID: userEmail });
+                                                }
+                                                if (!userStats.attemptedQuestions.includes(questionID)) {
+                                                        userStats.attempts[question.diff]++;
+                                                        userStats.attemptedQuestions.push(questionID);
+                                                }
+                                                await userStats.save();
+                                        }
                                 } catch (err) {
                                         console.log(err);
                                 }
@@ -116,7 +146,7 @@ const pythonDocker = (filename, userEmail, questionID, code, res) => {
                 })
                 .catch((error) => {
                         console.error("Error:", error);
-                        res.json({ stderr: error.stderr });
+                        res.json({ stderr: error.stdout });
                         const deleteCmd = isWindows
                                 ? `del ${filename}.py ${filename}.txt`
                                 : `rm ${filename}.py ${filename}.txt`;
@@ -144,11 +174,12 @@ const javaDocker = (filename, userEmail, questionID, code, res) => {
                                 `docker exec -t ${containerID} sh -c "java -classpath /usr/java Main < /usr/java/${filename}.txt"`
                         );
                 })
-                .then((resp) => {
+                .then(async (resp) => {
                         console.log(resp);
 
                         const failedStatus = resp.stdout.includes("Failed");
                         const status = !failedStatus;
+                        const practiceStatus = status ? "Passed" : "Failed";
                         if (userEmail) {
                                 try {
                                         const submission = new PracticeSubmission({
@@ -157,8 +188,21 @@ const javaDocker = (filename, userEmail, questionID, code, res) => {
                                                 code: code,
                                                 output: resp.stdout,
                                                 question_id: questionID,
+                                                status: practiceStatus,
                                         });
                                         submission.save();
+                                        if (status) {
+                                                const question = await Question.findOne({ id: questionID });
+                                                let userStats = await UserStats.findOne({ emailID: userEmail });
+                                                if (!userStats) {
+                                                        userStats = new UserStats({ emailID: userEmail });
+                                                }
+                                                if (!userStats.attemptedQuestions.includes(question.id)) {
+                                                        userStats.attempts[question.diff]++;
+                                                        userStats.attemptedQuestions.push(question.id);
+                                                }
+                                                await userStats.save();
+                                        }
                                 } catch (err) {
                                         console.log(err);
                                 }

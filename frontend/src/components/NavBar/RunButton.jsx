@@ -55,7 +55,7 @@ const RunButton = () => {
                                 console.log(reqBody);
                                 const result = await runPracticeCode(reqBody);
                                 console.log(result);
-                                if (result.resp.stdout) {
+                                if (result?.resp?.stdout) {
                                         updateBody({
                                                 ...body,
                                                 toggleOutput: true,
@@ -66,7 +66,7 @@ const RunButton = () => {
                                         updateBody({
                                                 ...body,
                                                 toggleOutput: true,
-                                                output: `Error During Execution : \n ${result.stderr}`,
+                                                output: `Error During Execution (Please check for semicolons and syntax errors) : \n ${result.stderr}`,
                                         });
                                 }
                         }

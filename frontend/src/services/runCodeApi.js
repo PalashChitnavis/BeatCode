@@ -15,7 +15,7 @@ const runCompilerCode = async (reqBody) => {
 const runPracticeCode = async (reqBody) => {
         try {
                 const response = await axios.post(`${API_URL}/run/practiceproblems`, reqBody);
-                console.log(response.data);
+
                 return response.data;
         } catch (error) {
                 console.error("API call error:", error.message);

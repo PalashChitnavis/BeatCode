@@ -95,7 +95,7 @@ const SubmissionList = () => {
                                                                                                         Status :
                                                                                                 </span>{" "}
                                                                                                 <span className="text-[#ce9178]">
-                                                                                                        Empty For Now
+                                                                                                        {submission.status}
                                                                                                 </span>
                                                                                         </div>
                                                                                         <div>

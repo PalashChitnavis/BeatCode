@@ -44,7 +44,14 @@ const QuestionSubmission = () => {
                                                                                                 alt="userProfile"
                                                                                         />
                                                                                 </div>
-                                                                                <div> {submission.user_email}</div>
+                                                                                <div>
+                                                                                        {" "}
+                                                                                        {
+                                                                                                submission.user_email?.split(
+                                                                                                        "@"
+                                                                                                )[0]
+                                                                                        }
+                                                                                </div>
                                                                         </div>
                                                                 </div>
                                                                 <div className="flex gap-10">

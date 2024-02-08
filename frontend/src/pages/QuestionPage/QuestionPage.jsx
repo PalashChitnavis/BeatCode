@@ -1,3 +1,4 @@
+/* eslint-disable no-inner-declarations */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { React, useState, useEffect } from "react";
@@ -12,7 +13,10 @@ import NavBar from "../../components/NavBar/NavBar.jsx";
 import CodeEditor from "../../components/CodeEditor/CodeEditor.jsx";
 import ProblemSolutions from "../../components/ProblemSolutions/ProblemSolutions.jsx";
 import QuestionSubmission from "../../components/SubmissionList/QuestionSubmission.jsx";
+import { isLoggedIn } from "../../components/Login/isLoggedIn.js";
 import { useBody } from "../../context/BodyContext.jsx";
+import { getUserStatus } from "../../services/getUserStats.js";
+import FullScreenConfetti from "../../components/Confetti/FullScreenConfetti.jsx";
 const QuestionPage = () => {
         const [loading, setLoading] = useState(false);
         const { id } = useParams();
@@ -20,6 +24,7 @@ const QuestionPage = () => {
         const [navigation, setNavigation] = useState("question");
         const { body, updateBody } = useBody();
         const { toggleOutput, output } = body;
+        const [response, setResponse] = useState();
         useEffect(() => {
                 const fetchData = async () => {
                         try {
@@ -33,11 +38,18 @@ const QuestionPage = () => {
                 };
                 setNavigation("question");
                 fetchData();
+                if (isLoggedIn()) {
+                        const email = localStorage.getItem("email");
+                        async function handleStats() {
+                                const response = await getUserStatus(email);
+                                setResponse(response);
+                        }
+                        handleStats();
+                }
         }, [id]);
 
         const handleToggleOutput = () => {
                 updateBody({ ...body, toggleOutput: body.toggleOutput === true ? false : true });
-                console.log(body.toggleOutput);
         };
 
         return (
@@ -47,6 +59,7 @@ const QuestionPage = () => {
                                 <h1>Loading</h1>
                         ) : (
                                 <div className="h-[88vh] w-screen flex items-center justify-evenly">
+                                        {body?.practiceStatus && <FullScreenConfetti />}
                                         <div
                                                 className={`w-[38%] bg-neutral-800 h-[85vh] border rounded-[10px] border-solid border-[white] overflow-y-scroll pb-4`}
                                         >
@@ -100,7 +113,7 @@ const QuestionPage = () => {
                                                                         case "submissions":
                                                                                 return question && <QuestionSubmission />;
                                                                         case "problemlist":
-                                                                                return <ProblemList />;
+                                                                                return <ProblemList response={response} />;
                                                                 }
                                                         })()}
                                                 </div>

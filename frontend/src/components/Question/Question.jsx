@@ -7,7 +7,17 @@ const Question = ({ question }) => {
         return (
                 <div>
                         <div className="text-[white] text-2xl font-bold pl-5 pt-2.5">{title}</div>
-                        <div className="text-[#42fea6] text-xl pl-5 pt-2.5">{capitalizeString(diff)}</div>
+                        <div
+                                className={`${
+                                        diff == "easy"
+                                                ? `text-green-500`
+                                                : diff == "medium"
+                                                ? `text-amber-400`
+                                                : `text-red-500`
+                                } text-xl pl-5 pt-2.5`}
+                        >
+                                {capitalizeString(diff)}
+                        </div>
                         <div className="text-[white] text-xl pl-5 pt-2.5">{description}</div>
                         <div className="text-[white]">
                                 {example_cases.map((example, index) => {

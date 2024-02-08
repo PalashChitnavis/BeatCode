@@ -7,8 +7,7 @@ const Question = require("../models/Question");
 router.get("/", async (req, res) => {
         try {
                 // Fetch all questions from the database
-                const questions = await Question.find({}, "id title diff");
-
+                const questions = await Question.find({}, "id title diff").sort({ id: 1 }).exec();
                 // Send questions data as JSON response
                 res.json(questions);
         } catch (error) {

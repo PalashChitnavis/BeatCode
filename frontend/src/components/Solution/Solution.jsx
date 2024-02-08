@@ -8,7 +8,7 @@ import "../Solution/Solution.css";
 
 const CodeDisplay = ({ code, language }) => {
         return (
-                <SyntaxHighlighter language={language} wrapLongLines={true} showLineNumbers={true}>
+                <SyntaxHighlighter language={language} wrapLongLines={true}>
                         {code}
                 </SyntaxHighlighter>
         );

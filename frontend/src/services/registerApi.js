@@ -27,6 +27,7 @@ export const login = async (userData) => {
                         localStorage.setItem("email", email);
                         console.log(res);
                         if (res) {
+                                alert("welcome");
                                 window.location.reload();
                         } else {
                                 // Registration failed, display error alert with reason

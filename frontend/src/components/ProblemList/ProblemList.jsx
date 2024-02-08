@@ -1,11 +1,12 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { React, useState, useEffect } from "react";
 import { fetchAllQuestions } from "../../services/practiceProblemsApi";
 import { Link } from "react-router-dom";
 import capitalizeString from "../../services/capitaliseWord";
-const ProblemList = () => {
+const ProblemList = ({ response }) => {
         const [questions, setQuestions] = useState([]);
-
+        const attemptedQuestions = response?.data?.attemptedQuestions || [];
         useEffect(() => {
                 const fetchData = async () => {
                         try {
@@ -30,7 +31,9 @@ const ProblemList = () => {
         const QuestionsArray = questions.map((question) => (
                 <tr key={question.id} className="text-white font-bold text-center border-b-2 border-gray-400">
                         <td className="w-[10%] p-4">
-                                <div className="w-4 h-4 rounded-sm border-green-800 border-2 bg-green-500 mx-auto"></div>
+                                <div className="w-4 h-4 flex justify-center items-center rounded-sm border-green-800 border-2 bg-[#202225] mx-auto">
+                                        {attemptedQuestions.includes(question.id) ? `✅` : ``}
+                                </div>
                         </td>
                         <td className="w-[70%] p-4 text-left hover:text-[#485fc7]">
                                 <Link to={`/practiceproblems/questions/${question.id}`}>{question.title}</Link>
