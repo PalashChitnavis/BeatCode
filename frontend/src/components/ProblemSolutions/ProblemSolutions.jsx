@@ -11,25 +11,25 @@ export default function ProblemSolutions({ question }) {
                         <div className="w-[100%]">
                                 <div className="w-full flex justify-around border-b-[rgb(76,76,76)] border-b border-solid h-[7vh]">
                                         <button
-                                                className={navigation === `c` ? `active` : ``}
+                                                className={`${navigation === `c` ? `active` : ``} questionpagebtn`}
                                                 onClick={() => setNavigation("c")}
                                         >
                                                 C
                                         </button>
                                         <button
-                                                className={navigation === `cpp` ? `active` : ``}
+                                                className={`${navigation === `cpp` ? `active` : ``} questionpagebtn`}
                                                 onClick={() => setNavigation("cpp")}
                                         >
                                                 C++
                                         </button>
                                         <button
-                                                className={navigation === `java` ? `active` : ``}
+                                                className={`${navigation === `java` ? `active` : ``} questionpagebtn`}
                                                 onClick={() => setNavigation("java")}
                                         >
                                                 Java
                                         </button>
                                         <button
-                                                className={navigation === `python` ? `active` : ``}
+                                                className={`${navigation === `python` ? `active` : ``} questionpagebtn`}
                                                 onClick={() => setNavigation("python")}
                                         >
                                                 Python

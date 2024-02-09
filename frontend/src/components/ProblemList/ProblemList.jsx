@@ -4,7 +4,9 @@ import { React, useState, useEffect } from "react";
 import { fetchAllQuestions } from "../../services/practiceProblemsApi";
 import { Link } from "react-router-dom";
 import capitalizeString from "../../services/capitaliseWord";
+import { useBody } from "../../context/BodyContext";
 const ProblemList = ({ response }) => {
+        const { body, updateBody } = useBody();
         const [questions, setQuestions] = useState([]);
         const attemptedQuestions = response?.data?.attemptedQuestions || [];
         useEffect(() => {
@@ -19,6 +21,10 @@ const ProblemList = ({ response }) => {
 
                 fetchData();
         }, []);
+
+        const resetConfetti = () => {
+                updateBody({ ...body, practiceStatus: false, toggleOutput: false, output: "" });
+        };
 
         const DifficultyTextStyles = (question) => {
                 return question.diff === "easy"
@@ -36,7 +42,9 @@ const ProblemList = ({ response }) => {
                                 </div>
                         </td>
                         <td className="w-[70%] p-4 text-left hover:text-[#485fc7]">
-                                <Link to={`/practiceproblems/questions/${question.id}`}>{question.title}</Link>
+                                <Link onClick={resetConfetti} to={`/practiceproblems/questions/${question.id}`}>
+                                        {question.title}
+                                </Link>
                         </td>
                         <td className={`w-[20%] p-4 ${DifficultyTextStyles(question)}`}>
                                 {capitalizeString(question.diff)}

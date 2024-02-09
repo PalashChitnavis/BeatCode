@@ -1,19 +1,24 @@
 import axios from "axios";
-
+import { toast } from "react-toastify";
 export const signup = async (userData) => {
         await axios
                 .post(`http://localhost:3000/register/signup`, userData)
                 .then((res) => {
                         if (res.data.success) {
-                                alert("singup successful , logging in");
-                                login(userData);
+                                toast.success(`Logging you in, ${userData.username} `, {
+                                        autoClose: 1000,
+                                        position: "bottom-right",
+                                });
+                                setTimeout(() => {
+                                        login(userData);
+                                }, 1000);
                         } else {
                                 // Registration failed, display error alert with reason
-                                alert("signup failed: " + res.data.message);
+                                toast.warn(`signup failed: ${res.data.message}`);
                         }
                 })
                 .catch((error) => {
-                        alert("error" + error);
+                        toast.warn("error" + error);
                         throw error.response.data.error;
                 });
 };
@@ -27,15 +32,17 @@ export const login = async (userData) => {
                         localStorage.setItem("email", email);
                         console.log(res);
                         if (res) {
-                                alert("welcome");
-                                window.location.reload();
+                                toast.success(`Welcome back, ${username}`, { autoClose: 1500, position: "bottom-right" });
+                                setTimeout(() => {
+                                        window.location.reload();
+                                }, 1500);
                         } else {
                                 // Registration failed, display error alert with reason
-                                alert("login failed: " + res.data.message);
+                                toast.warn("login failed: " + res.data.message);
                         }
                 })
                 .catch((error) => {
-                        alert(error.response.data.error);
+                        toast.warn(error.response.data.error);
                         throw error.response.data.error;
                 });
 };

@@ -5,6 +5,7 @@ import { useBody } from "../../context/BodyContext";
 import { runCompilerCode, runPracticeCode } from "../../services/runCodeApi";
 import { isLoggedIn } from "../Login/isLoggedIn";
 import { useLocation, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./RunButton.css";
 const RunButton = () => {
         const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +22,7 @@ const RunButton = () => {
 
         const handleClick = async () => {
                 if (!isLoggedIn()) {
-                        alert("To save your submissions please register");
+                        toast.warn("To save your submissions, please register", { position: "bottom-right" });
                 }
                 setIsLoading(true);
                 try {

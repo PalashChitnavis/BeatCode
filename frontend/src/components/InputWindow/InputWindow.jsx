@@ -10,7 +10,6 @@ const InputWindow = () => {
         const handleInputChange = (event) => {
                 updateBody({ ...body, userInput: event.target.value });
         };
-
         return (
                 <div className="w-[100%] h-[100%] ">
                         <p className="text-[white] text-xl">

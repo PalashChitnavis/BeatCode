@@ -65,19 +65,25 @@ const QuestionPage = () => {
                                         >
                                                 <div className="h-[7.5vh] w-full flex justify-around border-b-[rgb(76,76,76)] border-b border-solid">
                                                         <button
-                                                                className={navigation === `question` ? `active` : ``}
+                                                                className={`${
+                                                                        navigation === `question` ? `active` : ``
+                                                                } questionpagebtn`}
                                                                 onClick={() => setNavigation("question")}
                                                         >
                                                                 Question
                                                         </button>
                                                         <button
-                                                                className={navigation === `solution` ? `active` : ``}
+                                                                className={`${
+                                                                        navigation === `solution` ? `active` : ``
+                                                                } questionpagebtn`}
                                                                 onClick={() => setNavigation("solution")}
                                                         >
                                                                 Solution
                                                         </button>
                                                         <button
-                                                                className={navigation === `submissions` ? `active` : ``}
+                                                                className={`${
+                                                                        navigation === `submissions` ? `active` : ``
+                                                                } questionpagebtn`}
                                                                 onClick={() => {
                                                                         setNavigation("submissions");
                                                                 }}
@@ -85,7 +91,9 @@ const QuestionPage = () => {
                                                                 Submissions
                                                         </button>
                                                         <button
-                                                                className={navigation === `problemlist` ? `active` : ``}
+                                                                className={`${
+                                                                        navigation === `problemlist` ? `active` : ``
+                                                                } questionpagebtn`}
                                                                 onClick={() => setNavigation("problemlist")}
                                                         >
                                                                 Problem List

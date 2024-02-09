@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { signup, login } from "../../services/registerApi";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
         const [userData, setUserData] = useState({
                 username: "",
@@ -11,22 +12,22 @@ const Register = () => {
         const handleRegister = async (type) => {
                 if (type === "signup") {
                         if (!userData.username) {
-                                alert("Username is required");
+                                toast.warn("Username is required");
                                 return;
                         }
                 }
                 if (!userData.email) {
-                        alert("Email is required");
+                        toast.warn("Email is required");
                         return;
                 } else if (!/\S+@\S+\.\S+/.test(userData.email)) {
-                        alert("Invalid email format");
+                        toast.warn("Invalid email format");
                         return;
                 }
                 if (!userData.password) {
-                        alert("Password is required");
+                        toast.warn("Password is required");
                         return;
                 } else if (userData.password.length < 6) {
-                        alert("Password must be at least 6 characters long");
+                        toast.warn("Password must be at least 6 characters long");
                         return;
                 }
                 if (type === "signup") {

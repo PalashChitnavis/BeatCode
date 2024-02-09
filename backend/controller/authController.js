@@ -30,16 +30,16 @@ async function login(req, res) {
                 // Check if user exists
                 const user = await User.findOne({ email });
                 if (!user) {
-                        return res.status(400).json({ error: "email doesnt exist , please register" });
+                        return res.status(400).json({ error: "Email doesnt exist , please register" });
                 }
 
                 // Check password
                 const isMatch = await bcrypt.compare(password, user.password);
                 if (!isMatch) {
-                        return res.status(400).json({ error: "password is incorrect" });
+                        return res.status(400).json({ error: "Password is incorrect" });
                 }
 
-                const token = jwt.sign({ userId: user._id, email: user.email }, "palashbuzo", {
+                const token = jwt.sign({ userId: user._id, email: user.email }, "abcd1234", {
                         expiresIn: "1h",
                 });
 

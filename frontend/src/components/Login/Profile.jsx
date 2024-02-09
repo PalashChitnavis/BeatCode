@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 const Profile = () => {
         const [isDropdownOpen, setIsDropdownOpen] = useState(false);
         const email = localStorage.getItem("email");
@@ -12,7 +13,10 @@ const Profile = () => {
         };
         const handleLogout = () => {
                 localStorage.clear();
-                window.location.reload();
+                toast.success("Logging out , bye bye", { autoClose: 2000 });
+                setTimeout(() => {
+                        window.location.reload();
+                }, 2000);
         };
         return (
                 <div>
