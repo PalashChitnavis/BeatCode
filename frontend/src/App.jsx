@@ -4,6 +4,7 @@ import PracticeProblems from "./pages/PracticeProblems/PracticeProblems";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./main.css";
 import HomePage from "./pages/HomePage/HomePage";
+import Success from "./pages/Success/Success";
 import QuestionPage from "./pages/QuestionPage/QuestionPage";
 import SubmissionPage from "./pages/SubmissionPage/SubmissionPage";
 import Settings from "./pages/Settings/Settings";
@@ -22,6 +23,7 @@ function App() {
                                                 <Route path="/practiceproblems/questions/:id" element={<QuestionPage />} />
                                                 <Route path="/submissions" element={<SubmissionPage />} />
                                                 <Route path="/settings" element={<Settings />} />
+                                                <Route path="/success" element={<Success />} />
                                         </Routes>
                                 </Router>
                                 <ToastContainer position="bottom-right" />

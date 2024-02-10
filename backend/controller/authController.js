@@ -23,30 +23,51 @@ async function signup(req, res) {
         }
 }
 
-async function login(req, res) {
-        const { email, password } = req.body;
-        console.log(req.body);
-        try {
-                // Check if user exists
-                const user = await User.findOne({ email });
-                if (!user) {
-                        return res.status(400).json({ error: "Email doesnt exist , please register" });
+async function login(email, password, res, type) {
+        if (type === "normal") {
+                try {
+                        // Check if user exists
+                        const user = await User.findOne({ email });
+                        if (!user) {
+                                return res.status(400).json({ error: "Email doesnt exist , please register" });
+                        }
+
+                        // Check password
+                        const isMatch = await bcrypt.compare(password, user.password);
+                        if (!isMatch) {
+                                return res.status(400).json({ error: "Password is incorrect" });
+                        }
+
+                        const token = jwt.sign({ userId: user._id, email: user.email }, "abcd1234", {
+                                expiresIn: "1h",
+                        });
+
+                        res.json({ message: "Login successful", username: user.username, token, email: user.email });
+                        res.redirect("http://localhost:5173/");
+                } catch (error) {
+                        console.error(error);
+                        res.status(500).json({ error: "Server error" });
                 }
+        }
+        if (type === "google") {
+                try {
+                        // Check if user exists
+                        const user = await User.findOne({ email });
+                        if (!user) {
+                                return res.status(400).json({ error: "Email doesnt exist , please register" });
+                        }
 
-                // Check password
-                const isMatch = await bcrypt.compare(password, user.password);
-                if (!isMatch) {
-                        return res.status(400).json({ error: "Password is incorrect" });
+                        const token = jwt.sign({ userId: user._id, email: user.email }, "abcd1234", {
+                                expiresIn: "1h",
+                        });
+
+                        res.redirect(
+                                `http://localhost:5173/success?token=${token}&username=${user.username}&email=${user.email}`
+                        );
+                } catch (error) {
+                        console.error(error);
+                        res.status(500).json({ error: "Server error" });
                 }
-
-                const token = jwt.sign({ userId: user._id, email: user.email }, "abcd1234", {
-                        expiresIn: "1h",
-                });
-
-                res.json({ message: "Login successful", username: user.username, token, email: user.email });
-        } catch (error) {
-                console.error(error);
-                res.status(500).json({ error: "Server error" });
         }
 }
 

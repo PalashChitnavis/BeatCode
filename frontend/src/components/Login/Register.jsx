@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signup, login } from "../../services/registerApi";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getGoogleAuth } from "../../services/getGoogleAuth";
 const Register = () => {
         const [userData, setUserData] = useState({
                 username: "",
@@ -183,6 +184,7 @@ const Register = () => {
                                                                 >
                                                                         Log In
                                                                 </button>
+                                                                <button onClick={getGoogleAuth}>google signin</button>
                                                         </form>
                                                 )}
                                         </div>

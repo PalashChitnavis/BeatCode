@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const getSubmissionsRoute = require("./routes/getSubmissionsRoute");
 const getStatsRoute = require("./routes/getStatsRoute");
 const getUserDataRoute = require("./routes/getUserDataRoute");
+const googleAuthRoute = require("./routes/googleAuthRoute");
 
 mongoose.connect(process.env.DB_URL, {})
         .then(() => {
@@ -34,3 +35,4 @@ app.use("/submissions", submissionsRoute);
 app.use("/getsubmissions", getSubmissionsRoute);
 app.use("/getstats", getStatsRoute);
 app.use("/getuser", getUserDataRoute);
+app.use("/google", googleAuthRoute);
