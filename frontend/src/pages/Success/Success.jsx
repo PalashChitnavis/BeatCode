@@ -28,7 +28,7 @@ function Success() {
                 }
                 setTimeout(() => {
                         window.location.href = "http://localhost:5173/";
-                }, 1700);
+                }, 2000);
         }, [location.search]);
         return (
                 <>

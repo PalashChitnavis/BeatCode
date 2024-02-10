@@ -60,7 +60,7 @@ const Register = () => {
                                                 className="fixed w-full h-full bg-[rgba(0,0,0,0.5)] z-[1000] left-0 top-0"
                                                 onClick={toggle}
                                         ></div>
-                                        <div className="bg-[#2f3136] fixed -translate-x-2/4 -translate-y-2/4 z-[1001] w-[30vw] h-[70vh]  border p-5 rounded-[10px] border-solid border-[#ccc] left-2/4 top-2/4">
+                                        <div className="bg-[#2f3136] fixed -translate-x-2/4 -translate-y-2/4 z-[1001] w-[30vw] h-[80vh]  border p-5 rounded-[10px] border-solid border-[#ccc] left-2/4 top-2/4">
                                                 <div className="flex w-full items-center justify-center">
                                                         <button
                                                                 className={`border w-[10vw] h-10 bg-[#179b77] border-solid border-[white] hover:bg-[#179b77]   
@@ -86,12 +86,12 @@ const Register = () => {
                                                         </button>
                                                 </div>
                                                 {activeButton === "signup" ? (
-                                                        <form className="w-full flex flex-col h-[50vh] mt-[5vh]">
+                                                        <form className="w-full flex flex-col h-[75vh] mt-[3vh]">
                                                                 <p className="text-center text-[28px] mb-[2vh]">
                                                                         Sign Up for Free
                                                                 </p>
                                                                 <input
-                                                                        className="h-14 text-[black] mt-[2vh] pl-2.5"
+                                                                        className="h-[50px] text-[black] mt-[1vh] pl-2.5"
                                                                         placeholder="User Name *"
                                                                         type="text"
                                                                         value={userData.username}
@@ -105,7 +105,7 @@ const Register = () => {
                                                                 />
                                                                 <br />
                                                                 <input
-                                                                        className="h-14 text-[black] mt-[2vh] pl-2.5"
+                                                                        className="h-[50px] text-[black] mt-[1vh] pl-2.5"
                                                                         placeholder="Email Address *"
                                                                         type="email"
                                                                         required
@@ -119,7 +119,7 @@ const Register = () => {
                                                                 />
                                                                 <br />
                                                                 <input
-                                                                        className="h-14 text-[black] mt-[2vh] pl-2.5"
+                                                                        className="h-[50px] text-[black] mt-[1vh] pl-2.5"
                                                                         placeholder="Set a Password *"
                                                                         required
                                                                         type="password"
@@ -133,7 +133,7 @@ const Register = () => {
                                                                 />
                                                                 <br />
                                                                 <button
-                                                                        className="bg-[#179b77] w-full h-[70px] mt-[0.5vh] text-3xl"
+                                                                        className="bg-[#179b77] w-full h-[60px] mt-[0.5vh] text-3xl"
                                                                         type="button"
                                                                         onClick={() => {
                                                                                 handleRegister("signup");
@@ -141,14 +141,21 @@ const Register = () => {
                                                                 >
                                                                         Get Started
                                                                 </button>
+                                                                <button
+                                                                        className="w-full h-[60px] mt-[3vh] text-3xl flex gap-5 justify-center items-center bg-[#4f86ec] text-white"
+                                                                        onClick={getGoogleAuth}
+                                                                >
+                                                                        <i className="fa-brands fa-google" />
+                                                                        <span> Sign up with Google</span>
+                                                                </button>
                                                         </form>
                                                 ) : (
-                                                        <form className="w-full flex flex-col h-[50vh] mt-[5vh]">
+                                                        <form className="w-full flex flex-col h-[75vh] mt-[5vh]">
                                                                 <p className="text-center text-[28px] mt-[2vh]">
                                                                         Welcome Back!
                                                                 </p>
                                                                 <input
-                                                                        className="h-10 text-[black] mt-[6vh] pl-2.5"
+                                                                        className="h-[50px] text-[black] mt-[6vh] pl-2.5"
                                                                         placeholder="Email Address *"
                                                                         type="email"
                                                                         required
@@ -162,7 +169,7 @@ const Register = () => {
                                                                 />
                                                                 <br />
                                                                 <input
-                                                                        className="h-10 text-[black] mt-[3vh] pl-2.5"
+                                                                        className="h-[50px] text-[black] mt-[3vh] pl-2.5"
                                                                         placeholder="Password *"
                                                                         required
                                                                         type="password"
@@ -184,7 +191,13 @@ const Register = () => {
                                                                 >
                                                                         Log In
                                                                 </button>
-                                                                <button onClick={getGoogleAuth}>google signin</button>
+                                                                <button
+                                                                        className="w-full h-[60px] mt-[3vh] text-3xl flex gap-5 justify-center items-center bg-[#4f86ec] text-white"
+                                                                        onClick={getGoogleAuth}
+                                                                >
+                                                                        <i className="fa-brands fa-google" />
+                                                                        <span> Sign in with Google</span>
+                                                                </button>
                                                         </form>
                                                 )}
                                         </div>
