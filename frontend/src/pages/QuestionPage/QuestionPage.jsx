@@ -68,7 +68,7 @@ const QuestionPage = () => {
 					{body?.practiceStatus && <FullScreenConfetti />}
 					<div
 						className={`w-[38%] bg-neutral-800 h-[85vh] border rounded-[10px] border-solid border-[white] overflow-y-scroll pb-4`}>
-						<div className='h-[7.5vh] w-full flex justify-around border-b-[rgb(76,76,76)] border-b border-solid'>
+						<div className='h-[7.5vh] w-full flex flex-wrap text-nowrap justify-around border-b-[rgb(76,76,76)] border-b border-solid'>
 							<button
 								className={`${
 									navigation === `question` ? `active` : ``
@@ -100,7 +100,7 @@ const QuestionPage = () => {
 								Problem List
 							</button>
 						</div>
-						<div className='w-[100%]'>
+						<div className='w-[100%] '>
 							{(() => {
 								switch (navigation) {
 									case "question":
