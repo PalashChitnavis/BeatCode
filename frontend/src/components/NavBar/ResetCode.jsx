@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useBody } from "../../context/BodyContext";
 import { useLocation, useParams } from "react-router-dom";
 import { fetchQuestionById } from "../../services/practiceProblemsApi";
@@ -12,6 +13,11 @@ const ResetCode = () => {
         const location = useLocation();
         const { id } = useParams();
         const [question, setQuestion] = useState(null);
+        const handleResetClick = useCallback(async () => {
+                const code = getBoilerplateCode(location, body, question);
+                updateBody({ ...body, code: code, userInput: "", output: "" });
+        }, [location]);
+
         useEffect(() => {
                 if (location.pathname.startsWith("/practiceproblems")) {
                         const fetchData = async () => {
@@ -24,12 +30,8 @@ const ResetCode = () => {
                         };
                         fetchData();
                 }
-        }, [location.pathname, id]);
-
-        const handleResetClick = async () => {
-                const code = getBoilerplateCode(location, body, question);
-                updateBody({ ...body, code: code, userInput: "", output: "" });
-        };
+                handleResetClick();
+        }, [location.pathname, id, handleResetClick]);
 
         return (
                 <button

@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000";
-
 const fetchAllQuestions = async () => {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
         try {
-                const response = await axios.get(`${API_URL}/practiceproblems`);
+                const response = await axios.get(`${backendUrl}/practiceproblems`);
                 return response.data;
         } catch (error) {
                 console.error("Error fetching questions:", error);
@@ -13,8 +12,9 @@ const fetchAllQuestions = async () => {
 };
 
 const fetchQuestionById = async (questionId) => {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
         try {
-                const response = await axios.get(`${API_URL}/practiceproblems/questions/${questionId}`);
+                const response = await axios.get(`${backendUrl}/practiceproblems/questions/${questionId}`);
                 return response.data;
         } catch (error) {
                 console.error("Error fetching question by ID:", error);

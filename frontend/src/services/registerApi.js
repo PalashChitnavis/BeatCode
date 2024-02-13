@@ -1,8 +1,9 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 export const signup = async (userData) => {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
         await axios
-                .post(`http://localhost:3000/register/signup`, userData)
+                .post(`${backendUrl}/register/signup`, userData)
                 .then((res) => {
                         if (res.data.success) {
                                 toast.success(`Logging you in, ${userData.username} `, {
@@ -23,8 +24,9 @@ export const signup = async (userData) => {
                 });
 };
 export const login = async (userData) => {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
         await axios
-                .post(`http://localhost:3000/register/login`, userData)
+                .post(`${backendUrl}/register/login`, userData)
                 .then((res) => {
                         const { token, username, email } = res.data;
                         localStorage.setItem("token", token);

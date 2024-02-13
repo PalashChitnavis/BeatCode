@@ -1,5 +1,5 @@
 export const getBoilerplateCode = (location, body, question) => {
-        if (location.pathname === "/onlinecompiler") {
+        if (location.pathname === "/onlinecompiler" || location.pathname.startsWith("/room")) {
                 const starterCodes = {
                         c: `#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`,
                         cpp: `#include <iostream>\n\nusing namespace std;\n\nint main() {\n    cout << "Hello, World!" << endl;\n    return 0;\n}`,

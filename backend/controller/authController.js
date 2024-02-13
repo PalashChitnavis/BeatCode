@@ -2,6 +2,8 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+dotenv.config();
 async function signup(req, res) {
         const { username, email, password } = req.body;
         console.log(req.body);
@@ -24,6 +26,7 @@ async function signup(req, res) {
 }
 
 async function login(email, password, res, type) {
+        const frontendURL = process.env.FRONTEND_URL;
         if (type === "normal") {
                 try {
                         // Check if user exists
@@ -43,7 +46,6 @@ async function login(email, password, res, type) {
                         });
 
                         res.json({ message: "Login successful", username: user.username, token, email: user.email });
-                        res.redirect("http://localhost:5173/");
                 } catch (error) {
                         console.error(error);
                         res.status(500).json({ error: "Server error" });
@@ -61,9 +63,7 @@ async function login(email, password, res, type) {
                                 expiresIn: "1h",
                         });
 
-                        res.redirect(
-                                `http://localhost:5173/success?token=${token}&username=${user.username}&email=${user.email}`
-                        );
+                        res.redirect(`${frontendURL}/success?token=${token}&username=${user.username}&email=${user.email}`);
                 } catch (error) {
                         console.error(error);
                         res.status(500).json({ error: "Server error" });

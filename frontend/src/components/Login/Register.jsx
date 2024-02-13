@@ -102,6 +102,7 @@ const Register = () => {
                                                                                         username: e.target.value,
                                                                                 })
                                                                         }
+                                                                        autoComplete="off"
                                                                 />
                                                                 <br />
                                                                 <input
@@ -116,6 +117,7 @@ const Register = () => {
                                                                                         email: e.target.value,
                                                                                 })
                                                                         }
+                                                                        autoComplete="off"
                                                                 />
                                                                 <br />
                                                                 <input
@@ -130,6 +132,7 @@ const Register = () => {
                                                                                         password: e.target.value,
                                                                                 })
                                                                         }
+                                                                        autoComplete="off"
                                                                 />
                                                                 <br />
                                                                 <button
@@ -166,6 +169,7 @@ const Register = () => {
                                                                                         email: e.target.value,
                                                                                 })
                                                                         }
+                                                                        autoComplete="off"
                                                                 />
                                                                 <br />
                                                                 <input
@@ -180,10 +184,11 @@ const Register = () => {
                                                                                         password: e.target.value,
                                                                                 })
                                                                         }
+                                                                        autoComplete="off"
                                                                 />
                                                                 <br />
                                                                 <button
-                                                                        className="bg-[#179b77] w-full h-[60px] mt-[5vh] text-3xl"
+                                                                        className="bg-[#179b77] w-full h-[60px] mt-[1vh] text-3xl"
                                                                         type="button"
                                                                         onClick={() => {
                                                                                 handleRegister("login");

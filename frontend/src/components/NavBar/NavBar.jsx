@@ -10,15 +10,15 @@ import { useBody } from "../../context/BodyContext";
 import ShareCode from "../ShareCode/ShareCode";
 import { useLocation } from "react-router-dom";
 import "./NavBar.css";
-const NavBar = () => {
+const NavBar = ({ socket, roomID }) => {
         const location = useLocation();
         const { body } = useBody();
         return (
                 <div className="flex w-[100%] h-[100%] justify-between items-center gap-[20%] bg-neutral-800 text-[white] border ml-[2%] mt-[1%] pl-[2%] pr-[2%] rounded-[10px] border-solid border-[whitesmoke]">
-                        <div className="w-[27%] h-[100%] flex items-center justify-center">
-                                <LanguageSelector />
+                        <div className="w-[15%] h-[95%] flex items-center justify-center">
+                                <LanguageSelector socket={socket} roomID={roomID} />
                         </div>
-                        <div className="w-[50%] flex ">
+                        <div className="w-[60%] flex ">
                                 {location.pathname === "/onlinecompiler" ? (
                                         <div className="w-[30%]">
                                                 <ShareCode />

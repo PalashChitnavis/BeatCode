@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000";
-
 const onlineCompilerSubmissions = async (email) => {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
         try {
-                const response = await axios.post(`${API_URL}/submissions/onlinecompiler`, { email: email });
+                const response = await axios.post(`${backendUrl}/submissions/onlinecompiler`, { email: email });
                 console.log(response.data.submissions);
                 return response.data.submissions;
         } catch (error) {
@@ -14,8 +13,9 @@ const onlineCompilerSubmissions = async (email) => {
 };
 
 const practiceProblemsSubmissions = async (email) => {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
         try {
-                const response = await axios.post(`${API_URL}/submissions/practiceproblems`, { email: email });
+                const response = await axios.post(`${backendUrl}/submissions/practiceproblems`, { email: email });
                 console.log(response.data.submissions);
                 return response.data.submissions;
         } catch (error) {

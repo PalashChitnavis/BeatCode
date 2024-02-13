@@ -30,12 +30,15 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "./CodeEditor.css";
 import { useLocation } from "react-router-dom";
 import { getBoilerplateCode } from "../../services/getBoilerPlateCode";
-function CodeEditor({ question }) {
+function CodeEditor({ question, socket, roomID }) {
         const { body, updateBody } = useBody();
+        let location = useLocation();
+        const initialCode = getBoilerplateCode(location, body, question);
         const handleChange = (value) => {
                 updateBody({ ...body, code: value });
+                socket && socket.emit("codeUpdate", { code: value, roomID: roomID });
         };
-        let location = useLocation();
+
         const starterCodes = {
                 c: `#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`,
                 cpp: `#include <iostream>\n\nusing namespace std;\n\nint main() {\n    cout << "Hello, World!" << endl;\n    return 0;\n}`,
@@ -47,8 +50,10 @@ function CodeEditor({ question }) {
                 const editor = ace.edit("ace-editor");
                 editor.getSession().setTabSize(body.tabSize);
                 const boilerplateCode = getBoilerplateCode(location, body, question);
+                updateBody({ ...body, ouput: "" });
                 editor.setValue(boilerplateCode);
-        }, [body.tabSize, body.language, location.pathname]);
+        }, [body.tabSize, body.language, location.pathname, body.output]);
+
         return (
                 <div className="flex justify-center items-center w-[100%] h-[100%] mt-[1%]">
                         <AceEditor

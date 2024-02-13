@@ -5,7 +5,7 @@
 import React, { useEffect } from "react";
 import { useBody } from "../../context/BodyContext";
 import "./LanguageSelector.css";
-const LanguageSelector = () => {
+const LanguageSelector = ({ socket, roomID }) => {
         const languageOptions = [
                 { name: "C", value: "c" },
                 { name: "C++", value: "cpp" },
@@ -20,9 +20,11 @@ const LanguageSelector = () => {
                                 className="select-language"
                                 id="language"
                                 value={body.language}
-                                onChange={(e) =>
-                                        updateBody({ ...body, userInput: "", output: "", language: e.target.value })
-                                }
+                                onChange={(e) => {
+                                        updateBody({ ...body, userInput: "", output: "", language: e.target.value });
+                                        socket &&
+                                                socket.emit("languageChange", { language: e.target.value, roomID: roomID });
+                                }}
                         >
                                 {languageOptions.map((language) => (
                                         <option key={language.value} value={language.value}>

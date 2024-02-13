@@ -3,7 +3,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import ProgressBar from "../ProgressBar/ProgressBar";
-import { getUserStatus } from "../../services/getUserStats";
 import { isLoggedIn } from "../Login/isLoggedIn";
 export default function Stats({ response }) {
         const problemsSolved = {
@@ -19,6 +18,13 @@ export default function Stats({ response }) {
 
         return (
                 <div className="font-bold p-4  bg-black rounded-lg">
+                        {isLoggedIn() ? (
+                                <div></div>
+                        ) : (
+                                <div className="text-red-400 w-full flex justify-center items-center pb-3">
+                                        Please Login to View/Update Stats
+                                </div>
+                        )}
                         <div className="text-white p-4 pt-0 flex justify-center text-xl">Stats</div>
                         <div className="text-green-600 flex justify-between">
                                 Easy

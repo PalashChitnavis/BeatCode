@@ -20,7 +20,7 @@ const ProblemList = ({ response }) => {
                 };
 
                 fetchData();
-        }, []);
+        }, [body]);
 
         const resetConfetti = () => {
                 updateBody({ ...body, practiceStatus: false, toggleOutput: false, output: "" });

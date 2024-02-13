@@ -6,7 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 function Success() {
         const location = useLocation();
-
+        const url = import.meta.env.VITE_FRONTEND_URL;
         useEffect(() => {
                 const params = new URLSearchParams(location.search);
                 const token = params.get("token");
@@ -27,9 +27,9 @@ function Success() {
                         toast.warn("login failed 🫥 , please try again", { autoClose: 1500, position: "bottom-right" });
                 }
                 setTimeout(() => {
-                        window.location.href = "http://localhost:5173/";
-                }, 2000);
-        }, [location.search]);
+                        window.location.href = url;
+                }, 1700);
+        }, [location.search, url]);
         return (
                 <>
                         <Header />

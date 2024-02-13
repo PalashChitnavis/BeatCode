@@ -10,6 +10,8 @@ import SubmissionPage from "./pages/SubmissionPage/SubmissionPage";
 import Settings from "./pages/Settings/Settings";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Room from "./pages/Room/Room";
+import CodeRoom from "./pages/Room/CodeRoom";
 
 function App() {
         return (
@@ -24,9 +26,11 @@ function App() {
                                                 <Route path="/submissions" element={<SubmissionPage />} />
                                                 <Route path="/settings" element={<Settings />} />
                                                 <Route path="/success" element={<Success />} />
+                                                <Route path="/room" element={<Room />} />
+                                                <Route path="/room/:roomID" element={<CodeRoom />} />
                                         </Routes>
                                 </Router>
-                                <ToastContainer position="bottom-right" />
+                                <ToastContainer position="bottom-right" pauseOnFocusLoss={false} pauseOnHover={false} />
                         </div>
                 </>
         );

@@ -9,13 +9,14 @@ const generator = require("generate-password");
 const { login } = require("../controller/authController");
 dotenv.config();
 router.get("/redirect", async (req, res) => {
+        const backendUrl = process.env.BACKEND_URL;
         const code = req.query.code;
         const url = "https://oauth2.googleapis.com/token";
         const values = {
                 code,
                 client_id: process.env.GOOGLE_CLIENT_ID,
                 client_secret: process.env.GOOGLE_CLIENT_SECRET,
-                redirect_uri: "http://localhost:3000/google/redirect",
+                redirect_uri: `${backendUrl}/google/redirect`,
                 grant_type: "authorization_code",
         };
 
@@ -27,7 +28,6 @@ router.get("/redirect", async (req, res) => {
                 });
                 const { id_token } = response.data;
                 const googleUser = jwt.decode(id_token);
-                console.log({ googleUser });
                 const { email, name } = googleUser;
                 let user = await User.findOne({ email });
                 let newUser = null;
@@ -50,9 +50,10 @@ router.get("/redirect", async (req, res) => {
 });
 
 router.get("/auth", (req, res) => {
+        const backendUrl = process.env.BACKEND_URL;
         const rootURL = "https://accounts.google.com/o/oauth2/v2/auth";
         const options = {
-                redirect_uri: "http://localhost:3000/google/redirect",
+                redirect_uri: `${backendUrl}/google/redirect`,
                 client_id: "387562730417-12s95lvq3jtp2t8ol6i258m670f4n0j4.apps.googleusercontent.com",
                 access_type: "offline",
                 response_type: "code",

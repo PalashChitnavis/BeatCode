@@ -156,7 +156,7 @@ const QuestionPage = () => {
                                                                         <textarea
                                                                                 placeholder="Output will be displayed here"
                                                                                 id="userOutput"
-                                                                                className="bg-[#272822] text-[aliceblue] w-[100%] h-[100%] resize-none text-xl leading-[1.1] border p-2.5 rounded-[10px] border-solid border-[white]"
+                                                                                className="bg-[#272822] text-[aliceblue] w-[100%] h-[100%] resize-none text-xl border p-4 rounded-[10px] border-solid border-[white] leading-8"
                                                                                 readOnly
                                                                                 value={output}
                                                                         ></textarea>

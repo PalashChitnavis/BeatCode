@@ -127,7 +127,15 @@ const pythonDocker = (filename, userEmail, questionID, code, res) => {
                                                         userStats = new UserStats({ emailID: userEmail });
                                                 }
                                                 if (!userStats.attemptedQuestions.includes(questionID)) {
-                                                        userStats.attempts[question.diff]++;
+                                                        if (question.diff === "easy") {
+                                                                userStats.attempts.easy++;
+                                                        }
+                                                        if (question.diff === "medium") {
+                                                                userStats.attempts.medium++;
+                                                        }
+                                                        if (question.diff === "hard") {
+                                                                userStats.attempts.hard++;
+                                                        }
                                                         userStats.attemptedQuestions.push(questionID);
                                                 }
                                                 await userStats.save();

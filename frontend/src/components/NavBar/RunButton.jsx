@@ -26,10 +26,10 @@ const RunButton = () => {
                 }
                 setIsLoading(true);
                 try {
-                        if (location.pathname.startsWith("/onlinecompiler")) {
+                        if (location.pathname.startsWith("/onlinecompiler") || location.pathname.startsWith("/room")) {
                                 const reqBody = {
                                         code: body.code,
-                                        userInput: body.userInput.trim(),
+                                        userInput: body.userInput,
                                         language: body.language,
                                         userEmail: userEmail,
                                 };

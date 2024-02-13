@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000";
-
 const runCompilerCode = async (reqBody) => {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
         try {
-                const response = await axios.post(`${API_URL}/run/onlinecompiler`, reqBody);
+                const response = await axios.post(`${backendUrl}/run/onlinecompiler`, reqBody);
                 return response.data;
         } catch (error) {
                 console.error("API call error:", error.message);
@@ -13,8 +12,9 @@ const runCompilerCode = async (reqBody) => {
 };
 
 const runPracticeCode = async (reqBody) => {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
         try {
-                const response = await axios.post(`${API_URL}/run/practiceproblems`, reqBody);
+                const response = await axios.post(`${backendUrl}/run/practiceproblems`, reqBody);
 
                 return response.data;
         } catch (error) {

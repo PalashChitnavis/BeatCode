@@ -60,7 +60,7 @@ const SubmissionList = () => {
                                                                         }`}
                                                 onClick={() => handleToggle("onlinecompiler")}
                                         >
-                                                Online Compiler Submissions
+                                                Online Compiler & Code Room Submissions
                                         </button>
                                 </div>
                                 {toggleSubmission === "practiceproblems" ? (
@@ -85,6 +85,7 @@ const SubmissionList = () => {
                                                                                                 language={
                                                                                                         submission.language
                                                                                                 }
+                                                                                                wrapLines={true}
                                                                                         >
                                                                                                 {submission.code}
                                                                                         </SyntaxHighlighter>
@@ -102,7 +103,7 @@ const SubmissionList = () => {
                                                                                                 <span className="text-[#4ec9b0]">
                                                                                                         Output :
                                                                                                 </span>{" "}
-                                                                                                <span className="text-[#ce9178]">
+                                                                                                <span className="text-[#ce9178] text-wrap">
                                                                                                         {submission.output}
                                                                                                 </span>
                                                                                         </div>
@@ -133,6 +134,7 @@ const SubmissionList = () => {
                                                                                                 language={
                                                                                                         submission.language
                                                                                                 }
+                                                                                                wrapLines={true}
                                                                                         >
                                                                                                 {submission.code}
                                                                                         </SyntaxHighlighter>
@@ -142,15 +144,15 @@ const SubmissionList = () => {
                                                                                                 <span className="text-[#4ec9b0]">
                                                                                                         Input :
                                                                                                 </span>{" "}
-                                                                                                <span className="text-[#ce9178]">
+                                                                                                <span className="text-[#ce9178] text-wrap">
                                                                                                         {submission.input}
                                                                                                 </span>
                                                                                         </div>
-                                                                                        <div>
+                                                                                        <div className="">
                                                                                                 <span className="text-[#4ec9b0]">
                                                                                                         Output :
                                                                                                 </span>{" "}
-                                                                                                <span className="text-[#ce9178]">
+                                                                                                <span className="text-[#ce9178] text-wrap box-content">
                                                                                                         {submission.output}
                                                                                                 </span>
                                                                                         </div>

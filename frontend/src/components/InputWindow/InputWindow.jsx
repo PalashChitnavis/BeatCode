@@ -4,15 +4,16 @@ import React, { useState } from "react";
 import "./InputWindow.css";
 
 import { useBody } from "../../context/BodyContext";
-const InputWindow = () => {
+const InputWindow = ({ socket, roomID }) => {
         const { body, updateBody } = useBody();
         const { userInput } = body;
         const handleInputChange = (event) => {
                 updateBody({ ...body, userInput: event.target.value });
+                socket && socket.emit("inputUpdate", { userInput: event.target.value, roomID: roomID });
         };
         return (
                 <div className="w-[100%] h-[100%] ">
-                        <p className="text-[white] text-xl">
+                        <p className="text-[white] text-2xl pl-2 ">
                                 Input <span className="text-sm pl-2.5">(Enter input if required before pressing run)</span>
                         </p>
                         <textarea
