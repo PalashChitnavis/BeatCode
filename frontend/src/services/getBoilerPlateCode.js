@@ -9,7 +9,7 @@ export const getBoilerplateCode = (location, body, question) => {
                 };
                 return starterCodes[body.language];
         } else if (location.pathname.startsWith("/practiceproblems")) {
-                return question.boilerplate[body.language];
+                return question?.boilerplate[body.language];
         } else {
                 return "";
         }

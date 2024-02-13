@@ -13,10 +13,10 @@ const ResetCode = () => {
         const location = useLocation();
         const { id } = useParams();
         const [question, setQuestion] = useState(null);
-        const handleResetClick = useCallback(async () => {
+        const handleResetClick = async () => {
                 const code = getBoilerplateCode(location, body, question);
                 updateBody({ ...body, code: code, userInput: "", output: "" });
-        }, [location]);
+        };
 
         useEffect(() => {
                 if (location.pathname.startsWith("/practiceproblems")) {
@@ -30,8 +30,7 @@ const ResetCode = () => {
                         };
                         fetchData();
                 }
-                handleResetClick();
-        }, [location.pathname, id, handleResetClick]);
+        }, [location.pathname, id]);
 
         return (
                 <button
