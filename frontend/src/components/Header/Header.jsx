@@ -30,6 +30,9 @@ const Header = () => {
 					<div className='px-2 bg-[#16a34a] flex justify-center items-center h-[35px] font-semibold rounded-[10px]'>
 						<Link to='/room'>Code Room</Link>
 					</div>
+					<div className='px-2 bg-[#16a34a] flex justify-center items-center h-[35px] font-semibold rounded-[10px]'>
+						<Link to='/leaderboard'>Leaderboard</Link>
+					</div>
 				</div>
 			</div>
 			<div className='bg-[#2f3136] h-[100%] w-[10%] flex flex-row items-center justify-end m-0'>
