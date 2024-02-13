@@ -14,26 +14,57 @@ import Room from "./pages/Room/Room";
 import CodeRoom from "./pages/Room/CodeRoom";
 
 function App() {
-        return (
-                <>
-                        <div>
-                                <Router>
-                                        <Routes>
-                                                <Route path="/" element={<HomePage />} />
-                                                <Route path="/onlinecompiler" element={<OnlineCompiler />} />
-                                                <Route path="/practiceproblems" element={<PracticeProblems />} />
-                                                <Route path="/practiceproblems/questions/:id" element={<QuestionPage />} />
-                                                <Route path="/submissions" element={<SubmissionPage />} />
-                                                <Route path="/settings" element={<Settings />} />
-                                                <Route path="/success" element={<Success />} />
-                                                <Route path="/room" element={<Room />} />
-                                                <Route path="/room/:roomID" element={<CodeRoom />} />
-                                        </Routes>
-                                </Router>
-                                <ToastContainer position="bottom-right" pauseOnFocusLoss={false} pauseOnHover={false} />
-                        </div>
-                </>
-        );
+	return (
+		<>
+			<div>
+				<Router>
+					<Routes>
+						<Route
+							path='/'
+							element={<HomePage />}
+						/>
+						<Route
+							path='/onlinecompiler'
+							element={<OnlineCompiler />}
+						/>
+						<Route
+							path='/practiceproblems'
+							element={<PracticeProblems />}
+						/>
+						<Route
+							path='/practiceproblems/questions/:id'
+							element={<QuestionPage />}
+						/>
+						<Route
+							path='/submissions'
+							element={<SubmissionPage />}
+						/>
+						<Route
+							path='/settings'
+							element={<Settings />}
+						/>
+						<Route
+							path='/success'
+							element={<Success />}
+						/>
+						<Route
+							path='/room'
+							element={<Room />}
+						/>
+						<Route
+							path='/room/:roomID'
+							element={<CodeRoom />}
+						/>
+					</Routes>
+				</Router>
+				<ToastContainer
+					position='bottom-right'
+					pauseOnFocusLoss={false}
+					pauseOnHover={false}
+				/>
+			</div>
+		</>
+	);
 }
 
 export default App;
