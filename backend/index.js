@@ -12,7 +12,7 @@ const getStatsRoute = require("./routes/getStatsRoute");
 const getUserDataRoute = require("./routes/getUserDataRoute");
 const googleAuthRoute = require("./routes/googleAuthRoute");
 const socketController = require("./controller/socketController");
-
+const leaderboard = require("./routes/leaderBoardRoute");
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,6 +28,7 @@ app.use("/getsubmissions", getSubmissionsRoute);
 app.use("/getstats", getStatsRoute);
 app.use("/getuser", getUserDataRoute);
 app.use("/google", googleAuthRoute);
+app.use("/leaderboard", leaderboard);
 
 mongoose.connect(process.env.DB_URL, {})
         .then(() => {

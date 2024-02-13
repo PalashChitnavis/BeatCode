@@ -12,7 +12,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Room from "./pages/Room/Room";
 import CodeRoom from "./pages/Room/CodeRoom";
-
+import LeaderBoard from "./pages/LeaderBoard/LeaderBoard";
+import ErrorPage from "./pages/404/Error";
 function App() {
 	return (
 		<>
@@ -54,6 +55,14 @@ function App() {
 						<Route
 							path='/room/:roomID'
 							element={<CodeRoom />}
+						/>
+						<Route
+							path='/leaderboard'
+							element={<LeaderBoard />}
+						/>
+						<Route
+							path='*'
+							element={<ErrorPage />}
 						/>
 					</Routes>
 				</Router>
