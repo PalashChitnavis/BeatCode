@@ -1,4 +1,4 @@
-![Cover](https://i.ibb.co/YhDfYs6/cover.png)
+![Cover]((https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/cover.png))
 
 # BeatCode
 
@@ -11,7 +11,7 @@
 
 ## About The Project
 
-![HomePage](https://i.ibb.co/Fg7zkn6/home-page.png)
+![HomePage](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/home-page.png)
 
 Welcome to **BeatCode**, your ultimate coding companion! With a sleek interface and powerful functionality, BeatCode offers:
 
@@ -39,17 +39,17 @@ Experience coding like never before with BeatCode.
 
 ## Screenshots
 
-1. Question Page![App Screenshot](https://i.ibb.co/NVVL3M9/question.png)
+1. Question Page![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/question.png)
 2. Practice Problems List
-   ![App Screenshot](https://i.ibb.co/k4XP9YY/practice-problems.png)
+   ![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/practice-problems.png)
 3. Successfull Submission
-   ![App Screenshot](https://i.ibb.co/sbG72Ks/successful.png)
+   ![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/successful.png)
 4. Code Room
-   ![App Screenshot](https://i.ibb.co/DkhPWYV/coderoom.png)
+   ![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/coderoom.png)
 5. Online Compiler
-   ![App Screenshot](https://i.ibb.co/vHqJx5S/compiler.png)
+   ![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/compiler.png)
 6. Leaderboard Page
-   ![App Screenshot](https://i.ibb.co/0BbghVm/leaderboard.png)
+   ![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/leaderboard.png)
 
 ## Prerequisites
 
