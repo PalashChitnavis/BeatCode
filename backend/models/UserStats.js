@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const UserStatsSchema = new mongoose.Schema(
         {
+                userName: { type: String },
                 emailID: { type: String, required: true },
                 attemptedQuestions: [{ type: String }],
                 attempts: {

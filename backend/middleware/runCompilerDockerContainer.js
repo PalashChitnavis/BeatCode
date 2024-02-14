@@ -4,24 +4,24 @@ const exec = util.promisify(require("child_process").exec);
 const fs = require("fs");
 const isWindows = process.platform === "win32";
 const CompilerSubmission = require("../models/CompilerSubmission");
-const runCompilerDockerContainer = (filename, language, userEmail, res) => {
+const runCompilerDockerContainer = (filename, language, userEmail, userName, res) => {
         switch (language) {
                 case "cpp":
-                        cppDocker(filename, language, userEmail, res);
+                        cppDocker(filename, language, userEmail, userName, res);
                         break;
                 case "c":
-                        cppDocker(filename, language, userEmail, res);
+                        cppDocker(filename, language, userEmail, userName, res);
                         break;
                 case "java":
-                        javaDocker(filename, userEmail, res);
+                        javaDocker(filename, userEmail, userName, res);
                         break;
                 case "python":
-                        pythonDocker(filename, userEmail, res);
+                        pythonDocker(filename, userEmail, userName, res);
                         break;
         }
 };
 
-const cppDocker = (filename, language, userEmail, res) => {
+const cppDocker = (filename, language, userEmail, userName, res) => {
         let containerID; // Define containerID variable outside of the promise chain
         exec(`docker run -d -it cpp:v1 sh`)
                 .then((response) => {
@@ -38,10 +38,11 @@ const cppDocker = (filename, language, userEmail, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
-                        if (userEmail) {
+                        if (userEmail && userName) {
                                 try {
                                         const submission = new CompilerSubmission({
                                                 user_email: userEmail,
+                                                user_name: userName,
                                                 language: language,
                                                 code: fs.readFileSync(`${filename}.${language}`, "utf-8"),
                                                 input: fs.readFileSync(`${filename}.txt`, "utf-8"),
@@ -71,7 +72,7 @@ const cppDocker = (filename, language, userEmail, res) => {
                         });
                 });
 };
-const pythonDocker = (filename, userEmail, res) => {
+const pythonDocker = (filename, userEmail, userName, res) => {
         let containerID;
         exec(`docker run -d -it py:v1 sh`)
                 .then((response) => {
@@ -88,10 +89,11 @@ const pythonDocker = (filename, userEmail, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
-                        if (userEmail) {
+                        if (userEmail && userName) {
                                 try {
                                         const submission = new CompilerSubmission({
                                                 user_email: userEmail,
+                                                user_name: userName,
                                                 language: "python",
                                                 code: fs.readFileSync(`${filename}.py`, "utf-8"),
                                                 input: fs.readFileSync(`${filename}.txt`, "utf-8"),
@@ -122,7 +124,7 @@ const pythonDocker = (filename, userEmail, res) => {
                 });
 };
 
-const javaDocker = (filename, userEmail, res) => {
+const javaDocker = (filename, userEmail, userName, res) => {
         let containerID;
         exec(`docker run -d -it java:v1 sh`)
                 .then((response) => {
@@ -142,10 +144,11 @@ const javaDocker = (filename, userEmail, res) => {
                 })
                 .then((resp) => {
                         console.log(resp);
-                        if (userEmail) {
+                        if (userEmail && userName) {
                                 try {
                                         const submission = new CompilerSubmission({
                                                 user_email: userEmail,
+                                                user_name: userName,
                                                 language: "java",
                                                 code: fs.readFileSync(`${filename}.java`, "utf-8"),
                                                 input: fs.readFileSync(`${filename}.txt`, "utf-8"),

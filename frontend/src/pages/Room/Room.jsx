@@ -31,8 +31,8 @@ const Room = () => {
                                         </div>
                                 </div>
                         )}
-                        <div className="flex w-[100vw] justify-evenly">
-                                <div className="w-[50vw] border-r-2 h-[88vh] flex flex-col items-center">
+                        <div className="flex w-[100vw] h-[87.5vh] justify-evenly">
+                                <div className="w-[50vw] border-r-2 h-[100%] flex flex-col items-center">
                                         <div className="text-3xl text-white border-b-2 mt-[3vh]">Host a Room</div>
                                         <div
                                                 onClick={hostClick}
@@ -43,7 +43,7 @@ const Room = () => {
                                                 Host a Room
                                         </div>
                                 </div>
-                                <div className="w-[50vw] border-l-2 h-[88vh] flex flex-col items-center">
+                                <div className="w-[50vw] border-l-2 h-[100%] flex flex-col items-center">
                                         <div className="text-3xl text-white border-b-2 mt-[3vh]">Join a Room</div>
                                         <div className="flex gap-5 mt-[31vh]">
                                                 <input

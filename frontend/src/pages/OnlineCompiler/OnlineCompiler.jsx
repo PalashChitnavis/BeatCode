@@ -9,7 +9,7 @@ function OnlineCompiler() {
         return (
                 <>
                         <Header />
-                        <div className="flex">
+                        <div className="flex h-[87.5vh]">
                                 <LeftPart />
                                 <RightPart />
                         </div>

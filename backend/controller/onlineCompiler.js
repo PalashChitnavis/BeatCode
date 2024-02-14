@@ -1,7 +1,7 @@
 const { validateC, validateCpp, validateJava, validateJavaScript, validatePython } = require("../middleware/validate");
 const saveCodeFiles = require("../middleware/saveCodeFiles");
 const runCompilerDockerContainer = require("../middleware/runCompilerDockerContainer");
-const onlineCompiler = (code, language, userInput, userEmail, res) => {
+const onlineCompiler = (code, language, userInput, userEmail, userName, res) => {
         try {
                 switch (language) {
                         case "c":
@@ -21,7 +21,7 @@ const onlineCompiler = (code, language, userInput, userEmail, res) => {
                 }
                 console.log("code is validated");
                 const filename = saveCodeFiles(code, userInput, language);
-                runCompilerDockerContainer(filename, language, userEmail, res);
+                runCompilerDockerContainer(filename, language, userEmail, userName, res);
         } catch (error) {
                 console.error(`Validation error for ${language}: ${error.message}`);
         }

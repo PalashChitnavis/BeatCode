@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const compilersubmissionSchema = new mongoose.Schema(
         {
+                user_name: {
+                        type: String,
+                },
                 user_email: {
                         type: String,
                         required: true,

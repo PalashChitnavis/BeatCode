@@ -1,7 +1,7 @@
 const { validateC, validateCpp, validateJava, validateJavaScript, validatePython } = require("../middleware/validate");
 const saveProblemFiles = require("../middleware/saveProblemFiles");
 const runPracticeDockerContainer = require("../middleware/runPracticeDockerContainer");
-const practiceProblemController = async (code, language, questionID, userEmail, res) => {
+const practiceProblemController = async (code, language, questionID, userEmail, userName, res) => {
         try {
                 switch (language) {
                         case "c":
@@ -21,7 +21,7 @@ const practiceProblemController = async (code, language, questionID, userEmail, 
                 }
                 console.log("code is validated");
                 const filename = await saveProblemFiles(code, questionID, language);
-                runPracticeDockerContainer(filename, language, userEmail, questionID, code, res);
+                runPracticeDockerContainer(filename, language, userEmail, userName, questionID, code, res);
         } catch (error) {
                 console.error(`Validation error for ${language}: ${error.message}`);
         }

@@ -2,6 +2,7 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Settings from "../../pages/Settings/Settings";
 const Profile = () => {
         const [isDropdownOpen, setIsDropdownOpen] = useState(false);
         const email = localStorage.getItem("email");

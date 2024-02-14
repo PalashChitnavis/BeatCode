@@ -6,24 +6,24 @@ const isWindows = process.platform === "win32";
 const PracticeSubmission = require("../models/PracticeSubmission");
 const Question = require("../models/Question");
 const UserStats = require("../models/UserStats");
-const runPracticeDockerContainer = (filename, language, userEmail, questionID, code, res) => {
+const runPracticeDockerContainer = (filename, language, userEmail, userName, questionID, code, res) => {
         switch (language) {
                 case "cpp":
-                        cppDocker(filename, language, userEmail, questionID, code, res);
+                        cppDocker(filename, language, userEmail, userName, questionID, code, res);
                         break;
                 case "c":
-                        cppDocker(filename, language, userEmail, questionID, code, res);
+                        cppDocker(filename, language, userEmail, userName, questionID, code, res);
                         break;
                 case "java":
-                        javaDocker(filename, userEmail, questionID, code, res);
+                        javaDocker(filename, userEmail, userName, questionID, code, res);
                         break;
                 case "python":
-                        pythonDocker(filename, userEmail, questionID, code, res);
+                        pythonDocker(filename, userEmail, userName, questionID, code, res);
                         break;
         }
 };
 
-const cppDocker = (filename, language, userEmail, questionID, code, res) => {
+const cppDocker = (filename, language, userEmail, userName, questionID, code, res) => {
         let containerID; // Define containerID variable outside of the promise chain
         exec(`docker run -d -it cpp:v1 sh`)
                 .then((response) => {
@@ -43,10 +43,11 @@ const cppDocker = (filename, language, userEmail, questionID, code, res) => {
                         const failedStatus = resp.stdout.includes("Failed");
                         const status = !failedStatus;
                         const practiceStatus = status ? "Passed" : "Failed";
-                        if (userEmail) {
+                        if (userEmail && userName) {
                                 try {
                                         const submission = new PracticeSubmission({
                                                 user_email: userEmail,
+                                                user_name: userName,
                                                 language: language,
                                                 code: code,
                                                 output: resp.stdout,
@@ -58,11 +59,22 @@ const cppDocker = (filename, language, userEmail, questionID, code, res) => {
                                                 const question = await Question.findOne({ id: questionID });
                                                 let userStats = await UserStats.findOne({ emailID: userEmail });
                                                 if (!userStats) {
-                                                        userStats = new UserStats({ emailID: userEmail });
+                                                        userStats = new UserStats({
+                                                                emailID: userEmail,
+                                                                userName: userName,
+                                                        });
                                                 }
                                                 if (!userStats.attemptedQuestions.includes(question.id)) {
-                                                        userStats.attempts[question.diff]++;
-                                                        userStats.attemptedQuestions.push(question.id);
+                                                        if (question.diff === "easy") {
+                                                                userStats.attempts.easy++;
+                                                        }
+                                                        if (question.diff === "medium") {
+                                                                userStats.attempts.medium++;
+                                                        }
+                                                        if (question.diff === "hard") {
+                                                                userStats.attempts.hard++;
+                                                        }
+                                                        userStats.attemptedQuestions.push(questionID);
                                                 }
                                                 await userStats.save();
                                         }
@@ -89,7 +101,7 @@ const cppDocker = (filename, language, userEmail, questionID, code, res) => {
                         });
                 });
 };
-const pythonDocker = (filename, userEmail, questionID, code, res) => {
+const pythonDocker = (filename, userEmail, userName, questionID, code, res) => {
         let containerID;
         exec(`docker run -d -it py:v1 sh`)
                 .then((response) => {
@@ -109,10 +121,11 @@ const pythonDocker = (filename, userEmail, questionID, code, res) => {
                         const failedStatus = resp.stdout.includes("Failed");
                         const status = !failedStatus;
                         const practiceStatus = status ? "Passed" : "Failed";
-                        if (userEmail) {
+                        if (userEmail && userName) {
                                 try {
                                         const submission = new PracticeSubmission({
                                                 user_email: userEmail,
+                                                user_name: userName,
                                                 language: "python",
                                                 code: code,
                                                 output: resp.stdout,
@@ -124,7 +137,10 @@ const pythonDocker = (filename, userEmail, questionID, code, res) => {
                                                 const question = await Question.findOne({ id: questionID });
                                                 let userStats = await UserStats.findOne({ emailID: userEmail });
                                                 if (!userStats) {
-                                                        userStats = new UserStats({ emailID: userEmail });
+                                                        userStats = new UserStats({
+                                                                emailID: userEmail,
+                                                                userName: userName,
+                                                        });
                                                 }
                                                 if (!userStats.attemptedQuestions.includes(questionID)) {
                                                         if (question.diff === "easy") {
@@ -164,7 +180,7 @@ const pythonDocker = (filename, userEmail, questionID, code, res) => {
                 });
 };
 
-const javaDocker = (filename, userEmail, questionID, code, res) => {
+const javaDocker = (filename, userEmail, userName, questionID, code, res) => {
         let containerID;
         exec(`docker run -d -it java:v1 sh`)
                 .then((response) => {
@@ -188,10 +204,11 @@ const javaDocker = (filename, userEmail, questionID, code, res) => {
                         const failedStatus = resp.stdout.includes("Failed");
                         const status = !failedStatus;
                         const practiceStatus = status ? "Passed" : "Failed";
-                        if (userEmail) {
+                        if (userEmail && userName) {
                                 try {
                                         const submission = new PracticeSubmission({
                                                 user_email: userEmail,
+                                                user_name: userName,
                                                 language: "java",
                                                 code: code,
                                                 output: resp.stdout,
@@ -203,11 +220,22 @@ const javaDocker = (filename, userEmail, questionID, code, res) => {
                                                 const question = await Question.findOne({ id: questionID });
                                                 let userStats = await UserStats.findOne({ emailID: userEmail });
                                                 if (!userStats) {
-                                                        userStats = new UserStats({ emailID: userEmail });
+                                                        userStats = new UserStats({
+                                                                emailID: userEmail,
+                                                                userName: userName,
+                                                        });
                                                 }
                                                 if (!userStats.attemptedQuestions.includes(question.id)) {
-                                                        userStats.attempts[question.diff]++;
-                                                        userStats.attemptedQuestions.push(question.id);
+                                                        if (question.diff === "easy") {
+                                                                userStats.attempts.easy++;
+                                                        }
+                                                        if (question.diff === "medium") {
+                                                                userStats.attempts.medium++;
+                                                        }
+                                                        if (question.diff === "hard") {
+                                                                userStats.attempts.hard++;
+                                                        }
+                                                        userStats.attemptedQuestions.push(questionID);
                                                 }
                                                 await userStats.save();
                                         }

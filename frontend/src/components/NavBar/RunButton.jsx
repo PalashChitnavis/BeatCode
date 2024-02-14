@@ -11,12 +11,15 @@ const RunButton = () => {
         const [isLoading, setIsLoading] = useState(false);
         const { body, updateBody } = useBody();
         const [userEmail, setUserEmail] = useState("");
+        const [userName, setUserName] = useState("");
         const location = useLocation();
         const { id } = useParams();
         useEffect(() => {
                 if (isLoggedIn()) {
                         const email = localStorage.getItem("email");
+                        const username = localStorage.getItem("username");
                         setUserEmail(email);
+                        setUserName(username);
                 }
         }, []);
 
@@ -32,6 +35,7 @@ const RunButton = () => {
                                         userInput: body.userInput,
                                         language: body.language,
                                         userEmail: userEmail,
+                                        userName: userName,
                                 };
                                 console.log(reqBody);
                                 const result = await runCompilerCode(reqBody);
@@ -52,6 +56,7 @@ const RunButton = () => {
                                         language: body.language,
                                         userEmail: userEmail,
                                         questionID: id,
+                                        userName: userName,
                                 };
                                 console.log(reqBody);
                                 const result = await runPracticeCode(reqBody);
