@@ -1,4 +1,4 @@
-![Cover]((https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/cover.png))
+![Cover](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/cover.png)
 
 # BeatCode
 
