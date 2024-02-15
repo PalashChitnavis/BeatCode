@@ -4,7 +4,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import socketIOClient from "socket.io-client";
 import { isLoggedIn } from "../../components/Login/isLoggedIn";
-import Register from "../../components/Login/register";
+import Register from "../../components/Login/Register";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 const Room = () => {
