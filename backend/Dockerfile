@@ -1,16 +1,17 @@
-FROM ubuntu
+# Use the official Node.js image from Docker Hub
+FROM node:alpine3.10
 
-# Create app directory
-WORKDIR /usr/nodeapp  
+# Set the working directory in the container
+WORKDIR /usr/nodeapp
 
-COPY ./package*.json ./
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-COPY . .
-
-RUN apt-get update && apt-get install -y curl
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get install -y nodejs
+# Install dependencies
 RUN npm install
 
+# Copy the rest of the application code
+COPY . .
 
+# Specify the command to run the application
 CMD [ "npm", "run", "start" ]

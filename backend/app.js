@@ -20,6 +20,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+        res.send("The server is running , this is just a test route");
+});
+
 app.use("/run", runCodeRoute);
 app.use("/practiceproblems", practiceProblemsRoute);
 app.use("/register", authRoute);
