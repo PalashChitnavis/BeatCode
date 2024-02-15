@@ -35,10 +35,13 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Copy the compilers from previous stages
-COPY --from=cpp-compiler /usr/cpp /usr/cpp
-COPY --from=java-compiler /usr/java /usr/java
-COPY --from=python-compiler /usr/py /usr/py
+# Copy the compilers from previous stages with desired names
+COPY --from=cpp-compiler /usr/cpp /usr/local/bin/cpp:v1
+COPY --from=java-compiler /usr/java /usr/local/bin/java:v1
+COPY --from=python-compiler /usr/py /usr/local/bin/python:v1
+
+# Ensure execution permissions
+RUN chmod +x /usr/local/bin/cpp:v1 /usr/local/bin/java:v1 /usr/local/bin/python:v1
 
 # Specify the command to run the application
 CMD [ "npm", "run", "start" ]
