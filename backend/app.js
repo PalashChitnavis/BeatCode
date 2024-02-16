@@ -20,7 +20,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
+app.get("/health", (req, res) => {
         res.send("The server is running , this is just a test route");
 });
 
