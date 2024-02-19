@@ -271,7 +271,7 @@ const CodeRoom = () => {
                                                         <NavBar socket={socket} roomID={roomID} />
                                                 </div>
                                                 <div className="w-[100%] h-[78vh]">
-                                                        <CodeEditor socket={socket} roomID={roomID} />
+                                                        <CodeEditor socket={socket} roomID={roomID} users={users} />
                                                 </div>
                                         </div>
                                 </div>
@@ -308,7 +308,7 @@ const CodeRoom = () => {
                                                         </CopyToClipboard>
                                                         <div className="w-[90%] ml-[2vw] pt-[2vh] h-[90%] flex flex-col gap-5">
                                                                 <div className=" h-[45%] bg-[#272822] flex justify-center items-center rounded-lg text-white">
-                                                                        {!myStream && me && me.username}
+                                                                        {!myStream && !otherStream && me && me.username}
                                                                         {myStream && (
                                                                                 <div className="flex justify-center items-center rounded-xl">
                                                                                         <ReactPlayer
@@ -321,7 +321,10 @@ const CodeRoom = () => {
                                                                         )}
                                                                 </div>
                                                                 <div className=" h-[45%] bg-[#272822] flex justify-center items-center rounded-lg text-white">
-                                                                        {!otherStream && otherUser && otherUser.username}
+                                                                        {!myStream &&
+                                                                                !otherStream &&
+                                                                                otherUser &&
+                                                                                otherUser.username}
                                                                         {otherStream && (
                                                                                 <div className="flex justify-center items-center">
                                                                                         <ReactPlayer

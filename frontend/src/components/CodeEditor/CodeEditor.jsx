@@ -30,7 +30,7 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "./CodeEditor.css";
 import { useLocation } from "react-router-dom";
 import { getBoilerplateCode } from "../../services/getBoilerPlateCode";
-function CodeEditor({ question, socket, roomID }) {
+function CodeEditor({ question, socket, roomID, users }) {
         const { body, updateBody } = useBody();
         let location = useLocation();
         const initialCode = getBoilerplateCode(location, body, question);
@@ -38,6 +38,13 @@ function CodeEditor({ question, socket, roomID }) {
                 updateBody({ ...body, code: value });
                 socket && socket.emit("codeUpdate", { code: value, roomID: roomID });
         };
+
+        useEffect(() => {
+                const username = localStorage.getItem("username");
+                if (users.length == 2 && users[0].username === username) {
+                        socket && socket.emit("codeUpdate", { code: body.code, roomID: roomID });
+                }
+        }, [users]);
 
         const starterCodes = {
                 c: `#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`,
