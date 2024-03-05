@@ -41,7 +41,7 @@ function CodeEditor({ question, socket, roomID, users }) {
 
         useEffect(() => {
                 const username = localStorage.getItem("username");
-                if (users.length == 2 && users[0].username === username) {
+                if (users && users.length == 2 && users[0].username === username) {
                         socket && socket.emit("codeUpdate", { code: body.code, roomID: roomID });
                 }
         }, [users]);
