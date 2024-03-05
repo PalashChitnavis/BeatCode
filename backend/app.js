@@ -37,7 +37,7 @@ app.use("/leaderboard", leaderboard);
 mongoose.connect(process.env.DB_URL, {})
         .then(() => {
                 console.log("MongoDB connected");
-                const server = app.listen(port, () => {
+                const server = app.listen(port, "0.0.0.0", () => {
                         console.log(`Server is running on http://localhost:${port}`);
                 });
                 socketController(server);

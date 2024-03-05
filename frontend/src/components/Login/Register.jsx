@@ -46,6 +46,12 @@ const Register = () => {
         const handleButtonClick = (buttonName) => {
                 setActiveButton(buttonName);
         };
+        const handleKeyDown = (event, type) => {
+                if (event.key === "Enter") {
+                        handleRegister(type);
+                }
+        };
+
         return (
                 <div>
                         <button
@@ -86,64 +92,69 @@ const Register = () => {
                                                         </button>
                                                 </div>
                                                 {activeButton === "signup" ? (
-                                                        <form className="w-full flex flex-col h-[75vh] mt-[3vh]">
-                                                                <p className="text-center text-[28px] mb-[2vh]">
-                                                                        Sign Up for Free
-                                                                </p>
-                                                                <input
-                                                                        className="h-[50px] text-[black] mt-[1vh] pl-2.5"
-                                                                        placeholder="User Name *"
-                                                                        type="text"
-                                                                        value={userData.username}
-                                                                        required
-                                                                        onChange={(e) =>
-                                                                                setUserData({
-                                                                                        ...userData,
-                                                                                        username: e.target.value,
-                                                                                })
-                                                                        }
-                                                                        autoComplete="off"
-                                                                />
-                                                                <br />
-                                                                <input
-                                                                        className="h-[50px] text-[black] mt-[1vh] pl-2.5"
-                                                                        placeholder="Email Address *"
-                                                                        type="email"
-                                                                        required
-                                                                        value={userData.email}
-                                                                        onChange={(e) =>
-                                                                                setUserData({
-                                                                                        ...userData,
-                                                                                        email: e.target.value,
-                                                                                })
-                                                                        }
-                                                                        autoComplete="off"
-                                                                />
-                                                                <br />
-                                                                <input
-                                                                        className="h-[50px] text-[black] mt-[1vh] pl-2.5"
-                                                                        placeholder="Set a Password *"
-                                                                        required
-                                                                        type="password"
-                                                                        value={userData.password}
-                                                                        onChange={(e) =>
-                                                                                setUserData({
-                                                                                        ...userData,
-                                                                                        password: e.target.value,
-                                                                                })
-                                                                        }
-                                                                        autoComplete="off"
-                                                                />
-                                                                <br />
-                                                                <button
-                                                                        className="bg-[#179b77] w-full h-[60px] mt-[0.5vh] text-3xl"
-                                                                        type="button"
-                                                                        onClick={() => {
-                                                                                handleRegister("signup");
-                                                                        }}
-                                                                >
-                                                                        Get Started
-                                                                </button>
+                                                        <div className="w-full flex flex-col h-[80vh] mt-[3vh]">
+                                                                <form className="w-full flex flex-col">
+                                                                        <p className="text-center text-[28px] mb-[2vh]">
+                                                                                Sign Up for Free
+                                                                        </p>
+                                                                        <input
+                                                                                className="h-[50px] text-[black] mt-[1vh] pl-2.5"
+                                                                                placeholder="User Name *"
+                                                                                type="text"
+                                                                                value={userData.username}
+                                                                                required
+                                                                                onChange={(e) =>
+                                                                                        setUserData({
+                                                                                                ...userData,
+                                                                                                username: e.target.value,
+                                                                                        })
+                                                                                }
+                                                                                autoComplete="off"
+                                                                                onKeyDown={(e) => handleKeyDown(e, "signup")}
+                                                                        />
+                                                                        <br />
+                                                                        <input
+                                                                                className="h-[50px] text-[black] mt-[1vh] pl-2.5"
+                                                                                placeholder="Email Address *"
+                                                                                type="email"
+                                                                                required
+                                                                                value={userData.email}
+                                                                                onChange={(e) =>
+                                                                                        setUserData({
+                                                                                                ...userData,
+                                                                                                email: e.target.value,
+                                                                                        })
+                                                                                }
+                                                                                autoComplete="off"
+                                                                                onKeyDown={(e) => handleKeyDown(e, "signup")}
+                                                                        />
+                                                                        <br />
+                                                                        <input
+                                                                                className="h-[50px] text-[black] mt-[1vh] pl-2.5"
+                                                                                placeholder="Set a Password *"
+                                                                                required
+                                                                                type="password"
+                                                                                value={userData.password}
+                                                                                onChange={(e) =>
+                                                                                        setUserData({
+                                                                                                ...userData,
+                                                                                                password: e.target.value,
+                                                                                        })
+                                                                                }
+                                                                                onKeyDown={(e) => handleKeyDown(e, "signup")}
+                                                                                autoComplete="off"
+                                                                        />
+                                                                        <br />
+                                                                        <button
+                                                                                className="bg-[#179b77] w-full h-[60px]  text-3xl"
+                                                                                type="button"
+                                                                                onClick={() => {
+                                                                                        handleRegister("signup");
+                                                                                }}
+                                                                        >
+                                                                                Get Started
+                                                                        </button>
+                                                                </form>
                                                                 <button
                                                                         className="w-full h-[60px] mt-[3vh] text-3xl flex gap-5 justify-center items-center bg-[#4f86ec] text-white"
                                                                         onClick={getGoogleAuth}
@@ -151,59 +162,63 @@ const Register = () => {
                                                                         <i className="fa-brands fa-google" />
                                                                         <span> Sign up with Google</span>
                                                                 </button>
-                                                        </form>
+                                                        </div>
                                                 ) : (
-                                                        <form className="w-full flex flex-col h-[75vh] mt-[5vh]">
-                                                                <p className="text-center text-[28px] mt-[2vh]">
-                                                                        Welcome Back!
-                                                                </p>
-                                                                <input
-                                                                        className="h-[50px] text-[black] mt-[6vh] pl-2.5"
-                                                                        placeholder="Email Address *"
-                                                                        type="email"
-                                                                        required
-                                                                        value={userData.email}
-                                                                        onChange={(e) =>
-                                                                                setUserData({
-                                                                                        ...userData,
-                                                                                        email: e.target.value,
-                                                                                })
-                                                                        }
-                                                                        autoComplete="off"
-                                                                />
-                                                                <br />
-                                                                <input
-                                                                        className="h-[50px] text-[black] mt-[3vh] pl-2.5"
-                                                                        placeholder="Password *"
-                                                                        required
-                                                                        type="password"
-                                                                        value={userData.password}
-                                                                        onChange={(e) =>
-                                                                                setUserData({
-                                                                                        ...userData,
-                                                                                        password: e.target.value,
-                                                                                })
-                                                                        }
-                                                                        autoComplete="off"
-                                                                />
-                                                                <br />
+                                                        <div className="w-full flex flex-col h-[80vh] mt-[5vh]">
+                                                                <form className="w-full flex flex-col  ">
+                                                                        <p className="text-center text-[28px] mt-[2vh]">
+                                                                                Welcome Back!
+                                                                        </p>
+                                                                        <input
+                                                                                className="h-[50px] text-[black] mt-[6vh] pl-2.5"
+                                                                                placeholder="Email Address *"
+                                                                                type="email"
+                                                                                required
+                                                                                value={userData.email}
+                                                                                onChange={(e) =>
+                                                                                        setUserData({
+                                                                                                ...userData,
+                                                                                                email: e.target.value,
+                                                                                        })
+                                                                                }
+                                                                                autoComplete="off"
+                                                                                onKeyDown={(e) => handleKeyDown(e, "login")}
+                                                                        />
+                                                                        <br />
+                                                                        <input
+                                                                                className="h-[50px] text-[black] mt-[3vh] pl-2.5"
+                                                                                placeholder="Password *"
+                                                                                required
+                                                                                type="password"
+                                                                                value={userData.password}
+                                                                                onChange={(e) =>
+                                                                                        setUserData({
+                                                                                                ...userData,
+                                                                                                password: e.target.value,
+                                                                                        })
+                                                                                }
+                                                                                autoComplete="off"
+                                                                                onKeyDown={(e) => handleKeyDown(e, "login")}
+                                                                        />
+                                                                        <br />
+                                                                        <button
+                                                                                className="bg-[#179b77] w-full h-[60px] mt-[1vh] text-3xl"
+                                                                                type="button"
+                                                                                onClick={() => {
+                                                                                        handleRegister("login");
+                                                                                }}
+                                                                        >
+                                                                                Log In
+                                                                        </button>
+                                                                </form>
                                                                 <button
-                                                                        className="bg-[#179b77] w-full h-[60px] mt-[1vh] text-3xl"
-                                                                        type="button"
-                                                                        onClick={() => {
-                                                                                handleRegister("login");
-                                                                        }}
-                                                                >
-                                                                        Log In
-                                                                </button>
-                                                                <button
-                                                                        className="w-full h-[60px] mt-[3vh] text-3xl flex gap-5 justify-center items-center bg-[#4f86ec] text-white"
+                                                                        className="w-full h-[60px] mt-5  text-3xl flex gap-5 justify-center items-center bg-[#4f86ec] text-white"
                                                                         onClick={getGoogleAuth}
                                                                 >
                                                                         <i className="fa-brands fa-google" />
                                                                         <span> Sign in with Google</span>
                                                                 </button>
-                                                        </form>
+                                                        </div>
                                                 )}
                                         </div>
                                 </div>
