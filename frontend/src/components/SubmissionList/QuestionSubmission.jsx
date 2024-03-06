@@ -61,7 +61,9 @@ const QuestionSubmission = () => {
                                                                                 Language :{" "}
                                                                                 <span className="text-[#4ec9b0]">
                                                                                         {capitalizeString(
-                                                                                                submission.language
+                                                                                                submission.language === "cpp"
+                                                                                                        ? "C++"
+                                                                                                        : submission.language
                                                                                         )}
                                                                                 </span>
                                                                         </div>

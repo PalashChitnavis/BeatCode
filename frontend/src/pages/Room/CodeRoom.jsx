@@ -17,7 +17,7 @@ import peer from "../../services/peer";
 import ReactPlayer from "react-player";
 const CodeRoom = () => {
         let { body, updateBody } = useBody();
-
+        const backendUrl = import.meta.env.VITE_BACKEND_URL;
         const [users, setUsers] = useState([]);
         const [me, setMe] = useState({
                 username: "User 1",
@@ -32,7 +32,7 @@ const CodeRoom = () => {
         const { roomID } = useParams();
         useEffect(() => {
                 if (!socket) {
-                        setSocket(io("http://localhost:3000"));
+                        setSocket(io(backendUrl));
                         socket && socket.emit("languageChange", { language: "java", roomID: roomID });
                 }
 
@@ -106,7 +106,11 @@ const CodeRoom = () => {
                                 console.log(code);
                                 newCode = code;
                                 updateBody({
-                                        ...body,
+                                        font: body.font,
+                                        tabSize: body.tabSize,
+                                        editorTheme: body.editorTheme,
+                                        toggleOutput: false,
+                                        practiceStatus: false,
                                         code: code,
                                         language: newLanguage,
                                         userInput: newInput,
@@ -149,23 +153,32 @@ const CodeRoom = () => {
         const [endCall, setEndCall] = useState(false);
 
         const startVideoCall = useCallback(async () => {
-                setEndCall(true);
-                console.log("startVideoCall");
+                if (users && users.length == 1) {
+                        toast.warn("Wait for second person to join !");
+                } else {
+                        setEndCall(true);
+                        console.log("startVideoCall");
 
-                setAcceptCallButton(false);
-                toast.info("Starting Video Call", { position: "top-right" });
-                const stream = await navigator.mediaDevices.getUserMedia({
-                        audio: true,
-                        video: true,
-                });
-                const offer = await peer.getOffer();
-                socket.emit("startCall", { to: otherUser.socketID, offer });
-                setMyStream(stream);
+                        setAcceptCallButton(false);
+                        toast.info("Starting Video Call", { position: "top-right" });
+                        const stream = await navigator.mediaDevices.getUserMedia({
+                                audio: true,
+                                video: true,
+                        });
+                        const offer = await peer.getOffer();
+                        socket.emit("startCall", { to: otherUser.socketID, offer });
+                        setMyStream(stream);
+                }
         }, [otherUser.socketID, socket]);
         function endVideoCall() {
                 setEndCall(false);
                 setAcceptCallButton(false);
                 console.log("endVideoCall");
+                if (myStream) {
+                        myStream.getTracks().forEach((track) => {
+                                track.stop();
+                        });
+                }
                 setMyStream(null);
                 setOtherStream(null);
                 socket && socket.emit("endVideoCall", { to: otherUser.socketID });
@@ -179,10 +192,12 @@ const CodeRoom = () => {
                                 setAcceptCallButton(true);
                         }
                         const stream = await navigator.mediaDevices.getUserMedia({
-                                audio: true,
                                 video: true,
+                                audio: true,
                         });
-                        setMyStream(stream);
+                        const videoTracks = stream.getVideoTracks();
+                        const videoStream = new MediaStream(videoTracks);
+                        setMyStream(videoStream);
                         const answer = await peer.getAnswer(offer);
                         socket.emit("callAccepted", { to: from, answer });
                 },
@@ -242,6 +257,7 @@ const CodeRoom = () => {
                 peer.peer.addEventListener("track", async (ev) => {
                         const remoteStream = ev.streams;
                         console.log("GOT TRACKS!!");
+                        console.log(remoteStream);
                         setOtherStream(remoteStream[0]);
                 });
         }, []);
@@ -313,9 +329,10 @@ const CodeRoom = () => {
                                                                                 <div className="flex justify-center items-center rounded-xl">
                                                                                         <ReactPlayer
                                                                                                 playing
-                                                                                                height="100%"
+                                                                                                height="90%"
                                                                                                 width="100%"
                                                                                                 url={myStream}
+                                                                                                volume={5}
                                                                                         />
                                                                                 </div>
                                                                         )}
@@ -329,7 +346,7 @@ const CodeRoom = () => {
                                                                                 <div className="flex justify-center items-center">
                                                                                         <ReactPlayer
                                                                                                 playing
-                                                                                                height="100%"
+                                                                                                height="90%"
                                                                                                 width="100%"
                                                                                                 url={otherStream}
                                                                                         />
