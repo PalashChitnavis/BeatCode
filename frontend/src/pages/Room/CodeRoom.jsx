@@ -41,25 +41,24 @@ const CodeRoom = () => {
                         socket && socket.emit("languageChange", { language: "java", roomID: roomID });
                 }
 
-		return () => {
-			socket?.disconnect();
-		};
-	}, [socket]);
+                return () => {
+                        socket?.disconnect();
+                };
+        }, [socket]);
 
-	const navigate = useNavigate();
-	function leaveRoom() {
-		window.location.href = "/room";
-		socket && socket.emit("endVideoCall", { to: otherUser.socketID });
-	}
+        const navigate = useNavigate();
+        function leaveRoom() {
+                window.location.href = "/room";
+                socket && socket.emit("endVideoCall", { to: otherUser.socketID });
+        }
 
-	useEffect(() => {
-		const username = localStorage.getItem("username");
-		socket &&
-			socket.emit("userdetails", { username: username, roomID: roomID });
-		socket &&
-			socket.on("getUserDetails", (userRoom) => {
-				const { users } = userRoom;
-				setUsers(users);
+        useEffect(() => {
+                const username = localStorage.getItem("username");
+                socket && socket.emit("userdetails", { username: username, roomID: roomID });
+                socket &&
+                        socket.on("getUserDetails", (userRoom) => {
+                                const { users } = userRoom;
+                                setUsers(users);
 
                                 if (isLoggedIn() && users.length == 1) {
                                         setMe(users[0]);
@@ -92,16 +91,15 @@ const CodeRoom = () => {
                                 navigate("/room");
                         });
 
-		return () => {
-			socket && socket.off("getUserDetails");
-			socket && socket.off("roomFull");
-		};
-	}, [socket]);
+                return () => {
+                        socket && socket.off("getUserDetails");
+                        socket && socket.off("roomFull");
+                };
+        }, [socket]);
 
-	useEffect(() => {
-		socket &&
-			socket.emit("languageChange", { language: "cpp", roomID: roomID });
-	}, []);
+        useEffect(() => {
+                socket && socket.emit("languageChange", { language: "cpp", roomID: roomID });
+        }, []);
 
         useEffect(() => {
                 socket &&
@@ -121,17 +119,17 @@ const CodeRoom = () => {
                                 dispatch(updateLanguage(language));
                         });
 
-		return () => {
-			socket && socket.off("codeUpdate");
-			socket && socket.off("inputUpdate");
-			socket && socket.off("languageChange");
-		};
-	}, [socket]);
-	//Video Call Logic
-	const [myStream, setMyStream] = useState();
-	const [otherStream, setOtherStream] = useState();
-	const [acceptCallButton, setAcceptCallButton] = useState(false);
-	const [endCall, setEndCall] = useState(false);
+                return () => {
+                        socket && socket.off("codeUpdate");
+                        socket && socket.off("inputUpdate");
+                        socket && socket.off("languageChange");
+                };
+        }, [socket]);
+        //Video Call Logic
+        const [myStream, setMyStream] = useState();
+        const [otherStream, setOtherStream] = useState();
+        const [acceptCallButton, setAcceptCallButton] = useState(false);
+        const [endCall, setEndCall] = useState(false);
 
         const startVideoCall = useCallback(async () => {
                 if (users && users.length == 1) {
@@ -185,11 +183,11 @@ const CodeRoom = () => {
                 [socket]
         );
 
-	const sendStreams = useCallback(() => {
-		for (const track of myStream.getTracks()) {
-			peer.peer.addTrack(track, myStream);
-		}
-	}, [myStream]);
+        const sendStreams = useCallback(() => {
+                for (const track of myStream.getTracks()) {
+                        peer.peer.addTrack(track, myStream);
+                }
+        }, [myStream]);
 
         const handleCallAccepted = useCallback(
                 ({ from, answer }) => {
@@ -199,24 +197,24 @@ const CodeRoom = () => {
                 [sendStreams]
         );
 
-	const handleEndCall = useCallback(() => {
-		setOtherStream(null);
-		setMyStream(null);
-		setEndCall(false);
-		setAcceptCallButton(false);
-	});
+        const handleEndCall = useCallback(() => {
+                setOtherStream(null);
+                setMyStream(null);
+                setEndCall(false);
+                setAcceptCallButton(false);
+        });
 
         const handleNegoNeeded = useCallback(async () => {
                 const offer = await peer.getOffer();
                 socket.emit("peer:nego:needed", { offer, to: otherUser.socketID });
         }, [otherUser.socketID, socket]);
 
-	useEffect(() => {
-		peer.peer.addEventListener("negotiationneeded", handleNegoNeeded);
-		return () => {
-			peer.peer.removeEventListener("negotiationneeded", handleNegoNeeded);
-		};
-	}, [handleNegoNeeded]);
+        useEffect(() => {
+                peer.peer.addEventListener("negotiationneeded", handleNegoNeeded);
+                return () => {
+                        peer.peer.removeEventListener("negotiationneeded", handleNegoNeeded);
+                };
+        }, [handleNegoNeeded]);
 
         const handleNegoNeedIncomming = useCallback(
                 async ({ from, offer }) => {
@@ -230,35 +228,28 @@ const CodeRoom = () => {
                 await peer.setLocalDescription(answer);
         }, []);
 
-	useEffect(() => {
-		peer.peer.addEventListener("track", async (ev) => {
-			const remoteStream = ev.streams;
-			console.log("GOT TRACKS!!");
-			setOtherStream(remoteStream[0]);
-		});
-	}, []);
+        useEffect(() => {
+                peer.peer.addEventListener("track", async (ev) => {
+                        const remoteStream = ev.streams;
+                        console.log("GOT TRACKS!!");
+                        setOtherStream(remoteStream[0]);
+                });
+        }, []);
 
-	useEffect(() => {
-		socket && socket.on("incommingCall", incommingCall);
-		socket && socket.on("callAccepted", handleCallAccepted);
-		socket && socket.on("peer:nego:needed", handleNegoNeedIncomming);
-		socket && socket.on("peer:nego:final", handleNegoNeedFinal);
-		socket && socket.on("endVideoCall", handleEndCall);
-		return () => {
-			socket && socket.off("incommingCall");
-			socket && socket.off("callAccepted");
-			socket && socket.off("peer:nego:needed");
-			socket && socket.off("peer:nego:final");
-			socket && socket.off("endVideoCall");
-		};
-	}, [
-		socket,
-		incommingCall,
-		handleCallAccepted,
-		handleNegoNeedFinal,
-		handleNegoNeedIncomming,
-		handleEndCall,
-	]);
+        useEffect(() => {
+                socket && socket.on("incommingCall", incommingCall);
+                socket && socket.on("callAccepted", handleCallAccepted);
+                socket && socket.on("peer:nego:needed", handleNegoNeedIncomming);
+                socket && socket.on("peer:nego:final", handleNegoNeedFinal);
+                socket && socket.on("endVideoCall", handleEndCall);
+                return () => {
+                        socket && socket.off("incommingCall");
+                        socket && socket.off("callAccepted");
+                        socket && socket.off("peer:nego:needed");
+                        socket && socket.off("peer:nego:final");
+                        socket && socket.off("endVideoCall");
+                };
+        }, [socket, incommingCall, handleCallAccepted, handleNegoNeedFinal, handleNegoNeedIncomming, handleEndCall]);
 
         return (
                 <div>
@@ -382,20 +373,22 @@ const CodeRoom = () => {
                                                                                 </div>
                                                                         )}
 
-								<div
-									onClick={leaveRoom}
-									className='bg-red-500 w-[40%] flex gap-2 justify-center items-center rounded-2xl text-white text-l cursor-pointer hover:bg-red-700'>
-									<i className='fa-solid fa-arrow-right-from-bracket'></i> Leave
-									Room
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<Footer />
-		</div>
-	);
+                                                                        <div
+                                                                                onClick={leaveRoom}
+                                                                                className="bg-red-500 w-[40%] flex gap-2 justify-center items-center rounded-2xl text-white text-l cursor-pointer hover:bg-red-700"
+                                                                        >
+                                                                                <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
+                                                                                Leave Room
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                <Footer />
+                        </div>
+                </div>
+        );
 };
 
 export default CodeRoom;

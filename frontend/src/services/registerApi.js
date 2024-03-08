@@ -1,3 +1,4 @@
+/* eslint-disable no-self-assign */
 import axios from "axios";
 import { toast } from "react-toastify";
 export const signup = async (userData) => {
@@ -12,6 +13,7 @@ export const signup = async (userData) => {
                                 });
                                 setTimeout(() => {
                                         login(userData);
+                                        alert("hello");
                                 }, 1000);
                         } else {
                                 // Registration failed, display error alert with reason
