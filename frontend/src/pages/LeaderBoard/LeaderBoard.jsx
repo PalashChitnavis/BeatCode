@@ -31,7 +31,6 @@ function LeaderBoard() {
 
         function handleClick(email) {
                 setToggle(email);
-                console.log(toggle);
         }
 
         function getDaysSince(dateString) {

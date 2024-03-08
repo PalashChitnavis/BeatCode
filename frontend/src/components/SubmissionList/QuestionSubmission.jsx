@@ -12,7 +12,8 @@ const QuestionSubmission = () => {
         useEffect(() => {
                 const handleSubmissions = async () => {
                         const sub = await getSubmissions(id);
-                        setSubmissions(sub.reverse());
+                        setSubmissions(sub);
+                        console.log(submissions);
                 };
 
                 handleSubmissions();

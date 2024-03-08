@@ -3,25 +3,32 @@
 // src/components/LanguageSelector.js
 
 import React, { useEffect } from "react";
-import { useBody } from "../../context/BodyContext";
 import "./LanguageSelector.css";
+import { useSelector, useDispatch } from "react-redux";
+import { updateLanguage } from "../../redux/slices/languageSlice";
+import { updateOutput } from "../../redux/slices/outputSlice";
+import { updateUserInput } from "../../redux/slices/userInputSlice";
 const LanguageSelector = ({ socket, roomID }) => {
+        const language = useSelector((state) => state.language?.value);
+        const dispatch = useDispatch();
         const languageOptions = [
                 { name: "C", value: "c" },
                 { name: "C++", value: "cpp" },
                 { name: "Java", value: "java" },
                 { name: "Python", value: "python" },
         ];
-        const { body, updateBody } = useBody();
 
         return (
                 <div className="custom-select-container">
                         <select
                                 className="select-language"
                                 id="language"
-                                value={body.language}
+                                value={language}
                                 onChange={(e) => {
-                                        updateBody({ ...body, userInput: "", output: "", language: e.target.value });
+                                        dispatch(updateLanguage(e.target.value));
+                                        dispatch(updateOutput(""));
+                                        dispatch(updateUserInput(""));
+                                        console.log(language);
                                         socket &&
                                                 socket.emit("languageChange", { language: e.target.value, roomID: roomID });
                                 }}

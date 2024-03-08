@@ -24,7 +24,7 @@ const Profile = () => {
                         <div className="profile">
                                 <div className="profile-info" onClick={toggleDropdown}>
                                         <img
-                                                className="h-10 rounded-[50%] cursor-pointer"
+                                                className="h-10 rounded-[50%] border-white border-[2px] cursor-pointer"
                                                 src={avatarUrl}
                                                 alt="userProfile"
                                         />
@@ -42,10 +42,7 @@ const Profile = () => {
                                                         <div className="flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid">
                                                                 {email}
                                                         </div>
-                                                        <div
-                                                                className="flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid hover:bg-[#16a34a]"
-                                                                onClick={() => console.log("View Submissions")}
-                                                        >
+                                                        <div className="flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid hover:bg-[#16a34a]">
                                                                 <Link to={"/submissions"}>View Submissions</Link>
                                                         </div>
                                                         <div className="flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid hover:bg-[#908383]">

@@ -1,10 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { useBody } from "../../context/BodyContext";
 import "@fortawesome/fontawesome-svg-core";
-
+import { useSelector, useDispatch } from "react-redux";
+import { updateEditorTheme } from "../../redux/slices/editorThemeSlice";
+import { updateFont } from "../../redux/slices/fontSlice";
+import { updateTabSize } from "../../redux/slices/tabSizeSlice";
 const Settings = () => {
-        const { body, updateBody } = useBody();
+        const font = useSelector((state) => state.font?.value);
+        const editorTheme = useSelector((state) => state.editorTheme?.value);
+        const tabSize = useSelector((state) => state.tabSize?.value);
+        const dispatch = useDispatch();
         const fontSizes = ["12px", "14px", "16px", "18px", "20px", "22px", "24px"];
         const tabSizes = [2, 4];
         const themeOptions = [
@@ -24,7 +29,17 @@ const Settings = () => {
         };
         const handleInputChange = (event) => {
                 const { name, value } = event.target;
-                updateBody((prev) => ({ ...prev, [name]: value }));
+                switch (name) {
+                        case "font":
+                                dispatch(updateFont(value));
+                                break;
+                        case "editorTheme":
+                                dispatch(updateEditorTheme(value));
+                                break;
+                        case "tabSize":
+                                dispatch(updateTabSize(value));
+                                break;
+                }
         };
 
         return (
@@ -52,7 +67,7 @@ const Settings = () => {
                                                         <select
                                                                 className="h-[50px] bg-[rgb(95,139,173)] text-[white] text-lg w-[170px] cursor-pointer pl-2.5 rounded-[10px]"
                                                                 name="font"
-                                                                value={body.font}
+                                                                value={font}
                                                                 onChange={handleInputChange}
                                                         >
                                                                 {fontSizes.map((size) => (
@@ -77,7 +92,7 @@ const Settings = () => {
                                                         <select
                                                                 className="h-[50px] bg-[rgb(95,139,173)] text-[white] text-lg w-[170px] cursor-pointer pl-2.5 rounded-[10px]"
                                                                 name="editorTheme"
-                                                                value={body.editorTheme}
+                                                                value={editorTheme}
                                                                 onChange={handleInputChange}
                                                         >
                                                                 {themeOptions.map((theme) => (
@@ -102,7 +117,7 @@ const Settings = () => {
                                                         <select
                                                                 className="h-[50px] bg-[rgb(95,139,173)] text-[white] text-lg w-[170px] cursor-pointer pl-2.5 rounded-[10px]"
                                                                 name="tabSize"
-                                                                value={body.tabSize}
+                                                                value={tabSize}
                                                                 onChange={handleInputChange}
                                                         >
                                                                 {tabSizes.map((size) => (

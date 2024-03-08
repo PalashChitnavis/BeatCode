@@ -12,11 +12,16 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
 import io from "socket.io-client";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useBody } from "../../context/BodyContext";
 import peer from "../../services/peer";
+import { isLoggedIn } from "../../components/Login/isLoggedIn";
+import Register from "../../components/Login/Register";
 import ReactPlayer from "react-player";
+import { useSelector, useDispatch } from "react-redux";
+import { updateCode } from "../../redux/slices/codeSlice";
+import { updateLanguage } from "../../redux/slices/languageSlice";
+import { updateUserInput } from "../../redux/slices/userInputSlice";
 const CodeRoom = () => {
-        let { body, updateBody } = useBody();
+        const dispatch = useDispatch();
         const backendUrl = import.meta.env.VITE_BACKEND_URL;
         const [users, setUsers] = useState([]);
         const [me, setMe] = useState({
@@ -55,7 +60,7 @@ const CodeRoom = () => {
                                 const { users } = userRoom;
                                 setUsers(users);
 
-                                if (users.length == 1) {
+                                if (isLoggedIn() && users.length == 1) {
                                         setMe(users[0]);
                                         setOtherUser({
                                                 username: "User 2",
@@ -66,7 +71,7 @@ const CodeRoom = () => {
                                                 position: "top-right",
                                         });
                                 }
-                                if (users.length == 2) {
+                                if (isLoggedIn() && users.length == 2) {
                                         if (users[0].username == username) {
                                                 setMe(users[0]);
                                                 setOtherUser(users[1]);
@@ -97,47 +102,21 @@ const CodeRoom = () => {
         }, []);
 
         useEffect(() => {
-                let newCode = body?.code || "";
-                let newInput = body?.userInput || "";
-                let newLanguage = body?.language || "";
-
                 socket &&
                         socket.on("codeUpdate", ({ code }) => {
-                                console.log(code);
-                                newCode = code;
-                                updateBody({
-                                        font: body.font,
-                                        tabSize: body.tabSize,
-                                        editorTheme: body.editorTheme,
-                                        toggleOutput: false,
-                                        practiceStatus: false,
-                                        code: code,
-                                        language: newLanguage,
-                                        userInput: newInput,
-                                });
+                                console.log("code update ON : " + code);
+                                dispatch(updateCode(code));
                         });
 
                 socket &&
                         socket.on("inputUpdate", ({ userInput }) => {
-                                console.log(userInput);
-                                newInput = userInput;
-                                updateBody({
-                                        ...body,
-                                        userInput: userInput,
-                                        language: newLanguage,
-                                        code: newCode,
-                                });
+                                console.log("userinput update ON : " + userInput);
+                                dispatch(updateUserInput(userInput));
                         });
                 socket &&
                         socket.on("languageChange", ({ language }) => {
-                                console.log(language);
-                                newLanguage = language;
-                                updateBody({
-                                        ...body,
-                                        language: newLanguage,
-                                        userInput: newInput,
-                                        code: newCode,
-                                });
+                                console.log("language update ON : " + language);
+                                dispatch(updateLanguage(language));
                         });
 
                 return () => {
@@ -157,7 +136,7 @@ const CodeRoom = () => {
                         toast.warn("Wait for second person to join !");
                 } else {
                         setEndCall(true);
-                        console.log("startVideoCall");
+                        console.log("starting video call ... ");
 
                         setAcceptCallButton(false);
                         toast.info("Starting Video Call", { position: "top-right" });
@@ -173,7 +152,7 @@ const CodeRoom = () => {
         function endVideoCall() {
                 setEndCall(false);
                 setAcceptCallButton(false);
-                console.log("endVideoCall");
+                console.log("ending video call ...");
                 if (myStream) {
                         myStream.getTracks().forEach((track) => {
                                 track.stop();
@@ -187,7 +166,7 @@ const CodeRoom = () => {
 
         const incommingCall = useCallback(
                 async ({ from, offer }) => {
-                        console.log("incommingCall");
+                        console.log("incoming call ...");
                         if (!endCall) {
                                 setAcceptCallButton(true);
                         }
@@ -212,7 +191,6 @@ const CodeRoom = () => {
 
         const handleCallAccepted = useCallback(
                 ({ from, answer }) => {
-                        console.log("handleCallAccepted");
                         peer.setLocalDescription(answer);
                         sendStreams();
                 },
@@ -227,7 +205,6 @@ const CodeRoom = () => {
         });
 
         const handleNegoNeeded = useCallback(async () => {
-                console.log("handleNegoNeeded");
                 const offer = await peer.getOffer();
                 socket.emit("peer:nego:needed", { offer, to: otherUser.socketID });
         }, [otherUser.socketID, socket]);
@@ -241,7 +218,6 @@ const CodeRoom = () => {
 
         const handleNegoNeedIncomming = useCallback(
                 async ({ from, offer }) => {
-                        console.log("handleNegoNeedIncomming");
                         const answer = await peer.getAnswer(offer);
                         socket.emit("peer:nego:done", { to: from, answer });
                 },
@@ -249,7 +225,6 @@ const CodeRoom = () => {
         );
 
         const handleNegoNeedFinal = useCallback(async ({ answer }) => {
-                console.log("handleNegoNeedFinal");
                 await peer.setLocalDescription(answer);
         }, []);
 
@@ -257,7 +232,6 @@ const CodeRoom = () => {
                 peer.peer.addEventListener("track", async (ev) => {
                         const remoteStream = ev.streams;
                         console.log("GOT TRACKS!!");
-                        console.log(remoteStream);
                         setOtherStream(remoteStream[0]);
                 });
         }, []);
@@ -280,14 +254,31 @@ const CodeRoom = () => {
         return (
                 <div>
                         <Header />
+                        {!isLoggedIn() && (
+                                <div className="z-9999 fixed w-full h-full flex justify-center pt-[30vh] bg-[#000] bg-opacity-50 ">
+                                        <div className="bg-[#2f3136] w-[40vw] h-[25vh] flex-col flex justify-evenly items-center  rounded-2xl text-white">
+                                                <div className="text-2xl">
+                                                        To use this feature please register yourself, thank you
+                                                </div>
+                                                <Register />
+                                        </div>
+                                </div>
+                        )}
                         <div className="flex items-center h-[87.5vh]">
                                 <div>
                                         <div className="w-[50vw] h-[85vh]">
                                                 <div className="w-[96%] h-[8vh]">
-                                                        <NavBar socket={socket} roomID={roomID} />
+                                                        {isLoggedIn() && <NavBar socket={socket} roomID={roomID} />}
                                                 </div>
                                                 <div className="w-[100%] h-[78vh]">
-                                                        <CodeEditor socket={socket} roomID={roomID} users={users} />
+                                                        {isLoggedIn() && (
+                                                                <CodeEditor
+                                                                        className="z-10"
+                                                                        socket={socket}
+                                                                        roomID={roomID}
+                                                                        users={users}
+                                                                />
+                                                        )}
                                                 </div>
                                         </div>
                                 </div>
