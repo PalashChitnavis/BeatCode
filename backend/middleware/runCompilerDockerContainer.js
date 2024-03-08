@@ -23,7 +23,7 @@ const runCompilerDockerContainer = (filename, language, userEmail, userName, res
 
 const cppDocker = (filename, language, userEmail, userName, res) => {
         let containerID; // Define containerID variable outside of the promise chain
-        exec(`docker run -d -it cpp:v1 sh`)
+        exec(`docker run -d -it palashchitnavis/beatcode-cpp sh`)
                 .then((response) => {
                         containerID = response.stdout.substring(0, 12); // Assign value to containerID
                         console.log("Container ID:", containerID);
@@ -74,7 +74,7 @@ const cppDocker = (filename, language, userEmail, userName, res) => {
 };
 const pythonDocker = (filename, userEmail, userName, res) => {
         let containerID;
-        exec(`docker run -d -it py:v1 sh`)
+        exec(`docker run -d -it palashchitnavis/beatcode-python sh`)
                 .then((response) => {
                         containerID = response.stdout.substring(0, 12);
                         console.log("Container ID:", containerID);
@@ -126,7 +126,7 @@ const pythonDocker = (filename, userEmail, userName, res) => {
 
 const javaDocker = (filename, userEmail, userName, res) => {
         let containerID;
-        exec(`docker run -d -it java:v1 sh`)
+        exec(`docker run -d -it palashchitnavis/beatcode-java sh`)
                 .then((response) => {
                         containerID = response.stdout.substring(0, 12);
                         console.log("Container ID:", containerID);

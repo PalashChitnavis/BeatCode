@@ -14,17 +14,20 @@ import CodeEditor from "../../components/CodeEditor/CodeEditor.jsx";
 import ProblemSolutions from "../../components/ProblemSolutions/ProblemSolutions.jsx";
 import QuestionSubmission from "../../components/SubmissionList/QuestionSubmission.jsx";
 import { isLoggedIn } from "../../components/Login/isLoggedIn.js";
-import { useBody } from "../../context/BodyContext.jsx";
 import { getUserStatus } from "../../services/getUserStats.js";
 import FullScreenConfetti from "../../components/Confetti/FullScreenConfetti.jsx";
 import Loading from "../../components/Loading/Loading.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { updateToggleOutput } from "../../redux/slices/toggleOutput.js";
 const QuestionPage = () => {
 	const [loading, setLoading] = useState(false);
 	const { id } = useParams();
 	const [question, setQuestion] = useState(null);
 	const [navigation, setNavigation] = useState("question");
-	const { body, updateBody } = useBody();
-	const { toggleOutput, output } = body;
+	const dispatch = useDispatch();
+	const toggleOutput = useSelector((state) => state.toggleOutput?.value);
+	const practiceStatus = useSelector((state) => state.practiceStatus?.value);
+	const output = useSelector((state) => state.output?.value);
 	const [response, setResponse] = useState();
 	useEffect(() => {
 		const fetchData = async () => {
@@ -50,24 +53,21 @@ const QuestionPage = () => {
 	}, [id]);
 
 	const handleToggleOutput = () => {
-		updateBody({
-			...body,
-			toggleOutput: body.toggleOutput === true ? false : true,
-		});
+		dispatch(updateToggleOutput(toggleOutput === true ? false : true));
 	};
 
 	return (
 		<div>
 			<Header />
 			{loading ? (
-				<div className='h-[83vh]'>
+				<div className='h-[88vh]'>
 					<Loading />
 				</div>
 			) : (
-				<div className='h-[88vh] w-[100%] flex items-center justify-evenly gap-4'>
-					{body?.practiceStatus && <FullScreenConfetti />}
+				<div className='h-[87.5vh] w-screen flex items-center justify-evenly'>
+					{practiceStatus && <FullScreenConfetti />}
 					<div
-						className={`w-[38%] bg-neutral-800 h-[95%] border rounded-[10px] border-solid border-[white] overflow-y-scroll pb-4`}>
+						className={`w-[38%] bg-neutral-800 h-[85vh] border rounded-[10px] border-solid border-[white] overflow-y-scroll pb-4`}>
 						<div className='h-[7.5vh] w-full flex flex-wrap text-nowrap justify-around border-b-[rgb(76,76,76)] border-b border-solid'>
 							<button
 								className={`${
@@ -115,7 +115,7 @@ const QuestionPage = () => {
 							})()}
 						</div>
 					</div>
-					<div className='w-[58%] bg-[#202020] h-[95%] border rounded-[10px] border-solid border-[white]'>
+					<div className='w-[58%] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]'>
 						<div className='w-[100%] bg-[#202020] h-[100%] border rounded-[10px] border-solid border-[white] '>
 							<div className='w-[96%] h-[8%]'>
 								<NavBar />

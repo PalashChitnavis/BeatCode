@@ -2,9 +2,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import AceEditor from "react-ace";
-import { useBody } from "../../context/BodyContext";
 
 // Languages
 import "ace-builds/src-noconflict/mode-c_cpp";
@@ -30,40 +29,49 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import "./CodeEditor.css";
 import { useLocation } from "react-router-dom";
 import { getBoilerplateCode } from "../../services/getBoilerPlateCode";
-function CodeEditor({ question, socket, roomID }) {
-        const { body, updateBody } = useBody();
+import { useDispatch, useSelector } from "react-redux";
+import { updateCode } from "../../redux/slices/codeSlice";
+function CodeEditor({ question, socket, roomID, users }) {
+        const code = useSelector((state) => state.code?.value);
+        const tabSize = useSelector((state) => state.tabSize?.value);
+        const language = useSelector((state) => state.language?.value);
+        const editorTheme = useSelector((state) => state.editorTheme?.value);
+        const font = useSelector((state) => state.font?.value);
+        const dispatch = useDispatch();
         let location = useLocation();
-        const initialCode = getBoilerplateCode(location, body, question);
-        const handleChange = (value) => {
-                updateBody({ ...body, code: value });
-                socket && socket.emit("codeUpdate", { code: value, roomID: roomID });
-        };
 
-        const starterCodes = {
-                c: `#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`,
-                cpp: `#include <iostream>\n\nusing namespace std;\n\nint main() {\n    cout << "Hello, World!" << endl;\n    return 0;\n}`,
-                java: `public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}`,
-                python: `print("Hello, World!")`,
-        };
+        useEffect(() => {
+                const username = localStorage.getItem("username");
+                if (users && users.length == 2 && users[0].username === username) {
+                        socket && socket.emit("codeUpdate", { code: code, roomID: roomID });
+                }
+        }, [users]);
 
         useEffect(() => {
                 const editor = ace.edit("ace-editor");
-                editor.getSession().setTabSize(body.tabSize);
-                const boilerplateCode = getBoilerplateCode(location, body, question);
-                updateBody({ ...body, ouput: "" });
+                editor.getSession().setTabSize(tabSize);
+                const boilerplateCode = getBoilerplateCode(location, language, question);
+                dispatch(updateCode(boilerplateCode));
                 editor.setValue(boilerplateCode);
-        }, [body.tabSize, body.language, location.pathname, body.output]);
+                console.log("boilerplateCode : " + boilerplateCode);
+        }, [tabSize, language, location.pathname]);
+
+        const handleChange = (value) => {
+                dispatch(updateCode(value));
+                socket && socket.emit("codeUpdate", { code: value, roomID: roomID });
+                console.log("new code value : " + value);
+        };
 
         return (
                 <div className="flex justify-center items-center w-[100%] h-[100%] mt-[1%]">
                         <AceEditor
-                                mode={body.language === "c" || body.language === "cpp" ? "c_cpp" : body.language}
-                                theme={body.editorTheme}
-                                fontSize={body.font}
+                                mode={language === "c" || language === "cpp" ? "c_cpp" : language}
+                                theme={editorTheme}
+                                fontSize={font}
                                 name="ace-editor"
                                 width="96%"
                                 height="96%"
-                                value={body.code}
+                                value={code}
                                 onChange={handleChange}
                                 showPrintMargin={false}
                                 editorProps={{ $blockScrolling: true }}
@@ -73,7 +81,7 @@ function CodeEditor({ question, socket, roomID }) {
                                         enableSnippets: true,
                                 }}
                                 wrapEnabled={true}
-                                className="code-editor"
+                                className="code-editor z-10"
                         />
                 </div>
         );

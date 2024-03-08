@@ -26,7 +26,7 @@ const Profile = () => {
 					className='profile-info'
 					onClick={toggleDropdown}>
 					<img
-						className='h-10 rounded-[50%] cursor-pointer border border-solid'
+						className='h-10 rounded-[50%] border-white border-[2px] cursor-pointer'
 						src={avatarUrl}
 						alt='userProfile'
 					/>
@@ -36,23 +36,21 @@ const Profile = () => {
 						<div
 							className='fixed w-full h-full z-[1999] bg-[rgba(0,0,0,0.5)] left-0 top-0'
 							onClick={toggleDropdown}></div>
-						<div className='absolute top-20 flex flex-col px-6 py-2 gap-2 justify-center items-center bg-[#272822] border z-[2000] rounded-[10px] border-solid right-8'>
-							<div className='flex items-center justify-center w-full  border-b-[white] border-b border-solid py-1'>
+						<div className='absolute w-[15vw] h-[28vh] flex flex-col justify-center items-center bg-[#272822] border z-[2000] rounded-[10px] border-solid border-[white] right-[2.5vw] top-[8vh]'>
+							<div className='flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid'>
 								{username}
 							</div>
-							<div className='flex items-center justify-center w-full  border-b-[white] border-b border-solid overflow-hidden py-1'>
+							<div className='flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid'>
 								{email}
 							</div>
-							<div
-								className='flex items-center justify-center w-full  border-b-[white] border-b border-solid hover:bg-[#16a34a] py-1'
-								onClick={() => console.log("View Submissions")}>
+							<div className='flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid hover:bg-[#16a34a]'>
 								<Link to={"/submissions"}>View Submissions</Link>
 							</div>
-							<div className='flex items-center justify-center w-full  border-b-[white] border-b border-solid hover:bg-[#908383] py-1'>
+							<div className='flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid hover:bg-[#908383]'>
 								<Link to={"/settings"}>Settings</Link>
 							</div>
 							<div
-								className='flex items-center justify-center w-full  py-1'
+								className='flex items-center justify-center w-full h-[7vh] border-b-[white] border-b border-solid'
 								onClick={handleLogout}>
 								<button className='w-full h-full hover:bg-[rgba(255,0,0,0.8)]'>
 									Log Out

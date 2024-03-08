@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 
-import Register from "../Login/register";
+import Register from "../Login/Register";
 import { isLoggedIn } from "../Login/isLoggedIn";
 import Profile from "../Login/Profile";
 import { Link } from "react-router-dom";

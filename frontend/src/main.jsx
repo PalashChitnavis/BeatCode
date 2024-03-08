@@ -3,10 +3,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./main.css";
-import { BodyProvider } from "./context/BodyProvider";
+import { store } from "./redux/store";
+import { Provider } from "react-redux";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-        <BodyProvider>
+        <Provider store={store}>
                 <App />
-        </BodyProvider>
+        </Provider>
 );

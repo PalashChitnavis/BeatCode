@@ -5,7 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import { isLoggedIn } from "../../components/Login/isLoggedIn";
 import SubmissionList from "../../components/SubmissionList/SubmissionList";
 import Loading from "../../components/Loading/Loading";
-import Register from "../../components/Login/register";
+import Register from "../../components/Login/Register";
 const SubmissionPage = () => {
 	return (
 		<div className='flex flex-col w-[100%] h-[100vh]'>

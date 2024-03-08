@@ -20,6 +20,10 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/health", (req, res) => {
+        res.send("The server is running , this is just a test route");
+});
+
 app.use("/run", runCodeRoute);
 app.use("/practiceproblems", practiceProblemsRoute);
 app.use("/register", authRoute);
@@ -33,7 +37,7 @@ app.use("/leaderboard", leaderboard);
 mongoose.connect(process.env.DB_URL, {})
         .then(() => {
                 console.log("MongoDB connected");
-                const server = app.listen(port, () => {
+                const server = app.listen(port, "0.0.0.0", () => {
                         console.log(`Server is running on http://localhost:${port}`);
                 });
                 socketController(server);

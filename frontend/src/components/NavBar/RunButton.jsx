@@ -1,21 +1,26 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { React, useEffect, useState } from "react";
-import { useBody } from "../../context/BodyContext";
 import { runCompilerCode, runPracticeCode } from "../../services/runCodeApi";
 import { isLoggedIn } from "../Login/isLoggedIn";
 import { useLocation, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./RunButton.css";
-import LoadingButton from "@mui/lab/LoadingButton";
-
+import { useDispatch, useSelector } from "react-redux";
+import { updateOutput } from "../../redux/slices/outputSlice";
+import { updateToggleOutput } from "../../redux/slices/toggleOutput";
+import { updatePracticeStatus } from "../../redux/slices/practiceStatusSlice";
 const RunButton = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const { body, updateBody } = useBody();
 	const [userEmail, setUserEmail] = useState("");
 	const [userName, setUserName] = useState("");
 	const location = useLocation();
 	const { id } = useParams();
+	const output = useSelector((state) => state.output?.value);
+	const code = useSelector((state) => state.code?.value);
+	const userInput = useSelector((state) => state.userInput?.value);
+	const language = useSelector((state) => state.language?.value);
+	const dispatch = useDispatch();
 	useEffect(() => {
 		if (isLoggedIn()) {
 			const email = localStorage.getItem("email");
@@ -38,9 +43,9 @@ const RunButton = () => {
 				location.pathname.startsWith("/room")
 			) {
 				const reqBody = {
-					code: body.code,
-					userInput: body.userInput,
-					language: body.language,
+					code: code,
+					userInput: userInput,
+					language: language,
 					userEmail: userEmail,
 					userName: userName,
 				};
@@ -48,19 +53,21 @@ const RunButton = () => {
 				const result = await runCompilerCode(reqBody);
 				console.log(result);
 				if (result.stdout) {
-					updateBody({ ...body, toggleOutput: true, output: result.stdout });
+					dispatch(updateOutput(result.stdout));
+					dispatch(updateToggleOutput(true));
 				} else {
-					updateBody({
-						...body,
-						toggleOutput: true,
-						output: `Error During Execution : \n ${result.stderr}`,
-					});
+					dispatch(
+						updateOutput(
+							`Error During Execution (Please check for semicolons and syntax errors) : \n ${result.stderr}`
+						)
+					);
+					dispatch(updateToggleOutput(true));
 				}
 			}
 			if (location.pathname.startsWith("/practiceproblems")) {
 				const reqBody = {
-					code: body.code,
-					language: body.language,
+					code: code,
+					language: language,
 					userEmail: userEmail,
 					questionID: id,
 					userName: userName,
@@ -69,18 +76,18 @@ const RunButton = () => {
 				const result = await runPracticeCode(reqBody);
 				console.log(result);
 				if (result?.resp?.stdout) {
-					updateBody({
-						...body,
-						toggleOutput: true,
-						output: result.resp.stdout,
-						practiceStatus: result.status,
-					});
+					const index = result.resp.stdout?.indexOf("Test case 1");
+					const trimmed_result = result.resp.stdout?.substring(index);
+					dispatch(updateOutput(trimmed_result));
+					dispatch(updateToggleOutput(true));
+					dispatch(updatePracticeStatus(result.status));
 				} else {
-					updateBody({
-						...body,
-						toggleOutput: true,
-						output: `Error During Execution (Please check for semicolons and syntax errors) : \n ${result.stderr}`,
-					});
+					dispatch(
+						updateOutput(
+							`Error During Execution (Please check for semicolons and syntax errors) : \n ${result.stderr}`
+						)
+					);
+					dispatch(updateToggleOutput(true));
 				}
 			}
 		} catch (err) {
@@ -90,23 +97,12 @@ const RunButton = () => {
 		}
 	};
 	return (
-		<LoadingButton
+		<button
+			className='css-button-arrow--green'
 			onClick={handleClick}
-			loading={isLoading}
-			loadingPosition='end'
-			variant='contained'
-			sx={{
-				backgroundColor: "#16a34a",
-				paddingX: 4,
-				width: "100%",
-				"&.Mui-disabled": {
-					backgroundColor: "blue",
-					color: "#fff",
-					paddingRight: 6,
-				},
-			}}>
-			<span>Run</span>
-		</LoadingButton>
+			disabled={isLoading}>
+			{isLoading ? "Running..." : "Run"}
+		</button>
 	);
 };
 

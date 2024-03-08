@@ -2,13 +2,14 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "./InputWindow.css";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserInput } from "../../redux/slices/userInputSlice";
 
-import { useBody } from "../../context/BodyContext";
 const InputWindow = ({ socket, roomID }) => {
-	const { body, updateBody } = useBody();
-	const { userInput } = body;
+	const userInput = useSelector((state) => state.userInput?.value);
+	const dispatch = useDispatch();
 	const handleInputChange = (event) => {
-		updateBody({ ...body, userInput: event.target.value });
+		dispatch(updateUserInput(event.target.value));
 		socket &&
 			socket.emit("inputUpdate", {
 				userInput: event.target.value,
@@ -17,9 +18,9 @@ const InputWindow = ({ socket, roomID }) => {
 	};
 	return (
 		<div className='w-[100%] h-[100%] '>
-			<p className='text-[#bcaf3a] text-2xl pl-2 '>
-				Input
-				<span className='text-sm pl-2.5 text-wrap leading-3'>
+			<p className='text-[white] text-2xl pl-2 '>
+				Input{" "}
+				<span className='text-sm pl-2.5'>
 					(Enter input if required before pressing run)
 				</span>
 			</p>
@@ -29,7 +30,7 @@ const InputWindow = ({ socket, roomID }) => {
 				id='userInput'
 				cols='50'
 				rows='4'
-				value={userInput}
+				value={userInput || ""}
 				placeholder='Enter Input Value Here'
 				onChange={handleInputChange}
 			/>

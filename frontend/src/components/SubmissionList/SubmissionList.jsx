@@ -45,7 +45,7 @@ const SubmissionList = () => {
 	}, []);
 	return (
 		<div>
-			<div className='z-[1001] w-[100%] h-[100%] flex justify-center items-center rounded-[10px]  '>
+			<div className='z-[1001] w-[100vw] h-[88vh] flex justify-center items-center rounded-[10px]  '>
 				<div>
 					<div className='flex w-full items-center justify-center'>
 						<button
@@ -74,43 +74,47 @@ const SubmissionList = () => {
 					{toggleSubmission === "practiceproblems" ? (
 						<div className='onlinecompilersub'>
 							{practicesubmissions && practicesubmissions.length > 0 ? (
-								practicesubmissions.map((submission, index) => (
-									<div
-										key={submission._id}
-										className='xyzabcd'>
-										<div className='abcd'>
-											{index + 1}]{" "}
-											<span className='ml-[1vw]'>
-												{" "}
-												Created : {formatDateTime(submission.createdAt)}
-											</span>
-										</div>
-										<div className='flex justify-between ml-[3vw] mb-[2vh] mt-[2vh] mr-[2vw]'>
-											<div>
-												<SyntaxHighlighter
-													className='xyz'
-													language={submission.language}
-													wrapLines={true}>
-													{submission.code}
-												</SyntaxHighlighter>
+								practicesubmissions.map((submission, index) => {
+									const i = submission.output?.indexOf("Test case 1");
+									const trimmed_result = submission.output?.substring(i);
+									return (
+										<div
+											key={submission._id}
+											className='xyzabcd'>
+											<div className='abcd'>
+												{index + 1}]{" "}
+												<span className='ml-[1vw]'>
+													{" "}
+													Created : {formatDateTime(submission.createdAt)}
+												</span>
 											</div>
-											<div className='flex flex-col bcd'>
+											<div className='flex justify-between ml-[3vw] mb-[2vh] mt-[2vh] mr-[2vw]'>
 												<div>
-													<span className='text-[#4ec9b0]'>Status :</span>{" "}
-													<span className='text-[#ce9178]'>
-														{submission.status}
-													</span>
+													<SyntaxHighlighter
+														className='xyz'
+														language={submission.language}
+														wrapLines={true}>
+														{submission.code}
+													</SyntaxHighlighter>
 												</div>
-												<div>
-													<span className='text-[#4ec9b0]'>Output :</span>{" "}
-													<span className='text-[#ce9178] text-wrap'>
-														{submission.output}
-													</span>
+												<div className='flex flex-col bcd'>
+													<div>
+														<span className='text-[#4ec9b0]'>Status :</span>{" "}
+														<span className='text-[#ce9178]'>
+															{submission.status}
+														</span>
+													</div>
+													<div>
+														<span className='text-[#4ec9b0]'>Output :</span>{" "}
+														<span className='text-[#ce9178] text-wrap'>
+															{trimmed_result}
+														</span>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								))
+									);
+								})
 							) : (
 								<div className='flex w-full h-full justify-center items-center text-white text-4xl'>
 									No submissions made yet{"    "}&nbsp;&nbsp;

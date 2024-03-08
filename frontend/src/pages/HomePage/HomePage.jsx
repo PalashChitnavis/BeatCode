@@ -11,81 +11,27 @@ function HomePage() {
 		<div>
 			<Header />
 
-			<div className='flex min-h-[82vh] w-[100%] justify-evenly px-10 gap-12 text-white font-sans text-left py-8'>
-				<div className=' font-bold flex flex-col justify-center w-[50%] '>
-					<p className='text-6xl max-[1024px]:text-4xl'>BeatCode</p>
-					<p className='text-4xl mt-6 max-[1024px]:text-2xl'>
-						A better way to level up your coding.
-					</p>
-					<div className='flex justify-left mt-16 gap-10  flex-wrap '>
-						<Link to='/practiceproblems'>
-							<Button
-								variant='outlined'
-								color='success'
-								size='large'
-								sx={{
-									color: "#16a34a",
-									fontSize: 22,
-									borderRadius: 10,
-									"&:hover": {
-										// Adjust the hover radius as needed
-										backgroundColor: "#f0f0f0", // Change background color on hover if needed
-									},
-									"@media (max-width: 1024px)": {
-										fontSize: 16,
-									},
-								}}>
-								Practice Problems
-							</Button>
-						</Link>
-						<Link to='/room'>
-							<Button
-								variant='outlined'
-								color='success'
-								size='large'
-								sx={{
-									color: "#16a34a",
-									fontSize: 22,
-									borderRadius: 10,
-									"&:hover": {
-										backgroundColor: "#f0f0f0",
-									},
-									"@media (max-width: 1024px)": {
-										fontSize: 16,
-									},
-								}}>
-								Code Room
-							</Button>
-						</Link>
-						<Link to='/practiceproblems'>
-							<Button
-								variant='outlined'
-								color='success'
-								size='large'
-								sx={{
-									color: "#16a34a",
-									fontSize: 22,
-									borderRadius: 10,
-									"&:hover": {
-										// Adjust the hover radius as needed
-										backgroundColor: "#f0f0f0", // Change background color on hover if needed
-									},
-									"@media (max-width: 1024px)": {
-										fontSize: 16,
-									},
-								}}>
-								Practice Problems
-							</Button>
-						</Link>
+			<div className='flex h-[87.5vh] justify-around  text-white font-sans text-left'>
+				<div className=' w-[55%] font-bold mt-44'>
+					<p className='text-6xl'>BeatCode</p>
+					<p className='text-4xl mt-6'>A better way to level up your coding.</p>
+					<div className='flex justify-left mt-16 gap-10 w-[90%] '>
+						<button className='text-green-600 w-[35%]  text-xl border-2 border-green-600 rounded-full px-6 py-4  hover:bg-green-600 hover:text-white'>
+							<Link to='/practiceproblems'>Practice Problems</Link>
+						</button>
+						<button className='text-green-600 w-[35%] text-xl border-2 border-green-600 rounded-full px-6 py-4  hover:bg-green-600 hover:text-white'>
+							<Link to='/onlinecompiler'>Online Compiler</Link>
+						</button>
+						<button className='text-green-600 w-[35%]  text-xl border-2 border-green-600 rounded-full px-6 py-4  hover:bg-green-600 hover:text-white'>
+							<Link to='/room'>Code Room</Link>
+						</button>
 					</div>
 				</div>
-				<div className='m-8  w-[35%] flex justify-center'>
-					<img
-						src='Home-Page-Tree.svg'
-						alt='Coding Tree Image'
-						className='  w-[100%] '
-					/>
-				</div>
+				<img
+					src='Home-Page-Tree.svg'
+					alt='Coding Tree Image'
+					className='w-[40%]  mt-10 '
+				/>
 			</div>
 
 			<Footer />

@@ -1,4 +1,4 @@
-export const getBoilerplateCode = (location, body, question) => {
+export const getBoilerplateCode = (location, language, question) => {
         if (location.pathname === "/onlinecompiler" || location.pathname.startsWith("/room")) {
                 const starterCodes = {
                         c: `#include <stdio.h>\n\nint main() {\n    printf("Hello, World!\\n");\n    return 0;\n}`,
@@ -7,9 +7,9 @@ export const getBoilerplateCode = (location, body, question) => {
                         python: `print("Hello, World!")`,
                         javascript: `console.log("Hello, World!");`,
                 };
-                return starterCodes[body.language];
+                return starterCodes[language];
         } else if (location.pathname.startsWith("/practiceproblems")) {
-                return question?.boilerplate[body.language];
+                return question?.boilerplate[language];
         } else {
                 return "";
         }

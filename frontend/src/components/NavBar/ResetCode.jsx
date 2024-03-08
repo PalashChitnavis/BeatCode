@@ -3,19 +3,27 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useCallback } from "react";
-import { useBody } from "../../context/BodyContext";
 import { useLocation, useParams } from "react-router-dom";
 import { fetchQuestionById } from "../../services/practiceProblemsApi";
 import { getBoilerplateCode } from "../../services/getBoilerPlateCode";
+import { useSelector, useDispatch } from "react-redux";
+import { updateCode } from "../../redux/slices/codeSlice";
+import { updateUserInput } from "../../redux/slices/userInputSlice";
+import { updateOutput } from "../../redux/slices/outputSlice";
+import { updateToggleOutput } from "../../redux/slices/toggleOutput";
 import "@fortawesome/fontawesome-svg-core";
 const ResetCode = () => {
-        const { body, updateBody } = useBody();
+        const language = useSelector((state) => state.language?.value);
+        const dispatch = useDispatch();
         const location = useLocation();
         const { id } = useParams();
         const [question, setQuestion] = useState(null);
         const handleResetClick = async () => {
-                const code = getBoilerplateCode(location, body, question);
-                updateBody({ ...body, code: code, userInput: "", output: "" });
+                const code = getBoilerplateCode(location, language, question);
+                dispatch(updateCode(code));
+                dispatch(updateOutput(""));
+                dispatch(updateUserInput(""));
+                dispatch(updateToggleOutput(false));
         };
 
         useEffect(() => {
