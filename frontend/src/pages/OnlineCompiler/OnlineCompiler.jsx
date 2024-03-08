@@ -6,17 +6,17 @@ import LeftPart from "../../components/LeftPart/LeftPart";
 import RightPart from "../../components/RightPart/RightPart";
 
 function OnlineCompiler() {
-        return (
-                <>
-                        <Header />
-                        <div className="flex h-[87.5vh]">
-                                <LeftPart />
-                                <RightPart />
-                        </div>
+	return (
+		<>
+			<Header />
+			<div className='flex h-[88vh] justify-evenly gap-4'>
+				<LeftPart />
+				<RightPart />
+			</div>
 
-                        <Footer />
-                </>
-        );
+			<Footer />
+		</>
+	);
 }
 
 export default OnlineCompiler;

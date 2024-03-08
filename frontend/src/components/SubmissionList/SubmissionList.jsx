@@ -45,7 +45,7 @@ const SubmissionList = () => {
 	}, []);
 	return (
 		<div>
-			<div className='z-[1001] w-[100vw] h-[88vh] flex justify-center items-center rounded-[10px]  '>
+			<div className='z-[1001] w-[100%] h-[100%] flex justify-center items-center rounded-[10px]  '>
 				<div>
 					<div className='flex w-full items-center justify-center'>
 						<button

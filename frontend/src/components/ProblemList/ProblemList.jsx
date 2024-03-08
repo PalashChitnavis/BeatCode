@@ -43,13 +43,13 @@ const ProblemList = ({ response }) => {
 	const QuestionsArray = questions.map((question) => (
 		<tr
 			key={question.id}
-			className='text-white font-bold text-center border-b-2 border-gray-400'>
+			className='text-white font-bold text-center border-b-2 border-gray-400 max-[768px]:text-md'>
 			<td className='w-[10%] p-4'>
 				<div className='w-4 h-4 flex justify-center items-center rounded-sm border-green-800 border-2 bg-[#202225] mx-auto'>
 					{attemptedQuestions.includes(question.id) ? `✅` : ``}
 				</div>
 			</td>
-			<td className='w-[70%] p-4 text-left hover:text-[#485fc7]'>
+			<td className='w-[70%] p-4 text-left hover:text-[#d5cd61]'>
 				<Link
 					onClick={resetConfetti}
 					to={`/practiceproblems/questions/${question.id}`}>
@@ -65,9 +65,9 @@ const ProblemList = ({ response }) => {
 	return (
 		<div className='bg-[#2f3136] rounded-lg w-full'>
 			{questions ? (
-				<table className='w-full border-collapse border-gray-400 text-center'>
+				<table className='w-full border-collapse border-gray-400 text-center '>
 					<thead>
-						<tr className='text-white border-b-2 text-xl font-bold'>
+						<tr className='text-white border-b-2 text-xl font-bold max-[768px]:text-lg'>
 							<td className='w-[10%] p-4'>Status</td>
 							<td className='w-[70%] p-4 text-left'>Problem</td>
 							<td className='w-[20%] p-4'>Difficulty</td>
