@@ -56,16 +56,16 @@ const Settings = () => {
                                                 className="fixed w-full h-full bg-[rgba(0,0,0,0.5)] z-[1000] left-0 top-0"
                                                 onClick={toggle}
                                         ></div>
-                                        <div className=" fixed -translate-x-2/4 -translate-y-2/4 z-[1001] w-[50vw] h-[60vh] bg-[#2f3136] border shadow-[0_0_10px_rgba(0,0,0,0.2)] p-5 rounded-[10px] border-solid border-[#ccc] left-2/4 top-2/4">
-                                                <label className="bg-[#2f3136] flex w-full justify-between mt-[2vh] mb-[6vh]">
-                                                        <div>
-                                                                <p className="bg-[#2f3136] text-xl">Code Font:</p>
-                                                                <p className="bg-[#2f3136] text-lg mt-2.5">
+                                        <div className=" fixed left-[10%] lg:w-[50%] lg:left-[25%]  top-[20%] overflow-y-scroll z-[1001] w-[80%] h-[60%] bg-[#2f3136] border shadow-[0_0_10px_rgba(0,0,0,0.2)] px-5 py-1 rounded-[10px] border-solid border-[#ccc]">
+                                                <label className="bg-[#2f3136] flex items-center w-full h-[28%]  justify-between py-1">
+                                                        <div className="w-[55%] h-10">
+                                                                <p className="bg-[#2f3136] text-md">Code Font:</p>
+                                                                <p className="bg-[#2f3136] text-sm">
                                                                         Choose the font size of the editor.
                                                                 </p>
                                                         </div>
                                                         <select
-                                                                className="h-[50px] bg-[rgb(95,139,173)] text-[white] text-lg w-[170px] cursor-pointer pl-2.5 rounded-[10px]"
+                                                                className="h-10 flex justify-center items-center bg-[rgb(95,139,173)] text-[white] text-md w-[45%] cursor-pointer px-2 rounded-[10px]"
                                                                 name="font"
                                                                 value={font}
                                                                 onChange={handleInputChange}
@@ -82,15 +82,15 @@ const Settings = () => {
                                                         </select>
                                                 </label>
 
-                                                <label className="bg-[#2f3136] flex w-full justify-between mt-[2vh] mb-[6vh]">
-                                                        <div>
-                                                                <p className="bg-[#2f3136] text-xl">Editor Theme:</p>
-                                                                <p className="bg-[#2f3136] text-lg mt-2.5">
+                                                <label className="bg-[#2f3136] flex w-full items-center h-[28%]  justify-between py-1">
+                                                        <div className="w-[55%] h-10">
+                                                                <p className="bg-[#2f3136] text-md">Editor Theme:</p>
+                                                                <p className="bg-[#2f3136] text-sm ">
                                                                         Choose a theme for the editor.
                                                                 </p>
                                                         </div>
                                                         <select
-                                                                className="h-[50px] bg-[rgb(95,139,173)] text-[white] text-lg w-[170px] cursor-pointer pl-2.5 rounded-[10px]"
+                                                                className="h-10 flex justify-center items-center bg-[rgb(95,139,173)] text-[white] text-md w-[45%] cursor-pointer px-2 rounded-[10px]"
                                                                 name="editorTheme"
                                                                 value={editorTheme}
                                                                 onChange={handleInputChange}
@@ -107,15 +107,15 @@ const Settings = () => {
                                                         </select>
                                                 </label>
 
-                                                <label className="bg-[#2f3136] flex w-full justify-between mt-[2vh] mb-[6vh]">
-                                                        <div>
-                                                                <p className="bg-[#2f3136] text-xl">Tab Size:</p>
-                                                                <p className="bg-[#2f3136] text-lg mt-2.5">
+                                                <label className="bg-[#2f3136] flex items-center w-full h-[28%]  justify-between py-1">
+                                                        <div className="w-[55%] h-10">
+                                                                <p className="bg-[#2f3136] text-md">Tab Size:</p>
+                                                                <p className="bg-[#2f3136] text-sm">
                                                                         Update the default tab size of the editor.
                                                                 </p>
                                                         </div>
                                                         <select
-                                                                className="h-[50px] bg-[rgb(95,139,173)] text-[white] text-lg w-[170px] cursor-pointer pl-2.5 rounded-[10px]"
+                                                                className="h-10 flex justify-center items-center bg-[rgb(95,139,173)] text-[white] text-md w-[45%] cursor-pointer px-2 rounded-[10px]"
                                                                 name="tabSize"
                                                                 value={tabSize}
                                                                 onChange={handleInputChange}
@@ -131,13 +131,15 @@ const Settings = () => {
                                                                 ))}
                                                         </select>
                                                 </label>
-                                                <button
-                                                        onClick={toggle}
-                                                        className="w-[5vw] h-10   cursor-pointer font-bold transition-all duration-[0.3s] ease-[ease] text-[#d90429] ml-[45%] rounded-[5px] border-4 border-solid border-[#d90429]
+                                                <div className="w-full h-[15%] flex justify-center items-center py-2">
+                                                        <button
+                                                                onClick={toggle}
+                                                                className="w-[40%] lg:w-[20%] h-10 cursor-pointer font-bold transition-all duration-[0.3s] ease-[ease] text-[#d90429]  rounded-[5px] border-4 border-solid border-[#d90429]
                                                         bg-white hover:bg-[#d90429] hover:text-[#fff] font-sans"
-                                                >
-                                                        Close
-                                                </button>
+                                                        >
+                                                                Close
+                                                        </button>
+                                                </div>
                                         </div>{" "}
                                 </div>
                         )}

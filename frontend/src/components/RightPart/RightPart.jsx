@@ -5,16 +5,16 @@ import OutputWindow from "../OutputWindow/OutputWindow";
 import InputWindow from "../InputWindow/InputWindow";
 
 const RightPart = () => {
-	return (
-		<div className='flex flex-col w-[30%] h-[100%] gap-3 justify-evenly '>
-			<div className='w-[95%] h-[38%]'>
-				<InputWindow />
-			</div>
-			<div className='w-[95%] h-[38%]'>
-				<OutputWindow />
-			</div>
-		</div>
-	);
+        return (
+                <div className="flex  w-full h-[100%] lg:items-center gap-3 lg:gap-0   justify-around lg:flex-col lg:w-[45%] ">
+                        <div className="w-[95%] h-[50%] lg:h-[40%]">
+                                <InputWindow />
+                        </div>
+                        <div className="w-[95%] h-[50%] lg:h-[40%]">
+                                <OutputWindow />
+                        </div>
+                </div>
+        );
 };
 
 export default RightPart;

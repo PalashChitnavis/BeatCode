@@ -81,7 +81,7 @@ function CodeEditor({ question, socket, roomID, users }) {
                                         enableSnippets: true,
                                 }}
                                 wrapEnabled={true}
-                                className="code-editor z-10"
+                                className="code-editor z-0"
                         />
                 </div>
         );
