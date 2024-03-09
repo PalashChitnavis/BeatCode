@@ -20,67 +20,82 @@ const Room = () => {
 		navigate(`/room/${roomID}`);
 	}
 	return (
-		<div>
-			<Header />
-			{!isLoggedIn() && (
-				<div className='z-1999 fixed w-full h-full flex justify-center pt-[30vh] bg-[#000] bg-opacity-50 '>
-					<div className='bg-[#2f3136] w-[40vw] h-[25vh] flex-col flex justify-evenly items-center  rounded-2xl text-white'>
-						<div className='text-2xl'>
-							To use this feature please register yourself, thank you
-						</div>
-						<Register />
-					</div>
-				</div>
-			)}
-			<div className='flex w-[100vw] h-[83vh] justify-evenly'>
-				<div className='w-[50%] border-r-2 h-[100%] flex flex-col items-center justify-start'>
-					<div className='text-3xl text-white border-b-2 mt-[5vh] align-top '>
-						Host a Room
-					</div>
-					<Button
-						variant='outlined'
-						color='success'
-						onClick={hostClick}
-						size='large'
-						sx={{
-							color: "#16a34a",
-							fontSize: 22,
-							borderRadius: 10,
-							marginY: "auto",
-							paddingX: 6,
-							"&:hover": {
-								backgroundColor: "#f0f0f0",
-							},
-						}}>
-						Host a room
-					</Button>
-				</div>
-				<div className='w-[50%] border-l-2 h-[100%] flex flex-col items-center'>
-					<div className='text-3xl text-white border-b-2 mt-[5vh]'>
-						Join a Room
-					</div>
-					<div className='flex gap-5 mt-[32vh]'>
-						<input
-							className='text-3xl indent-3 text-black placeholder-gray-600 py-2 max-w-[30vw]'
-							type='text'
-							name='roomid'
-							id='roomid'
-						/>
-						<Button
-							variant='outlined'
-							onClick={joinClick}
-							color='success'
-							sx={{
-								"&:hover": {
-									backgroundColor: "#f0f0f0",
-								},
-							}}>
-							Join
-						</Button>
-					</div>
-				</div>
+		<div className='w-[100vw] h-[100vh]'>
+			<div className='h-[8vh] w-[100vw] flex justify-center items-center'>
+				<Header />
 			</div>
-			<Footer />
+			<div className='min-h-[87vh]'>
+				{!isLoggedIn() ? (
+					<div className='z-1999 fixed w-full h-[87vh] flex justify-center items-center  bg-[#000] bg-opacity-50 '>
+						<div className='bg-[#2f3136] z-[2000] w-[95%] h-[90%] flex-col flex justify-evenly items-center p-8 rounded-2xl text-white'>
+							<div className='text-2xl text-center'>
+								To use this feature please register yourself, thank you 😊
+							</div>
+							<div>
+								<Register />
+							</div>
+						</div>
+					</div>
+				) : (
+					<>
+						<div className='w-full h-[83vh] flex flex-col lg:flex-row justify-evenly items-center lg:w-[75%] lg:mx-auto'>
+							<div className='w-full h-[50%] flex flex-col items-center justify-evenly border-b-2 lg:border-b-0 lg:border-r-2'>
+								<div className='text-3xl text-white border-b-2 '>
+									Host a Room
+								</div>
+								<Button
+									variant='outlined'
+									color='success'
+									onClick={hostClick}
+									size='large'
+									sx={{
+										color: "#16a34a",
+										fontSize: 22,
+										borderRadius: 10,
+										paddingX: 6,
+										"&:hover": {
+											backgroundColor: "#f0f0f0",
+										},
+									}}>
+									Host a room
+								</Button>
+							</div>
+							<div className='w-full  h-[50%] flex flex-col items-center justify-evenly'>
+								<div className='text-3xl text-white border-b-2 '>
+									Join a Room
+								</div>
+								<div className='flex gap-5 '>
+									<div>
+										<input
+											className='text-xl indent-3 text-black placeholder-gray-600 py-2 w-56'
+											type='text'
+											name='roomid'
+											id='roomid'
+										/>
+									</div>
+									<div>
+										<Button
+											variant='outlined'
+											onClick={joinClick}
+											color='success'
+											size='large'
+											sx={{
+												"&:hover": {
+													backgroundColor: "#f0f0f0",
+												},
+											}}>
+											Join
+										</Button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</>
+				)}
+			</div>
+			<div className='h-[5vh] w-[100vw] flex justify-center items-center'>
+				<Footer />
+			</div>
 		</div>
 	);
 };

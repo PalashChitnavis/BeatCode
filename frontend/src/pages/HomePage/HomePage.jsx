@@ -22,13 +22,13 @@ function HomePage() {
 						A better way to level up your coding.
 					</p>
 					<div className='flex flex-col  lg:flex-row lg:justify-start justify-center gap-8 items-center w-full text-nowrap py-6'>
-						<button className='text-green-600 lg:text-2xl w-[60%] lg:w-[25%] lg:text-wrap text-xl border-2 border-green-600 rounded-full px-6 py-4  hover:bg-green-600 hover:text-white'>
+						<button className='text-green-600 lg:text-2xl w-[60%] lg:w-[22%] lg:text-wrap text-xl border-2 border-green-600 rounded-full px-6 py-4  hover:bg-green-600 hover:text-white'>
 							<Link to='/practiceproblems'>Practice Problems</Link>
 						</button>
-						<button className='text-green-600 w-[60%] lg:w-[25%] lg:text-wrap lg:text-2xl text-xl border-2 border-green-600 rounded-full px-6 py-4  hover:bg-green-600 hover:text-white'>
+						<button className='text-green-600 w-[60%] lg:w-[22%] lg:text-wrap lg:text-2xl text-xl border-2 border-green-600 rounded-full px-6 py-4  hover:bg-green-600 hover:text-white'>
 							<Link to='/onlinecompiler'>Online Compiler</Link>
 						</button>
-						<button className='text-green-600 w-[60%] lg:w-[25%] lg:text-wrap lg:text-2xl text-xl border-2 border-green-600 rounded-full px-6 py-4  hover:bg-green-600 hover:text-white'>
+						<button className='text-green-600 w-[60%] lg:w-[22%] lg:text-wrap lg:text-2xl text-xl border-2 border-green-600 rounded-full px-6 py-4  hover:bg-green-600 hover:text-white'>
 							<Link to='/room'>Code Room</Link>
 						</button>
 					</div>

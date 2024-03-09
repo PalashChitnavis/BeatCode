@@ -33,10 +33,12 @@ const Settings = () => {
 		return daysSince;
 	}
 	return (
-		<div>
-			<Header />
+		<div className='h-[100vh] w-[100vw]'>
+			<div className='h-[8vh] w-[100vw] flex justify-center items-center'>
+				<Header />
+			</div>
 			{user ? (
-				<div className='w-[100%] h-[88vh] flex justify-start flex-col gap-12 items-center'>
+				<div className='w-[100%] h-[87vh] flex justify-start flex-col gap-12 items-center'>
 					<div className='mt-16'>
 						<img
 							className='h-20 rounded-[50%] cursor-pointer'
@@ -46,7 +48,7 @@ const Settings = () => {
 							alt='userProfile'
 						/>
 					</div>
-					<div className='w-[40%] gap-5 border border-red-200 rounded-md text-[#fff] flex-col flex justify-center  text-2xl p-8 leading-relaxed'>
+					<div className='w-[90%] lg:w-[40%] gap-5 border border-red-200 rounded-md text-[#fff] flex-col flex justify-center  lg:text-2xl p-8 leading-relaxed'>
 						<table>
 							<tr>
 								<td>
@@ -78,11 +80,13 @@ const Settings = () => {
 					</div>
 				</div>
 			) : (
-				<div className='h-[88vh]'>
+				<div className='min-h-[87vh]'>
 					<Loading />
 				</div>
 			)}
-			<Footer />
+			<div className='h-[5vh] w-[100vw] flex justify-center items-center'>
+				<Footer />
+			</div>
 		</div>
 	);
 };

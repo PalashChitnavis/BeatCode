@@ -29,6 +29,11 @@ const QuestionPage = () => {
 	const practiceStatus = useSelector((state) => state.practiceStatus?.value);
 	const output = useSelector((state) => state.output?.value);
 	const [response, setResponse] = useState();
+	const [screen, setScreen] = useState(window.screen.width);
+	window.addEventListener("resize", () => {
+		setScreen(window.screen.width);
+	});
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -57,17 +62,19 @@ const QuestionPage = () => {
 	};
 
 	return (
-		<div>
-			<Header />
+		<div className='w-[100vw] h-[100vh]'>
+			<div className='h-[8vh] w-[100vw] flex justify-center items-center'>
+				<Header />
+			</div>
 			{loading ? (
-				<div className='h-[88vh]'>
+				<div className='h-[75vh] lg:h-[87vh] w-full mx-auto'>
 					<Loading />
 				</div>
 			) : (
-				<div className='h-[87.5vh] w-screen flex items-center justify-evenly'>
+				<div className='lg:h-[87vh] w-[100vw] lg:w-[98%] lg:mx-auto lg:justify-between min-h-[75vh] flex flex-col lg:flex-row gap-4 items-center justify-start'>
 					{practiceStatus && <FullScreenConfetti />}
 					<div
-						className={`w-[38%] bg-neutral-800 h-[85vh] border rounded-[10px] border-solid border-[white] overflow-y-scroll pb-4`}>
+						className={`bg-neutral-800 h-full w-full lg:border lg:rounded-[10px] lg:border-solid lg:border-[white] overflow-y-scroll pb-4 lg:h-[95%]`}>
 						<div className='h-[7.5vh] w-full flex flex-wrap text-nowrap justify-around border-b-[rgb(76,76,76)] border-b border-solid'>
 							<button
 								className={`${
@@ -115,45 +122,49 @@ const QuestionPage = () => {
 							})()}
 						</div>
 					</div>
-					<div className='w-[58%] bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white]'>
-						<div className='w-[100%] bg-[#202020] h-[100%] border rounded-[10px] border-solid border-[white] '>
-							<div className='w-[96%] h-[8%]'>
-								<NavBar />
-							</div>
-							{toggleOutput ? (
-								<div className={`h-[40%]`}>
-									{question && <CodeEditor question={question} />}
+					{(navigation === "question" || screen > 1024) && (
+						<div className='w-full bg-[#202020] h-[85vh] border rounded-[10px] border-solid border-[white] lg:h-[95%]'>
+							<div className='w-[100%] bg-[#202020] h-[100%] border rounded-[10px] border-solid border-[white] '>
+								<div className='w-[96%] h-[8%]'>
+									<NavBar />
 								</div>
-							) : (
-								<div className={`h-[80%]`}>
-									{question && <CodeEditor question={question} />}
-								</div>
-							)}
-							<button
-								onClick={handleToggleOutput}
-								className={`palash flex items-center pl-[2%]  w-[96%] h-[8%] ml-[2%] text-[#fff]`}>
-								Output Window{" "}
 								{toggleOutput ? (
-									<i className='pl-[10px] fa-solid fa-angle-down'></i>
+									<div className={`h-[40%]`}>
+										{question && <CodeEditor question={question} />}
+									</div>
 								) : (
-									<i className='pl-[10px] fa-solid fa-angle-up'></i>
+									<div className={`h-[80%]`}>
+										{question && <CodeEditor question={question} />}
+									</div>
 								)}
-							</button>
-							{toggleOutput && (
-								<div className='h-[35%] w-[96%] bg-[#272822] ml-[2%] mt-[2%]'>
-									<textarea
-										placeholder='Output will be displayed here'
-										id='userOutput'
-										className='bg-[#272822] text-[aliceblue] w-[100%] h-[100%] resize-none text-xl border p-4 rounded-[10px] border-solid border-[white] leading-8'
-										readOnly
-										value={output}></textarea>
-								</div>
-							)}
+								<button
+									onClick={handleToggleOutput}
+									className={`palash flex items-center pl-[2%]  w-[96%] h-[8%] ml-[2%] text-[#fff]`}>
+									Output Window{" "}
+									{toggleOutput ? (
+										<i className='pl-[10px] fa-solid fa-angle-down'></i>
+									) : (
+										<i className='pl-[10px] fa-solid fa-angle-up'></i>
+									)}
+								</button>
+								{toggleOutput && (
+									<div className='h-[35%] w-[96%] bg-[#272822] ml-[2%] mt-[2%]'>
+										<textarea
+											placeholder='Output will be displayed here'
+											id='userOutput'
+											className='bg-[#272822] text-[aliceblue] w-[100%] h-[100%] resize-none text-xl border p-4 rounded-[10px] border-solid border-[white] leading-8'
+											readOnly
+											value={output}></textarea>
+									</div>
+								)}
+							</div>
 						</div>
-					</div>
+					)}
 				</div>
 			)}
-			<Footer />
+			<div className='h-[5vh] w-[100vw] flex justify-center items-center'>
+				<Footer />
+			</div>
 		</div>
 	);
 };

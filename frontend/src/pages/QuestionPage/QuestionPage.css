@@ -22,7 +22,7 @@ button.active {
 
 ::-webkit-scrollbar-thumb {
 	background-color: #564d4f;
-
+	width: 0.5rem;
 	border-radius: 5px;
 }
 
