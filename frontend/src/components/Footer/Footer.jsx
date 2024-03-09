@@ -15,12 +15,12 @@ const Footer = () => {
                                 </a>
                         </div>
 
-                        <div className="text-white  flex gap-2 text-lg justify-center items-center text-[0.8em] text-nowrap w-full lg:mx-auto lg:text-nowrap lg:text-xl">
+                        <div className="text-white  flex gap-1 lg:gap-2  text-nowrap justify-center items-center text-sm w-full lg:mx-auto lg:text-nowrap lg:text-xl">
                                 Made with <i className="fa-solid  fa-heart fa-beat text-red-500"></i> by
                                 <a
                                         href="https://github.com/PalashChitnavis"
                                         target="_blank"
-                                        className="hover:text-green-200 text-md"
+                                        className="hover:text-green-200 text-sm lg:text-xl"
                                 >
                                         Palash Chitnavis
                                 </a>
@@ -28,7 +28,7 @@ const Footer = () => {
                                 <a
                                         href="https://github.com/maheshcodes12"
                                         target="_blank"
-                                        className="hover:text-green-200 text-md"
+                                        className="hover:text-green-200 text-sm lg:text-xl"
                                 >
                                         Mahesh Suryawanshi
                                 </a>

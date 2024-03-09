@@ -9,7 +9,7 @@ export default function ProgressBar({ progress, color }) {
         };
 
         return (
-                <div className="bg-white w-full h-2 mt-2 mb-6 rounded-full">
+                <div className="bg-white w-[50%] lg:w-full h-2 mt-2 mb-6 rounded-full">
                         <div className="h-2 rounded-full" style={progressStyle}></div>
                 </div>
         );

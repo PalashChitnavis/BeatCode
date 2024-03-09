@@ -9,34 +9,35 @@ import { getUserStatus } from "../../services/getUserStats";
 import { isLoggedIn } from "../../components/Login/isLoggedIn";
 import Loading from "../../components/Loading/Loading";
 const PracticeProblems = () => {
-	const [response, setResponse] = useState();
-	useEffect(() => {
-		if (isLoggedIn()) {
-			const email = localStorage.getItem("email");
-			async function handleStats() {
-				const response = await getUserStatus(email);
-				setResponse(response);
-			}
-			handleStats();
-		}
-	}, []);
-	return (
-		<>
-			<Header />
-			<div className='h-[83vh] flex flex-col justify-center'>
-				<div className='flex justify-around w-full max-[768px]:flex-col max-[768px]:justify-center max-[768px]:items-center gap-8 overflow-scroll max-[768px]:pt-[0vh] max-[480px]:pt-[44vh]'>
-					<div className='w-[20%] max-[768px]:w-[50%]'>
-						<Stats response={response} />
-					</div>
-
-					<div className='w-[60%] max-[768px]:w-[89%]'>
-						<ProblemList response={response} />
-					</div>
-				</div>
-			</div>
-			<Footer />
-		</>
-	);
+        const [response, setResponse] = useState();
+        useEffect(() => {
+                if (isLoggedIn()) {
+                        const email = localStorage.getItem("email");
+                        async function handleStats() {
+                                const response = await getUserStatus(email);
+                                setResponse(response);
+                        }
+                        handleStats();
+                }
+        }, []);
+        return (
+                <>
+                        <div className="h-[8vh] w-[100vw] flex justify-center items-center">
+                                <Header />
+                        </div>
+                        <div className="h-[75vh] lg:h-[87vh] lg:flex-row  lg:gap-10 flex flex-col gap-3 justify-center items-center">
+                                <div className="w-[95%] h-[30%] lg:w-[25%] lg:h-[50%]">
+                                        <Stats response={response} />
+                                </div>
+                                <div className="w-[95%] h-[60%] lg:w-[65%] lg:h-[60%]">
+                                        <ProblemList response={response} />
+                                </div>
+                        </div>
+                        <div className="h-[5vh] w-[100vw] flex justify-center items-center">
+                                <Footer />
+                        </div>
+                </>
+        );
 };
 
 export default PracticeProblems;

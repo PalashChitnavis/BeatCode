@@ -13,7 +13,6 @@ export const signup = async (userData) => {
                                 });
                                 setTimeout(() => {
                                         login(userData);
-                                        alert("hello");
                                 }, 1000);
                         } else {
                                 // Registration failed, display error alert with reason
