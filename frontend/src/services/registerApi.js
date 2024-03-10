@@ -6,7 +6,7 @@ export const signup = async (userData) => {
         await axios
                 .post(`${backendUrl}/register/signup`, userData)
                 .then((res) => {
-                        if (res.data.success) {
+                        if (res.data.success || res.data.message) {
                                 toast.success(`Logging you in, ${userData.username} `, {
                                         autoClose: 1000,
                                         position: "bottom-right",
@@ -27,6 +27,7 @@ export const signup = async (userData) => {
 export const login = async (userData, type) => {
         if (type === "normal") {
                 const backendUrl = import.meta.env.VITE_BACKEND_URL;
+                const frontendURL = import.meta.env.VITE_FRONTEND_URL;
                 await axios
                         .post(`${backendUrl}/register/login`, userData)
                         .then((res) => {
@@ -41,7 +42,7 @@ export const login = async (userData, type) => {
                                                 position: "bottom-right",
                                         });
                                         setTimeout(() => {
-                                                window.location.reload();
+                                                window.location.href = frontendURL;
                                         }, 1500);
                                 } else {
                                         // Registration failed, display error alert with reason

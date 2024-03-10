@@ -12,11 +12,12 @@ const Profile = () => {
         const toggleDropdown = () => {
                 setIsDropdownOpen(!isDropdownOpen);
         };
+        const frontendURL = import.meta.env.VITE_FRONTEND_URL;
         const handleLogout = () => {
                 localStorage.clear();
                 toast.success("Logging out , bye bye", { autoClose: 2000 });
                 setTimeout(() => {
-                        window.location.reload();
+                        window.location.href = frontendURL;
                 }, 2000);
         };
         return (

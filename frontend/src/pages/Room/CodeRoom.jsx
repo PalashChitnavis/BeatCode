@@ -47,8 +47,9 @@ const CodeRoom = () => {
         }, [socket]);
 
         const navigate = useNavigate();
+        const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
         function leaveRoom() {
-                window.location.href = "/room";
+                window.location.href = frontendUrl;
                 socket && socket.emit("endVideoCall", { to: otherUser.socketID });
         }
 
