@@ -49,7 +49,7 @@ const CodeRoom = () => {
         const navigate = useNavigate();
         const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
         function leaveRoom() {
-                window.location.href = frontendUrl;
+                window.location.href = frontendUrl + "/room";
                 socket && socket.emit("endVideoCall", { to: otherUser.socketID });
         }
 
@@ -336,11 +336,11 @@ const CodeRoom = () => {
                                                                                                         <ReactPlayer
                                                                                                                 playing
                                                                                                                 height="90%"
-                                                                                                                width="100%"
+                                                                                                                width="85%"
                                                                                                                 url={
                                                                                                                         myStream
                                                                                                                 }
-                                                                                                                volume={5}
+                                                                                                                volume={0}
                                                                                                         />
                                                                                                 </div>
                                                                                         )}
@@ -355,10 +355,11 @@ const CodeRoom = () => {
                                                                                                         <ReactPlayer
                                                                                                                 playing
                                                                                                                 height="90%"
-                                                                                                                width="100%"
+                                                                                                                width="85%"
                                                                                                                 url={
                                                                                                                         otherStream
                                                                                                                 }
+                                                                                                                volume={1}
                                                                                                         />
                                                                                                 </div>
                                                                                         )}

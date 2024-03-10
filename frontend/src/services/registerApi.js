@@ -6,11 +6,17 @@ export const signup = async (userData) => {
         await axios
                 .post(`${backendUrl}/register/signup`, userData)
                 .then((res) => {
-                        if (res.data.success || res.data.message) {
+                        console.log(res);
+                        if (res.data?.success) {
                                 toast.success(`Logging you in, ${userData.username} `, {
                                         autoClose: 1000,
                                         position: "bottom-right",
                                 });
+                                setTimeout(() => {
+                                        login(userData, "normal");
+                                }, 1000);
+                        }
+                        if (res.data?.message === "Email already registered") {
                                 setTimeout(() => {
                                         login(userData, "normal");
                                 }, 1000);

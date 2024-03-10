@@ -154,7 +154,7 @@ const Register = () => {
                                                                 </form>
                                                                 <button
                                                                         className="w-full py-2 mt-5 text-xl flex gap-5 justify-center items-center bg-[#4f86ec] text-white"
-                                                                        onClick={getGoogleAuth()}
+                                                                        onClick={getGoogleAuth}
                                                                 >
                                                                         <i className="fa-brands fa-google" />
                                                                         <span> Sign up with Google</span>
@@ -210,7 +210,7 @@ const Register = () => {
                                                                 </form>
                                                                 <button
                                                                         className="w-full py-2 mt-5 text-xl flex gap-5 justify-center items-center bg-[#4f86ec] text-white"
-                                                                        onClick={getGoogleAuth()}
+                                                                        onClick={getGoogleAuth}
                                                                 >
                                                                         <i className="fa-brands fa-google" />
                                                                         <span> Sign in with Google</span>

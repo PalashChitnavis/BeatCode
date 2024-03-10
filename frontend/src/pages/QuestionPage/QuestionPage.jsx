@@ -112,7 +112,7 @@ const QuestionPage = () => {
                                                                 Problem List
                                                         </button>
                                                 </div>
-                                                <div className="w-[100%] h-[33vh] overflow-y-scroll">
+                                                <div className="w-[100%] h-[33vh] lg:h-[75vh] overflow-y-scroll">
                                                         {(() => {
                                                                 switch (navigation) {
                                                                         case "question":
@@ -141,7 +141,7 @@ const QuestionPage = () => {
                                         </div>
                                         <div className="w-full bg-[#202020] h-[50vh] border rounded-[10px] border-solid border-[white] lg:h-[95%]">
                                                 <div className="w-[100%] bg-[#202020] h-[100%] border rounded-[10px] border-solid border-[white] ">
-                                                        <div className="w-[96%] h-[10%]">
+                                                        <div className="w-[96%] h-[10%] lg:h-[8%]">
                                                                 <NavBar />
                                                         </div>
                                                         {toggleOutput ? (
@@ -177,7 +177,6 @@ const QuestionPage = () => {
                                                         )}
                                                 </div>
                                         </div>
-                                        )
                                 </div>
                         )}
                         <div className="h-[5vh] w-[100vw] flex justify-center items-center">

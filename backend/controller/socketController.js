@@ -5,7 +5,7 @@ function socketController(server) {
         const frontendUrl = process.env.FRONTEND_URL;
         const io = socketIO(server, {
                 cors: {
-                        origin: [`${frontendUrl}`, `${frontendUrl}/room`], // Allow requests from all origins (you can specify your origins instead)
+                        origin: "*", // Allow requests from all origins (you can specify your origins instead)
                         methods: ["GET", "POST"], // Allowed HTTP methods
                 },
         });
