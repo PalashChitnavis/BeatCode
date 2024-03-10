@@ -14,64 +14,29 @@ import Room from "./pages/Room/Room";
 import CodeRoom from "./pages/Room/CodeRoom";
 import LeaderBoard from "./pages/LeaderBoard/LeaderBoard";
 import ErrorPage from "./pages/404/Error";
+import GoogleRedirect from "./pages/GoogleRedirect/GoogleRedirect";
 function App() {
-	return (
-		<div className='h-full w-full'>
-			<Router>
-				<Routes>
-					<Route
-						path='/'
-						element={<HomePage />}
-					/>
-					<Route
-						path='/onlinecompiler'
-						element={<OnlineCompiler />}
-					/>
-					<Route
-						path='/practiceproblems'
-						element={<PracticeProblems />}
-					/>
-					<Route
-						path='/practiceproblems/questions/:id'
-						element={<QuestionPage />}
-					/>
-					<Route
-						path='/submissions'
-						element={<SubmissionPage />}
-					/>
-					<Route
-						path='/settings'
-						element={<Settings />}
-					/>
-					<Route
-						path='/success'
-						element={<Success />}
-					/>
-					<Route
-						path='/room'
-						element={<Room />}
-					/>
-					<Route
-						path='/room/:roomID'
-						element={<CodeRoom />}
-					/>
-					<Route
-						path='/leaderboard'
-						element={<LeaderBoard />}
-					/>
-					<Route
-						path='*'
-						element={<ErrorPage />}
-					/>
-				</Routes>
-			</Router>
-			<ToastContainer
-				position='bottom-right'
-				pauseOnFocusLoss={false}
-				pauseOnHover={false}
-			/>
-		</div>
-	);
+        return (
+                <div className="h-full w-full">
+                        <Router>
+                                <Routes>
+                                        <Route path="/" element={<HomePage />} />
+                                        <Route path="/onlinecompiler" element={<OnlineCompiler />} />
+                                        <Route path="/practiceproblems" element={<PracticeProblems />} />
+                                        <Route path="/practiceproblems/questions/:id" element={<QuestionPage />} />
+                                        <Route path="/submissions" element={<SubmissionPage />} />
+                                        <Route path="/settings" element={<Settings />} />
+                                        <Route path="/success" element={<Success />} />
+                                        <Route path="/room" element={<Room />} />
+                                        <Route path="/room/:roomID" element={<CodeRoom />} />
+                                        <Route path="/leaderboard" element={<LeaderBoard />} />
+                                        <Route path="/google/redirect" element={<GoogleRedirect />} />
+                                        <Route path="*" element={<ErrorPage />} />
+                                </Routes>
+                        </Router>
+                        <ToastContainer position="bottom-right" pauseOnFocusLoss={false} pauseOnHover={false} />
+                </div>
+        );
 }
 
 export default App;

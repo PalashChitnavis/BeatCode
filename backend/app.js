@@ -31,7 +31,6 @@ app.use("/submissions", submissionsRoute);
 app.use("/getsubmissions", getSubmissionsRoute);
 app.use("/getstats", getStatsRoute);
 app.use("/getuser", getUserDataRoute);
-app.use("/google", googleAuthRoute);
 app.use("/leaderboard", leaderboard);
 
 mongoose.connect(process.env.DB_URL, {})

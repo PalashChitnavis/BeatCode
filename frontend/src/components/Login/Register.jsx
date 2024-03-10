@@ -35,7 +35,7 @@ const Register = () => {
                         await signup(userData);
                 }
                 if (type === "login") {
-                        await login(userData);
+                        await login(userData, "normal");
                 }
         };
         const [toggleRegister, setToggleRegister] = useState(false);

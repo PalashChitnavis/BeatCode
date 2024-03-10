@@ -7,7 +7,7 @@ import Profile from "../Login/Profile";
 import { Link } from "react-router-dom";
 import { Button, colors } from "@mui/material";
 const Header = () => {
-        const [screen, setScreen] = React.useState(window.screen.width);
+        const [screen, setScreen] = useState(window.screen.width);
         const [isMenuOpen, setIsMenuOpen] = useState(false);
         window.addEventListener("resize", handleResize);
         function handleResize() {
