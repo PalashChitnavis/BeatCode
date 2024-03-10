@@ -53,13 +53,11 @@ function CodeEditor({ question, socket, roomID, users }) {
                 const boilerplateCode = getBoilerplateCode(location, language, question);
                 dispatch(updateCode(boilerplateCode));
                 editor.setValue(boilerplateCode);
-                console.log("boilerplateCode : " + boilerplateCode);
         }, [tabSize, language, location.pathname]);
 
         const handleChange = (value) => {
                 dispatch(updateCode(value));
                 socket && socket.emit("codeUpdate", { code: value, roomID: roomID });
-                console.log("new code value : " + value);
         };
 
         return (

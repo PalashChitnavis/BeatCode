@@ -8,7 +8,6 @@ export const fontSlice = createSlice({
         reducers: {
                 updateFont: (state, action) => {
                         state.value = action.payload;
-                        console.log(state.value);
                 },
         },
 });

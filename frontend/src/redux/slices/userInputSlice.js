@@ -8,7 +8,6 @@ export const userInputSlice = createSlice({
         reducers: {
                 updateUserInput: (state, action) => {
                         state.value = action.payload;
-                        console.log(state.value);
                 },
         },
 });

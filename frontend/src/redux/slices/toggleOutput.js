@@ -8,7 +8,6 @@ export const toggleOutputSlice = createSlice({
         reducers: {
                 updateToggleOutput: (state, action) => {
                         state.value = action.payload;
-                        console.log(state.value);
                 },
         },
 });

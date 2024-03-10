@@ -104,18 +104,15 @@ const CodeRoom = () => {
         useEffect(() => {
                 socket &&
                         socket.on("codeUpdate", ({ code }) => {
-                                console.log("code update ON : " + code);
                                 dispatch(updateCode(code));
                         });
 
                 socket &&
                         socket.on("inputUpdate", ({ userInput }) => {
-                                console.log("userinput update ON : " + userInput);
                                 dispatch(updateUserInput(userInput));
                         });
                 socket &&
                         socket.on("languageChange", ({ language }) => {
-                                console.log("language update ON : " + language);
                                 dispatch(updateLanguage(language));
                         });
 
@@ -136,7 +133,6 @@ const CodeRoom = () => {
                         toast.warn("Wait for second person to join !");
                 } else {
                         setEndCall(true);
-                        console.log("starting video call ... ");
 
                         setAcceptCallButton(false);
                         toast.info("Starting Video Call", { position: "top-right" });
@@ -152,7 +148,7 @@ const CodeRoom = () => {
         function endVideoCall() {
                 setEndCall(false);
                 setAcceptCallButton(false);
-                console.log("ending video call ...");
+
                 if (myStream) {
                         myStream.getTracks().forEach((track) => {
                                 track.stop();
@@ -166,7 +162,6 @@ const CodeRoom = () => {
 
         const incommingCall = useCallback(
                 async ({ from, offer }) => {
-                        console.log("incoming call ...");
                         if (!endCall) {
                                 setAcceptCallButton(true);
                         }
@@ -231,7 +226,7 @@ const CodeRoom = () => {
         useEffect(() => {
                 peer.peer.addEventListener("track", async (ev) => {
                         const remoteStream = ev.streams;
-                        console.log("GOT TRACKS!!");
+
                         setOtherStream(remoteStream[0]);
                 });
         }, []);

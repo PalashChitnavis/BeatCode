@@ -28,7 +28,6 @@ const LanguageSelector = ({ socket, roomID }) => {
                                         dispatch(updateLanguage(e.target.value));
                                         dispatch(updateOutput(""));
                                         dispatch(updateUserInput(""));
-                                        console.log(language);
                                         socket &&
                                                 socket.emit("languageChange", { language: e.target.value, roomID: roomID });
                                 }}

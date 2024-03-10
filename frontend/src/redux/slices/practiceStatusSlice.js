@@ -8,7 +8,6 @@ export const practiceStatusSlice = createSlice({
         reducers: {
                 updatePracticeStatus: (state, action) => {
                         state.value = action.payload;
-                        console.log(state.value);
                 },
         },
 });

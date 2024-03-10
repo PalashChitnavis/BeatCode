@@ -4,7 +4,7 @@ const onlineCompilerSubmissions = async (email) => {
         const backendUrl = import.meta.env.VITE_BACKEND_URL;
         try {
                 const response = await axios.post(`${backendUrl}/submissions/onlinecompiler`, { email: email });
-                console.log(response.data.submissions);
+
                 return response.data.submissions;
         } catch (error) {
                 console.error("API call error:", error.message);
@@ -16,7 +16,7 @@ const practiceProblemsSubmissions = async (email) => {
         const backendUrl = import.meta.env.VITE_BACKEND_URL;
         try {
                 const response = await axios.post(`${backendUrl}/submissions/practiceproblems`, { email: email });
-                console.log(response.data.submissions);
+
                 return response.data.submissions;
         } catch (error) {
                 console.error("API call error : ", error.message);

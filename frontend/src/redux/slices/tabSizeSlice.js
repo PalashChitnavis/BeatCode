@@ -8,7 +8,6 @@ export const tabSizeSlice = createSlice({
         reducers: {
                 updateTabSize: (state, action) => {
                         state.value = action.payload;
-                        console.log(state.value);
                 },
         },
 });

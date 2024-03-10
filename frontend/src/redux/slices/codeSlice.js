@@ -8,7 +8,6 @@ export const codeSlice = createSlice({
         reducers: {
                 updateCode: (state, action) => {
                         state.value = action.payload;
-                        console.log(state.value);
                 },
         },
 });

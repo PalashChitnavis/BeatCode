@@ -34,7 +34,7 @@ export const login = async (userData, type) => {
                                 localStorage.setItem("token", token);
                                 localStorage.setItem("username", username);
                                 localStorage.setItem("email", email);
-                                console.log(res);
+
                                 if (res) {
                                         toast.success(`Welcome back, ${username}`, {
                                                 autoClose: 1500,
@@ -63,7 +63,7 @@ export const login = async (userData, type) => {
                                 localStorage.setItem("token", token);
                                 localStorage.setItem("username", username);
                                 localStorage.setItem("email", email);
-                                console.log(res);
+
                                 if (res) {
                                         toast.success(`Welcome back, ${username}`, {
                                                 autoClose: 1500,

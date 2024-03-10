@@ -29,7 +29,7 @@ export const handlegoogleRedirect = async (code) => {
         const frontendURl = import.meta.env.VITE_FRONTEND_URL;
         const clientID = import.meta.env.VITE_CLIENT_ID;
         const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
-        console.log(code);
+
         const url = "https://oauth2.googleapis.com/token";
         const values = {
                 code,
@@ -45,13 +45,13 @@ export const handlegoogleRedirect = async (code) => {
                         },
                 });
                 const { id_token } = response.data;
-                console.log(id_token);
+
                 const decode = jwtDecode(id_token);
                 const userData = {
                         username: decode?.name,
                         email: decode?.email,
                 };
-                console.log(userData);
+
                 login(userData, "google");
         } catch (error) {
                 console.log("error at google oauth", error);
