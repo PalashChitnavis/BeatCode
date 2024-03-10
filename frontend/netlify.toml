@@ -1,0 +1,5 @@
+[build]
+  command = "npm run build" 
+
+[ssl]
+  enforce = false
