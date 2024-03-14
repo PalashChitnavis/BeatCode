@@ -6,9 +6,10 @@
 
 ## Demo Video & Live Link
 <div align="center">
-  <a href="https://drive.google.com/file/d/1AMETTk18HozheA0k2XYSN4p8xHJmWyF-/view?usp=sharing">Demo Video</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://beatcode.netlify.app/">Live Link</a>
+  <a href="https://drive.google.com/file/d/1AMETTk18HozheA0k2XYSN4p8xHJmWyF-/view?usp=sharing" target="_blank">Demo Video</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href="https://beatcode.netlify.app/" target="_blank">Live Link</a>
 </div>
+
 
 
 ## Authors
