@@ -32,13 +32,17 @@ const CodeRoom = () => {
                 username: "User 2",
                 socketID: "",
         });
+
         const location = useLocation();
         const [socket, setSocket] = useState(null);
         const { roomID } = useParams();
         useEffect(() => {
-                if (!socket) {
+                if (!socket && isLoggedIn()) {
                         setSocket(io(backendUrl));
                         socket && socket.emit("languageChange", { language: "java", roomID: roomID });
+                }
+                if (!isLoggedIn()) {
+                        window.location.href = frontendUrl + "/room";
                 }
 
                 return () => {
@@ -49,8 +53,13 @@ const CodeRoom = () => {
         const navigate = useNavigate();
         const frontendUrl = import.meta.env.VITE_FRONTEND_URL;
         function leaveRoom() {
-                window.location.href = frontendUrl + "/room";
+                myStream &&
+                        myStream.getTracks().forEach((track) => {
+                                track.stop();
+                        });
+
                 socket && socket.emit("endVideoCall", { to: otherUser.socketID });
+                window.location.href = frontendUrl + "/room";
         }
 
         useEffect(() => {
@@ -61,7 +70,7 @@ const CodeRoom = () => {
                                 const { users } = userRoom;
                                 setUsers(users);
 
-                                if (isLoggedIn() && users.length == 1) {
+                                if (users.length == 1) {
                                         setMe(users[0]);
                                         setOtherUser({
                                                 username: "User 2",
@@ -72,7 +81,7 @@ const CodeRoom = () => {
                                                 position: "top-right",
                                         });
                                 }
-                                if (isLoggedIn() && users.length == 2) {
+                                if (users.length == 2) {
                                         if (users[0].username == username) {
                                                 setMe(users[0]);
                                                 setOtherUser(users[1]);
@@ -123,6 +132,18 @@ const CodeRoom = () => {
                         socket && socket.off("languageChange");
                 };
         }, [socket]);
+        useEffect(() => {
+                return () => {
+                        if (myStream) {
+                                myStream.getTracks().forEach((track) => {
+                                        track.stop();
+                                });
+                        }
+                        if (socket) {
+                                socket.emit("endVideoCall", { to: otherUser.socketID });
+                        }
+                };
+        }, []);
         //Video Call Logic
         const [myStream, setMyStream] = useState();
         const [otherStream, setOtherStream] = useState();
@@ -130,31 +151,39 @@ const CodeRoom = () => {
         const [endCall, setEndCall] = useState(false);
 
         const startVideoCall = useCallback(async () => {
-                if (users && users.length == 1) {
+                if (otherUser.username === "User 2") {
                         toast.warn("Wait for second person to join !");
                 } else {
                         setEndCall(true);
-
+                        console.log("starting video call ... ");
                         setAcceptCallButton(false);
                         toast.info("Starting Video Call", { position: "top-right" });
+
                         const stream = await navigator.mediaDevices.getUserMedia({
                                 audio: true,
                                 video: true,
                         });
+
                         const offer = await peer.getOffer();
                         socket.emit("startCall", { to: otherUser.socketID, offer });
-                        setMyStream(stream);
+                        stream && setMyStream(stream);
                 }
         }, [otherUser.socketID, socket]);
         function endVideoCall() {
                 setEndCall(false);
                 setAcceptCallButton(false);
-
+                console.log("ending video call ...");
                 if (myStream) {
                         myStream.getTracks().forEach((track) => {
                                 track.stop();
                         });
                 }
+                if (otherStream) {
+                        otherStream.getTracks().forEach((track) => {
+                                track.stop();
+                        });
+                }
+                peer.setLocalDescription("endCall");
                 setMyStream(null);
                 setOtherStream(null);
                 socket && socket.emit("endVideoCall", { to: otherUser.socketID });
@@ -166,9 +195,10 @@ const CodeRoom = () => {
                         if (!endCall) {
                                 setAcceptCallButton(true);
                         }
+
                         const stream = await navigator.mediaDevices.getUserMedia({
-                                video: true,
                                 audio: true,
+                                video: true,
                         });
                         const videoTracks = stream.getVideoTracks();
                         const videoStream = new MediaStream(videoTracks);
@@ -194,10 +224,21 @@ const CodeRoom = () => {
         );
 
         const handleEndCall = useCallback(() => {
+                if (myStream) {
+                        myStream.getTracks().forEach((track) => {
+                                track.stop();
+                        });
+                }
+                if (otherStream) {
+                        otherStream.getTracks().forEach((track) => {
+                                track.stop();
+                        });
+                }
                 setOtherStream(null);
                 setMyStream(null);
                 setEndCall(false);
                 setAcceptCallButton(false);
+                peer.setLocalDescription("endCall");
         });
 
         const handleNegoNeeded = useCallback(async () => {
@@ -227,7 +268,7 @@ const CodeRoom = () => {
         useEffect(() => {
                 peer.peer.addEventListener("track", async (ev) => {
                         const remoteStream = ev.streams;
-
+                        console.log("GOT TRACKS!!");
                         setOtherStream(remoteStream[0]);
                 });
         }, []);
@@ -326,7 +367,7 @@ const CodeRoom = () => {
                                                                                 </CopyToClipboard>
                                                                         </div>
                                                                         <div className="w-[90%] ml-[2vw] pt-[2vh] h-[90%] flex flex-col gap-5">
-                                                                                <div className=" h-[45%] bg-[#272822] flex justify-center items-center rounded-lg text-white">
+                                                                                <div className=" h-[45%] bg-[#272822] flex justify-center items-center rounded-lg text-white overflow-y-scroll">
                                                                                         {!myStream &&
                                                                                                 !otherStream &&
                                                                                                 me &&
@@ -345,13 +386,13 @@ const CodeRoom = () => {
                                                                                                 </div>
                                                                                         )}
                                                                                 </div>
-                                                                                <div className=" h-[45%] bg-[#272822] flex justify-center items-center rounded-lg text-white">
+                                                                                <div className=" h-[45%] bg-[#272822] flex justify-center items-center rounded-lg text-white overflow-y-scroll">
                                                                                         {!myStream &&
                                                                                                 !otherStream &&
                                                                                                 otherUser &&
                                                                                                 otherUser.username}
                                                                                         {otherStream && (
-                                                                                                <div className="flex justify-center items-center">
+                                                                                                <div className="flex justify-center items-center rounded-xl ">
                                                                                                         <ReactPlayer
                                                                                                                 playing
                                                                                                                 height="90%"
@@ -468,9 +509,9 @@ const CodeRoom = () => {
                                                                                         <ReactPlayer
                                                                                                 playing
                                                                                                 height="100%"
-                                                                                                width="100%"
+                                                                                                width="80%"
                                                                                                 url={myStream}
-                                                                                                volume={5}
+                                                                                                volume={0}
                                                                                         />
                                                                                 </div>
                                                                         )}
@@ -485,8 +526,9 @@ const CodeRoom = () => {
                                                                                         <ReactPlayer
                                                                                                 playing
                                                                                                 height="100%"
-                                                                                                width="100%"
+                                                                                                width="80%"
                                                                                                 url={otherStream}
+                                                                                                volume={1}
                                                                                         />
                                                                                 </div>
                                                                         )}
