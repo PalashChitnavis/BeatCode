@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:latest
 WORKDIR /usr/cpp
 RUN apk add build-base
 
