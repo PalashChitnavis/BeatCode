@@ -1,5 +1,5 @@
 node_modules/
 dist/
 .env
-cookies.txt
-get-docker.sh
+./cookies.txt
+./get-docker.sh
