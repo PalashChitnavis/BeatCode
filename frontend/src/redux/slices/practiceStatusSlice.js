@@ -1,4 +1,3 @@
-// practiceStatusSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 export const practiceStatusSlice = createSlice({

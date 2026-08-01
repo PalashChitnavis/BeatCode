@@ -1,4 +1,3 @@
-// toggleOutput.js
 import { createSlice } from "@reduxjs/toolkit";
 
 export const toggleOutputSlice = createSlice({

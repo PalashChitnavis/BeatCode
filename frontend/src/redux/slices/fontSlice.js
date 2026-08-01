@@ -1,4 +1,3 @@
-// fontSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 export const fontSlice = createSlice({

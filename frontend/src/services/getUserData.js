@@ -1,4 +1,3 @@
-// getUserData.js
 import axios from "axios";
 
 const getUserData = async (email) => {

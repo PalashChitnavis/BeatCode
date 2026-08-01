@@ -1,4 +1,3 @@
-// editorThemeSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 export const editorThemeSlice = createSlice({
