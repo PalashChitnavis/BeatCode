@@ -4,7 +4,7 @@ const router = express.Router();
 const UserStats = require("../models/UserStats");
 const User = require("../models/User");
 
-// Route for fetching leaderboard data
+// Builds a leaderboard from solved-question totals and account names.
 router.get("/", async (req, res) => {
         try {
                 const leaderboardData = await UserStats.find()

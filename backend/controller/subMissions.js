@@ -1,5 +1,6 @@
 const CompilerSubmission = require("../models/CompilerSubmission");
 const PracticeSubmissions = require("../models/PracticeSubmission");
+// Fetches a user's practice-problem submission history.
 const practiceproblemsSubmissions = async (req, res) => {
         try {
                 const { email } = req.body;
@@ -15,6 +16,7 @@ const practiceproblemsSubmissions = async (req, res) => {
         }
 };
 
+// Fetches a user's standalone compiler execution history.
 const onlinecompilerSubmissions = async (req, res) => {
         try {
                 const { email } = req.body;

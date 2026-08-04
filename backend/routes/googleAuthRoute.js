@@ -8,6 +8,7 @@ const User = require("../models/User");
 const generator = require("generate-password");
 const { login } = require("../controller/authController");
 dotenv.config();
+// Exchanges Google's authorization code and signs the user into the app.
 router.get("/redirect", async (req, res) => {
         const backendUrl = process.env.BACKEND_URL;
         const code = req.query.code;
@@ -49,6 +50,7 @@ router.get("/redirect", async (req, res) => {
         }
 });
 
+// Builds the Google OAuth URL used to begin authentication.
 router.get("/auth", (req, res) => {
         const backendUrl = process.env.BACKEND_URL;
         const rootURL = "https://accounts.google.com/o/oauth2/v2/auth";

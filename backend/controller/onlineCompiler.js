@@ -1,8 +1,10 @@
 const { validateC, validateCpp, validateJava, validateJavaScript, validatePython } = require("../middleware/validate");
 const saveCodeFiles = require("../middleware/saveCodeFiles");
 const runCompilerDockerContainer = require("../middleware/runCompilerDockerContainer");
+// Validates submitted code, stores its temporary files, then runs it in Docker.
 const onlineCompiler = (code, language, userInput, userEmail, userName, res) => {
         try {
+                // Apply language-specific safety checks before running user code.
                 switch (language) {
                         case "c":
                                 validateC(code, userInput);

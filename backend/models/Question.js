@@ -1,62 +1,72 @@
 const mongoose = require("mongoose");
 
+// Define question schema
 const questionSchema = new mongoose.Schema({
-        id: {
-                type: String,
-                required: true,
+    // Basic question info
+    id: {
+        type: String,
+        required: true,
+    },
+    title: {
+        type: String,
+        required: true,
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    diff: {
+        type: String,
+        enum: ["easy", "medium", "hard"],
+        required: true,
+    },
+
+    // Example test cases with mixed input/output types
+    example_cases: {
+        type: [
+            {
+                input: [mongoose.Schema.Types.Mixed],
+                output: mongoose.Schema.Types.Mixed,
+                explanation: String,
+            },
+        ],
+        required: true,
+    },
+
+    // Official solution for each language
+    solution: {
+        type: {
+            c: String,
+            cpp: String,
+            java: String,
+            python: String,
         },
-        title: {
-                type: String,
-                required: true,
+        required: true,
+    },
+
+    // Boilerplate code for each language
+    boilerplate: {
+        type: {
+            c: String,
+            cpp: String,
+            java: String,
+            python: String,
         },
-        description: {
-                type: String,
-                required: true,
+        required: true,
+    },
+
+    // Template code for each language
+    templatecode: {
+        type: {
+            c: String,
+            cpp: String,
+            java: String,
+            python: String,
         },
-        diff: {
-                type: String,
-                enum: ["easy", "medium", "hard"],
-                required: true,
-        },
-        example_cases: {
-                type: [
-                        {
-                                input: [mongoose.Schema.Types.Mixed],
-                                output: mongoose.Schema.Types.Mixed,
-                                explanation: String,
-                        },
-                ],
-                required: true,
-        },
-        solution: {
-                type: {
-                        c: String,
-                        cpp: String,
-                        java: String,
-                        python: String,
-                },
-                required: true,
-        },
-        boilerplate: {
-                type: {
-                        c: String,
-                        cpp: String,
-                        java: String,
-                        python: String,
-                },
-                required: true,
-        },
-        templatecode: {
-                type: {
-                        c: String,
-                        cpp: String,
-                        java: String,
-                        python: String,
-                },
-                required: true,
-        },
+        required: true,
+    },
 });
 
+// Create and export Question model
 const Question = mongoose.model("Question", questionSchema);
-
 module.exports = Question;

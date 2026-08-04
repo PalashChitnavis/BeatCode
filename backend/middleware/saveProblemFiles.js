@@ -3,6 +3,7 @@ const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const Question = require("../models/Question");
 
+// Combines a submitted solution with its test template for practice execution.
 const saveProblemFiles = async (code, questionID, language) => {
         try {
                 const question = await Question.findOne({ id: questionID });

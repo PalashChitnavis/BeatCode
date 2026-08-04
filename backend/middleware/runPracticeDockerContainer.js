@@ -6,6 +6,7 @@ const isWindows = process.platform === "win32";
 const PracticeSubmission = require("../models/PracticeSubmission");
 const Question = require("../models/Question");
 const UserStats = require("../models/UserStats");
+// Selects the language image used to evaluate a practice-problem submission.
 const runPracticeDockerContainer = (filename, language, userEmail, userName, questionID, code, res) => {
         switch (language) {
                 case "cpp":
@@ -23,6 +24,7 @@ const runPracticeDockerContainer = (filename, language, userEmail, userName, que
         }
 };
 
+// Runs C/C++ tests, records the result, and updates solved-question statistics.
 const cppDocker = (filename, language, userEmail, userName, questionID, code, res) => {
         let containerID; // Define containerID variable outside of the promise chain
         exec(`docker run -d -it palashchitnavis/beatcode-cpp sh`)
@@ -101,6 +103,7 @@ const cppDocker = (filename, language, userEmail, userName, questionID, code, re
                         });
                 });
 };
+// Runs Python tests, records the result, and updates solved-question statistics.
 const pythonDocker = (filename, userEmail, userName, questionID, code, res) => {
         let containerID;
         exec(`docker run -d -it palashchitnavis/beatcode-python sh`)
@@ -180,6 +183,7 @@ const pythonDocker = (filename, userEmail, userName, questionID, code, res) => {
                 });
 };
 
+// Runs Java tests, records the result, and updates solved-question statistics.
 const javaDocker = (filename, userEmail, userName, questionID, code, res) => {
         let containerID;
         exec(`docker run -d -it palashchitnavis/beatcode-java sh`)

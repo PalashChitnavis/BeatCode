@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 
+// Writes code and stdin to UUID-named files for one compiler execution.
 const saveCodeFiles = (code, userInput, language) => {
         try {
                 // Generate a unique filename using UUID

@@ -1,3 +1,4 @@
+# Provides the Python runtime used for submitted code.
 FROM alpine:3.9
 WORKDIR /usr/py
 RUN apk add python3

@@ -1,8 +1,10 @@
 const { validateC, validateCpp, validateJava, validateJavaScript, validatePython } = require("../middleware/validate");
 const saveProblemFiles = require("../middleware/saveProblemFiles");
 const runPracticeDockerContainer = require("../middleware/runPracticeDockerContainer");
+// Runs a practice solution against the question template in an isolated container.
 const practiceProblemController = async (code, language, questionID, userEmail, userName, res) => {
         try {
+                // Reject unsupported or unsafe code before creating temporary files.
                 switch (language) {
                         case "c":
                                 validateC(code);

@@ -1,4 +1,5 @@
 const PracticeSubmission = require("../models/PracticeSubmission");
+// Returns the latest successful submission from each user for a question.
 const getSubmissions = async (req, res) => {
         try {
                 const { questionID } = req.body;
@@ -8,6 +9,7 @@ const getSubmissions = async (req, res) => {
                 console.log(oldSubmissions);
                 const existingUser = [];
                 const submissions = [];
+                // Keep the first record per email because results are newest first.
                 oldSubmissions.forEach((submission) => {
                         if (!existingUser.includes(submission.user_email)) {
                                 submissions.push(submission);

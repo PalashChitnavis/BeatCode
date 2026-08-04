@@ -1,3 +1,4 @@
+# Provides the JDK environment used for Java submissions.
 FROM alpine:latest
 USER root
 WORKDIR /usr/java

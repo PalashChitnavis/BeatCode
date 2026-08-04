@@ -1,3 +1,4 @@
+# Provides a lightweight C/C++ compiler environment for submitted code.
 FROM alpine:3.9
 WORKDIR /usr/cpp
 RUN apk add build-base

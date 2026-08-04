@@ -1,4 +1,4 @@
-// C Validation
+// Rejects C code or input that uses blocked system-level operations.
 const validateC = (code, userInput) => {
         const maliciousWordsC = ["system", "exec", "pipe", "malloc", "free", "realloc", "delete", "fork", "system("];
 
@@ -9,7 +9,7 @@ const validateC = (code, userInput) => {
         }
 };
 
-// C++ Validation
+// Rejects C++ code or input that uses blocked system-level operations.
 const validateCpp = (code, userInput) => {
         const maliciousWordsCpp = [
                 "system",
@@ -31,7 +31,7 @@ const validateCpp = (code, userInput) => {
         }
 };
 
-// Java Validation
+// Rejects Java code or input that can start external processes.
 const validateJava = (code, userInput) => {
         const maliciousWordsJava = ["Runtime.exec", "ProcessBuilder", "Process", "getRuntime()", "exec(", "start()"];
 
@@ -42,7 +42,7 @@ const validateJava = (code, userInput) => {
         }
 };
 
-// Python Validation
+// Rejects Python code or input that can access the host system or files.
 const validatePython = (code, userInput) => {
         const maliciousWordsPython = [
                 "subprocess.run",

@@ -1,6 +1,7 @@
 const socketIO = require("socket.io");
 const dotenv = require("dotenv");
 dotenv.config();
+// Attaches collaboration and WebRTC signaling events to the HTTP server.
 function socketController(server) {
         const frontendUrl = process.env.FRONTEND_URL;
         const io = socketIO(server, {
@@ -9,9 +10,11 @@ function socketController(server) {
                         methods: ["GET", "POST"], // Allowed HTTP methods
                 },
         });
+        // Keep the current two-user collaboration rooms in memory.
         let allRooms = [];
         io.on("connection", (socket) => {
                 console.log("user connected : ", socket.id);
+                // Adds a user to a room and broadcasts the updated room roster.
                 socket.on("userdetails", ({ username, roomID }) => {
                         const user = {
                                 username: username,
@@ -40,6 +43,7 @@ function socketController(server) {
                         }
                 });
 
+                // Relay shared-editor changes to everyone in the room.
                 socket.on("codeUpdate", ({ code, roomID }) => {
                         io.to(roomID).emit("codeUpdate", { code: code });
                 });
@@ -52,6 +56,7 @@ function socketController(server) {
                         io.to(roomID).emit("languageChange", { language: language });
                 });
 
+                // Forward WebRTC offer/answer negotiation between room peers.
                 socket.on("startCall", ({ to, offer }) => {
                         console.log("triggertostart");
                         io.to(to).emit("incommingCall", { from: socket.id, offer });
@@ -76,6 +81,7 @@ function socketController(server) {
                         io.to(to).emit("endVideoCall");
                 });
 
+                // Remove a disconnected user and notify any remaining peer.
                 socket.on("disconnect", () => {
                         console.log("user disconnected : ", socket.id);
                         // Remove the disconnected user from allRooms

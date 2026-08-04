@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Question = require("../models/Question");
 
-// Define route handler for /practiceproblems
+// Lists lightweight question data for the practice-problem index.
 router.get("/", async (req, res) => {
         try {
                 // Fetch all questions from the database
@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
                 res.status(500).json({ error: "Internal server error" });
         }
 });
+// Returns the full definition for one practice question.
 router.get("/questions/:id", async (req, res) => {
         const { id } = req.params;
 

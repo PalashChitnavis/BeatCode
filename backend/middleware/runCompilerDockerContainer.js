@@ -4,6 +4,7 @@ const exec = util.promisify(require("child_process").exec);
 const fs = require("fs");
 const isWindows = process.platform === "win32";
 const CompilerSubmission = require("../models/CompilerSubmission");
+// Selects the language image used to execute standalone compiler submissions.
 const runCompilerDockerContainer = (filename, language, userEmail, userName, res) => {
         switch (language) {
                 case "cpp":
@@ -21,6 +22,7 @@ const runCompilerDockerContainer = (filename, language, userEmail, userName, res
         }
 };
 
+// Compiles and runs C/C++ code, optionally saving the completed submission.
 const cppDocker = (filename, language, userEmail, userName, res) => {
         let containerID; // Define containerID variable outside of the promise chain
         exec(`docker run -d -it palashchitnavis/beatcode-cpp sh`)
@@ -72,6 +74,7 @@ const cppDocker = (filename, language, userEmail, userName, res) => {
                         });
                 });
 };
+// Runs Python code and persists its result when a signed-in user submitted it.
 const pythonDocker = (filename, userEmail, userName, res) => {
         let containerID;
         exec(`docker run -d -it palashchitnavis/beatcode-python sh`)
@@ -124,6 +127,7 @@ const pythonDocker = (filename, userEmail, userName, res) => {
                 });
 };
 
+// Compiles and runs Java code using the Java execution image.
 const javaDocker = (filename, userEmail, userName, res) => {
         let containerID;
         exec(`docker run -d -it palashchitnavis/beatcode-java sh`)
