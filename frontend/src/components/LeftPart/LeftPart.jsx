@@ -1,3 +1,4 @@
+// Composes the left-side code editor and input panels.
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";

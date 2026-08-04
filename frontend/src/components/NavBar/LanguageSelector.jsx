@@ -1,3 +1,4 @@
+// Switches the editor language and optionally shares it with a room.
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 // src/components/LanguageSelector.js

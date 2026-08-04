@@ -1,3 +1,4 @@
+// Stores output or errors from the latest execution.
 import { createSlice } from "@reduxjs/toolkit";
 
 export const outputSlice = createSlice({

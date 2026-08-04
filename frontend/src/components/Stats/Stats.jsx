@@ -1,3 +1,4 @@
+// Summarizes a user's practice progress by difficulty.
 /* eslint-disable react/prop-types */
 /* eslint-disable no-inner-declarations */
 /* eslint-disable no-unused-vars */

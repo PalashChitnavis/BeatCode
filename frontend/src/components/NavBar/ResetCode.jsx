@@ -1,3 +1,4 @@
+// Restores language-specific starter code and clears execution state.
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */

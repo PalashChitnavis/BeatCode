@@ -1,3 +1,4 @@
+// Renders the standalone compiler workspace.
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import Footer from "../../components/Footer/Footer";

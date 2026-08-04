@@ -1,3 +1,4 @@
+// Sends compiler and practice runs, returning the result from the same request.
 import axios from "axios";
 
 const runCompilerCode = async (reqBody) => {

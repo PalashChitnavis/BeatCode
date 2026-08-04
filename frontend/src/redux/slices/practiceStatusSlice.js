@@ -1,3 +1,4 @@
+// Stores whether the latest practice submission passed its tests.
 import { createSlice } from "@reduxjs/toolkit";
 
 export const practiceStatusSlice = createSlice({

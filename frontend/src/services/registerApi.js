@@ -1,3 +1,4 @@
+// Sends sign-up and login requests to the authentication API.
 /* eslint-disable no-self-assign */
 import axios from "axios";
 import { toast } from "react-toastify";

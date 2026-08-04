@@ -1,3 +1,4 @@
+// Stores the editor font size preference.
 import { createSlice } from "@reduxjs/toolkit";
 
 export const fontSlice = createSlice({

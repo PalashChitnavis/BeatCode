@@ -1,3 +1,4 @@
+// Wraps browser WebRTC operations used by the collaborative video call.
 class PeerService {
         constructor() {
                 if (!this.peer) {

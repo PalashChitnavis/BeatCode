@@ -1,3 +1,4 @@
+// Shows recent successful submissions for the active practice question.
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";

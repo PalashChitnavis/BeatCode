@@ -1,3 +1,4 @@
+// Renders the application's public landing page.
 /* eslint-disable no-unused-vars */
 import React from "react";
 import Header from "../../components/Header/Header";

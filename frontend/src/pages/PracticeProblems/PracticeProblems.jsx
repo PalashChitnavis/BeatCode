@@ -1,3 +1,4 @@
+// Loads and displays the practice-problem catalogue.
 /* eslint-disable no-inner-declarations */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";

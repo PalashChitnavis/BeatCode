@@ -1,3 +1,4 @@
+// Fetches account details for the current user.
 import axios from "axios";
 
 const getUserData = async (email) => {

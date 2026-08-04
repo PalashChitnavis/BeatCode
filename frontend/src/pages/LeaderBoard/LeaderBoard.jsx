@@ -1,3 +1,4 @@
+// Fetches and displays users ranked by solved practice problems.
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";

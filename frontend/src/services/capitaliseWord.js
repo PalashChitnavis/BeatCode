@@ -1,3 +1,4 @@
+// Capitalizes the first letter of each word for display labels.
 function capitalizeString(str) {
         // Split the string into an array of words
         let words = str.split(" ");

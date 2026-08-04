@@ -1,3 +1,4 @@
+// Renders the fallback page for an unknown route.
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 import React from "react";

@@ -1,3 +1,4 @@
+// Fetches practice-question lists and individual question data.
 import axios from "axios";
 
 const fetchAllQuestions = async () => {

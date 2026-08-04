@@ -1,3 +1,4 @@
+// Defines the application's top-level routes and shared providers.
 /* eslint-disable react-hooks/exhaustive-deps */
 import OnlineCompiler from "./pages/OnlineCompiler/OnlineCompiler";
 import PracticeProblems from "./pages/PracticeProblems/PracticeProblems";

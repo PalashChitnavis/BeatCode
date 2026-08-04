@@ -1,3 +1,4 @@
+// Loads one practice question and its compiler workspace.
 /* eslint-disable no-inner-declarations */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */

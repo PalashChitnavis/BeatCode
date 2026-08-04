@@ -1,3 +1,4 @@
+// Fetches ranked users for the leaderboard view.
 export const getLeaderBoard = async () => {
         const backendUrl = import.meta.env.VITE_BACKEND_URL;
         try {

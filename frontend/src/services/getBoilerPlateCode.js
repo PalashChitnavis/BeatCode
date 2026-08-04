@@ -1,3 +1,4 @@
+// Returns starter code appropriate for the current page, language, and question.
 export const getBoilerplateCode = (location, language, question) => {
         if (location.pathname === "/onlinecompiler" || location.pathname.startsWith("/room")) {
                 const starterCodes = {

@@ -1,3 +1,4 @@
+// Displays the signed-in user's profile menu and logout action.
 /* eslint-disable no-unused-vars */
 import { React, useState } from "react";
 import { Link } from "react-router-dom";

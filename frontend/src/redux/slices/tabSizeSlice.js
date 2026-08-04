@@ -1,3 +1,4 @@
+// Stores the editor indentation width preference.
 import { createSlice } from "@reduxjs/toolkit";
 
 export const tabSizeSlice = createSlice({

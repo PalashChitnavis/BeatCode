@@ -1,3 +1,4 @@
+// Renders the responsive site header and navigation menu.
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 

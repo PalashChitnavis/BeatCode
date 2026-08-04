@@ -1,3 +1,4 @@
+// Handles sign-up, sign-in, and Google authentication interactions.
 import { useState } from "react";
 import { signup, login } from "../../services/registerApi";
 import { toast } from "react-toastify";

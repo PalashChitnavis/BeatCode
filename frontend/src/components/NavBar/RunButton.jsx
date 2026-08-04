@@ -1,3 +1,4 @@
+// Sends the current code to the backend and displays its execution result.
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { React, useEffect, useState } from "react";

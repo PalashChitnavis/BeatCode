@@ -1,3 +1,4 @@
+// Fetches successful submissions for a specific practice question.
 import axios from "axios";
 
 const getSubmissions = async (id) => {

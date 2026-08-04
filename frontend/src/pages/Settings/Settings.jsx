@@ -1,3 +1,4 @@
+// Renders the page for persistent editor preferences.
 /* eslint-disable no-inner-declarations */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */

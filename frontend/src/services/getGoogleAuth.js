@@ -1,3 +1,4 @@
+// Starts and completes the Google OAuth request flow.
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import axios from "axios";

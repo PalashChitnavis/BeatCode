@@ -1,3 +1,4 @@
+// Renders the selected practice question and its example cases.
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";

@@ -1,3 +1,4 @@
+// Displays the shared loading indicator while data is being fetched.
 import React from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";

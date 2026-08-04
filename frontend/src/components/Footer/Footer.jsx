@@ -1,3 +1,4 @@
+// Renders the site footer and external profile links.
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable no-unused-vars */
 import React from "react";

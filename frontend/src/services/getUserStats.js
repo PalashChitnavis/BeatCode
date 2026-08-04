@@ -1,3 +1,4 @@
+// Fetches a user's practice progress statistics.
 import axios from "axios";
 
 const getUserStatus = async (email) => {

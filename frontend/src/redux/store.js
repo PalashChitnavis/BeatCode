@@ -1,3 +1,4 @@
+// Combines editor and UI state slices into the application's Redux store.
 import { configureStore } from "@reduxjs/toolkit";
 import codeReducer from "./slices/codeSlice";
 import outputReducer from "./slices/outputSlice";

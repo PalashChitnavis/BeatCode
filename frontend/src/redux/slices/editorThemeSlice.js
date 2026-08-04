@@ -1,3 +1,4 @@
+// Stores the selected syntax-editor theme.
 import { createSlice } from "@reduxjs/toolkit";
 
 export const editorThemeSlice = createSlice({

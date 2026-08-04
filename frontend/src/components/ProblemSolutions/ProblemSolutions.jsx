@@ -1,3 +1,4 @@
+// Displays a problem's explanation and language-specific solutions.
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import Solution from "../Solution/Solution.jsx";

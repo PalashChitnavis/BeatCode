@@ -1,3 +1,4 @@
+// Stores the current source code in the editor.
 import { createSlice } from "@reduxjs/toolkit";
 
 export const codeSlice = createSlice({

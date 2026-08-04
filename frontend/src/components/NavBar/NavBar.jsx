@@ -1,3 +1,4 @@
+// Groups compiler controls such as language selection, reset, and run.
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */

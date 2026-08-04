@@ -1,3 +1,4 @@
+// Stores the language selected for compilation and syntax highlighting.
 import { createSlice } from "@reduxjs/toolkit";
 
 export const languageSlice = createSlice({

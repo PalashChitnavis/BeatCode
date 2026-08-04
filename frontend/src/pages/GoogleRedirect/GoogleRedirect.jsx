@@ -1,3 +1,4 @@
+// Completes Google OAuth and redirects the user after sign-in.
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */

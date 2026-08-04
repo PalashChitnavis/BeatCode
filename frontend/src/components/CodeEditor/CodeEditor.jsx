@@ -1,3 +1,4 @@
+// Renders the editable code area and synchronizes collaborative changes.
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */

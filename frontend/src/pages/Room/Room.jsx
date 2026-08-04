@@ -1,3 +1,4 @@
+// Creates or joins a shared coding room.
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";

@@ -1,3 +1,4 @@
+// Checks whether a stored authentication token is available.
 export const isLoggedIn = () => {
         const token = localStorage.getItem("token");
         const email = localStorage.getItem("email");
