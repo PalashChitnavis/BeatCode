@@ -1,0 +1,219 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum AuthProvider {
+  GOOGLE
+}
+
+enum Language {
+  c
+  cpp
+  java
+  python
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum SubmissionKind {
+  PLAYGROUND
+  RUN
+  SUBMIT
+}
+
+enum SubmissionStatus {
+  PENDING
+  DONE
+}
+
+enum Verdict {
+  ACCEPTED
+  WRONG_ANSWER
+  TIME_LIMIT_EXCEEDED
+  MEMORY_LIMIT_EXCEEDED
+  RUNTIME_ERROR
+  COMPILE_ERROR
+  INTERNAL_ERROR
+}
+
+enum ProgressStatus {
+  ATTEMPTED
+  SOLVED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  avatarUrl    String?
+  /// Null for accounts that only sign in through an OAuth provider.
+  passwordHash String?
+  role         Role     @default(USER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  accounts    Account[]
+  sessions    Session[]
+  submissions Submission[]
+  progress    UserProblem[]
+  hostedRooms Room[]
+}
+
+/// Links a user to an external identity provider.
+model Account {
+  id                String       @id @default(cuid())
+  userId            String
+  provider          AuthProvider
+  providerAccountId String
+  createdAt         DateTime     @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+/// One row per signed-in device. The refresh token is stored hashed and rotated on every use.
+model Session {
+  id         String    @id @default(cuid())
+  userId     String
+  tokenHash  String
+  userAgent  String?
+  ip         String?
+  expiresAt  DateTime
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  lastUsedAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Problem {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  /// Display order in the problem list.
+  number      Int        @unique
+  title       String
+  difficulty  Difficulty
+  /// Markdown.
+  description String
+  inputFormat String
+  constraints String[]
+  tags        String[]
+  timeLimitMs Int        @default(2000)
+  isPublished Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  languages   ProblemLanguage[]
+  testCases   TestCase[]
+  submissions Submission[]
+  progress    UserProblem[]
+
+  @@index([difficulty])
+}
+
+model ProblemLanguage {
+  problemId         String
+  language          Language
+  starterCode       String
+  /// Appended to the user's code; reads one test from stdin and prints the result.
+  driverCode        String
+  referenceSolution String
+
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@id([problemId, language])
+}
+
+model TestCase {
+  id             String  @id @default(cuid())
+  problemId      String
+  order          Int
+  /// Raw stdin fed to the driver.
+  input          String
+  /// Human-readable form shown in the UI, e.g. "nums = [1, 2, 3]".
+  displayInput   String
+  expectedOutput String
+  isSample       Boolean @default(false)
+  explanation    String?
+
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([problemId, order])
+}
+
+model Submission {
+  id            String           @id @default(uuid())
+  /// Null for guest playground runs.
+  userId        String?
+  problemId     String?
+  kind          SubmissionKind
+  status        SubmissionStatus @default(PENDING)
+  language      Language
+  code          String
+  stdin         String?
+  verdict       Verdict?
+  stdout        String?
+  stderr        String?
+  compileOutput String?
+  runtimeMs     Int?
+  passedCount   Int?
+  totalCount    Int?
+  testResults   Json?
+  createdAt     DateTime         @default(now())
+  judgedAt      DateTime?
+
+  user    User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem? @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@index([userId, kind, createdAt(sort: Desc)])
+  @@index([problemId, verdict, createdAt(sort: Desc)])
+  @@index([status, createdAt])
+}
+
+model UserProblem {
+  userId        String
+  problemId     String
+  status        ProgressStatus
+  attempts      Int            @default(0)
+  firstSolvedAt DateTime?
+  updatedAt     DateTime       @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@id([userId, problemId])
+  @@index([problemId])
+  @@index([status, firstSolvedAt])
+}
+
+model Room {
+  id        String   @id @default(cuid())
+  code      String   @unique
+  hostId    String
+  /// Last persisted Yjs document so the room's code survives everyone leaving.
+  state     Bytes?
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  host User @relation(fields: [hostId], references: [id], onDelete: Cascade)
+
+  @@index([expiresAt])
+}

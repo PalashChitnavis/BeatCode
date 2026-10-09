@@ -1,0 +1,6 @@
+node_modules
+dist
+coverage
+package-lock.json
+apps/api/prisma/migrations
+docs/legacy-questionsdata.json
