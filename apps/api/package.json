@@ -12,7 +12,8 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "db:seed:prod": "node dist/seed.js"
   },
   "dependencies": {
     "@beatcode/shared": "*",
@@ -28,6 +29,7 @@
     "jose": "^6.1.0",
     "pino": "^9.9.0",
     "pino-http": "^10.5.0",
+    "prisma": "^6.19.0",
     "rate-limit-redis": "^4.2.0",
     "socket.io": "^4.8.1",
     "yjs": "^13.6.27",
@@ -40,7 +42,6 @@
     "@types/node": "^22.18.0",
     "@types/supertest": "^6.0.3",
     "pino-pretty": "^13.1.0",
-    "prisma": "^6.19.0",
     "supertest": "^7.1.0",
     "tsup": "^8.5.0",
     "tsx": "^4.20.0",

@@ -37,13 +37,20 @@ services:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
-    env_file: apps/api/.env
+    # Secrets (JWT_ACCESS_SECRET, OAUTH_STATE_SECRET, Google credentials) come from this file.
+    env_file:
+      - path: apps/api/.env
+        required: false
     environment:
       NODE_ENV: production
+      LOG_LEVEL: info
       DATABASE_URL: postgresql://beatcode:beatcode@postgres:5432/beatcode
       REDIS_URL: redis://redis:6379
-    ports:
-      - "4000:4000"
+      # Served through the web container's nginx, so web and API share one origin.
+      WEB_ORIGIN: ${PUBLIC_URL:-http://localhost:8080}
+      API_ORIGIN: ${PUBLIC_URL:-http://localhost:8080}
+      TRUST_PROXY: 1
+      COOKIE_SAMESITE: lax
     depends_on:
       postgres:
         condition: service_healthy
@@ -71,10 +78,8 @@ services:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
-      args:
-        VITE_API_URL: http://localhost:4000
     ports:
-      - "8080:80"
+      - "${WEB_PORT:-8080}:80"
     depends_on:
       - api
 

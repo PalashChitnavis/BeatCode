@@ -1,7 +1,8 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/server.ts"],
+  // The seed is bundled too so production images can seed without TypeScript tooling.
+  entry: { server: "src/server.ts", seed: "prisma/seed.ts" },
   format: ["esm"],
   platform: "node",
   target: "node22",

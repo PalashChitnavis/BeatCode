@@ -1,6 +1,6 @@
 process.env.NODE_ENV = "test";
 process.env.DATABASE_URL =
-  process.env.TEST_DATABASE_URL ?? "postgresql://beatcode:beatcode@localhost:5433/beatcode_test";
+  process.env.TEST_DATABASE_URL ?? "postgresql://beatcode:beatcode@localhost:5432/beatcode_test";
 process.env.REDIS_URL ??= "redis://localhost:6379";
 process.env.WEB_ORIGIN = "http://localhost:5173";
 process.env.API_ORIGIN = "http://localhost:4000";

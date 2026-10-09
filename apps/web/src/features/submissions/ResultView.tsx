@@ -107,8 +107,8 @@ export function PlaygroundResultView({ submission }: { submission: SubmissionDTO
         <OutputBlock label="Compiler output" value={submission.compileOutput ?? ""} tone="error" />
       ) : (
         <>
-          <OutputBlock label="Output" value={submission.stdout ?? ""} />
-          {submission.stderr && <OutputBlock label="Errors" value={submission.stderr} tone="error" />}
+          <OutputBlock label="stdout" value={submission.stdout ?? ""} />
+          {submission.stderr && <OutputBlock label="stderr" value={submission.stderr} tone="error" />}
         </>
       )}
       {submission.runtimeMs !== null && (

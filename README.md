@@ -1,147 +1,160 @@
-![Cover](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/cover.png)
-
 # BeatCode
 
-**BeatCode** : Your go-to platform for seamless remote coding, collaboration, and practice.
+Practice coding problems, run code online, and pair program in real time with a built-in video call.
 
-## Demo Video & Live Link
-<div align="center">
-  <a href="https://drive.google.com/file/d/1AMETTk18HozheA0k2XYSN4p8xHJmWyF-/view?usp=sharing" target="_blank">Demo Video</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://beatcode.netlify.app/" target="_blank">Live Link</a>
-</div>
+![Home](docs/images/home.png)
 
-
+- **Practice problems.** Solve problems in C, C++, Java or Python. **Run** checks your code against the sample tests, and **Submit** judges it against hidden tests and returns a verdict (Accepted, Wrong Answer, Time Limit Exceeded, and so on).
+- **Playground.** A full editor (Monaco, the editor used in VS Code) with custom input.
+- **Code rooms.** A shared editor where two people can type at the same time and see each other's cursors, with shared input and output and a peer-to-peer video call.
+- **Progress and leaderboard.** Tracks solved problems, has public profiles, and ranks users by problems solved, with harder problems breaking ties.
 
 ## Authors
-- [Palash Chitnavis](https://www.github.com/PalashChitnavis)
+
+- [Palash Chitnavis](https://github.com/PalashChitnavis)
 - [Mahesh Suryawanshi](https://github.com/maheshcodes12)
 
-## About The Project
+## Architecture
 
-![HomePage](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/home-page.png)
+```
+          ┌──────────────────────────────┐
+          │   apps/web  (React + Vite)   │
+          └──────┬───────────────┬───────┘
+            REST /api/v1     Socket.IO
+                 │               │
+          ┌──────▼───────────────▼───────┐       ┌────────────┐
+          │      apps/api  (Express)     │──────►│ PostgreSQL │
+          │ auth · problems · rooms · …  │       └────────────┘
+          └──────┬────────────────▲──────┘
+           judge │ jobs           │ results
+          ┌──────▼────────────────┴──────┐
+          │        Redis (BullMQ)        │
+          └──────┬────────────────▲──────┘
+          ┌──────▼────────────────┴──────┐
+          │  apps/runner  (worker)       │──► one throwaway Docker container per run
+          └──────────────────────────────┘
+```
 
-Welcome to **BeatCode**, your ultimate coding companion! With a sleek interface and powerful functionality, BeatCode offers:
+- **web** contains only the user interface. It never holds secrets, and the access token is kept in memory only.
+- **api** handles authentication, validation, persistence, ranking and real-time features. It never executes user code.
+- **runner** is the only component with Docker access, and it has no database access. The API puts everything a run needs into the job, and the runner sends verdicts back through a second, durable queue.
+- **packages/shared** holds the zod schemas, enums and API types used by both sides, so the client and server always validate requests the same way.
 
-- **Online compiler** for seamless code execution.
-- **Practice problems** akin to LeetCode for honing your skills.
-- **Code room** , enabling collaborative coding with video call support.
+### How a submission is judged
 
-Experience coding like never before with BeatCode.
+1. `POST /api/v1/submissions` validates the request and stores a `PENDING` submission. It then adds a job containing the user's code plus the problem's per-language **driver**, and the test cases. The response is `202` with the submission id.
+2. The runner starts a sandbox container, compiles once, runs each test with its stdin, and compares the output. Trailing whitespace is ignored. **Submit** stops at the first failing test, while **Run** reports every sample.
+3. The verdict is published to the results queue. The API stores it, updates the user's progress, and pushes the result to the browser over Socket.IO. The browser also polls as a fallback.
 
-## Features
+### Sandbox limits
 
-1. Enhanced security with code sanitization and isolated Docker containers for each run, ensuring host machine integrity.
-2. Implemented Socket IO rooms for collaborative coding, optimizing resource usage with limited time and memory constraints.
-3. Utilized MongoDB for efficient data storage and retrieval in the practice problem section, offering a seamless learning experience.
-4. Integrated Google authentication for streamlined user access and authentication, ensuring a secure and personalized environment.
-5. Leveraged Docker technology to encapsulate code execution environments, used Socket IO for real-time collaboration, and MongoDB for data management, ensuring a robust and scalable platform.
+Each run gets its own container with:
 
-## Build With
+- no network access
+- a read-only root filesystem, with a 64 MB tmpfs work directory
+- a non-root user, all Linux capabilities dropped, and `no-new-privileges`
+- memory, CPU and process-count limits
+- a per-test time limit (Java gets ×2 and Python ×3)
+- output capped at 64 KB
 
-**Client :** _React JS , Tailwind_
+Containers are force-removed after each run and remove themselves after 5 minutes even if the runner crashes.
 
-**Server :** _Node JS , Express JS , Docker_
+### Authentication
 
-**Database :** _MongoDB_
+- **Access token:** a short-lived JWT (15 minutes) sent as a Bearer token and kept in memory only.
+- **Refresh token:** an opaque, httpOnly cookie that is rotated on every use. Only its hash is stored. If an already-rotated token is presented again, every session for that user is revoked.
+- **Google sign-in:** runs on the server using the authorization-code flow with state and PKCE. No client secret ever reaches the browser.
+
+## Tech stack
+
+|         |                                                                                                           |
+| ------- | --------------------------------------------------------------------------------------------------------- |
+| Web     | React 19, TypeScript, Vite, Tailwind CSS v4, Radix UI, TanStack Query, Zustand, React Router, Monaco, Yjs |
+| API     | Node 22, Express 5, TypeScript, Prisma, PostgreSQL, Socket.IO, BullMQ, zod, jose, pino                    |
+| Runner  | Node 22, BullMQ, Docker                                                                                   |
+| Tooling | npm workspaces, ESLint, Prettier, Vitest, Supertest, GitHub Actions, Docker Compose                       |
+
+## Repository layout
+
+```
+apps/
+  api/          Express API, Prisma schema, migrations, problem catalog and seed
+  runner/       judge worker and sandbox images (images/cpp, java, python)
+  web/          React app
+packages/
+  shared/       schemas, enums, DTOs, judge and socket contracts
+docker-compose.yml
+```
+
+## Getting started
+
+Prerequisites: **Node 22** and **Docker**.
+
+```bash
+npm install
+cp apps/api/.env.example apps/api/.env       # then set the two secrets, e.g. `openssl rand -base64 48`
+cp apps/runner/.env.example apps/runner/.env
+cp apps/web/.env.example apps/web/.env
+
+docker compose up -d          # PostgreSQL and Redis (set POSTGRES_PORT=5433 if 5432 is taken, and update DATABASE_URL)
+npm run images:build          # builds the C/C++, Java and Python sandbox images
+npm run db:migrate            # creates the schema
+npm run db:seed               # loads the problem catalog
+
+npm run dev                   # api on :4000, runner, web on http://localhost:5173
+```
+
+The Vite dev server proxies `/api` and `/socket.io` to the API, so you don't need to configure CORS or cookies for local development.
+
+### Google sign-in (optional)
+
+Create an OAuth client in Google Cloud Console and add `${API_ORIGIN}/api/v1/auth/google/callback` as an authorized redirect URI. Then set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `apps/api/.env`. The Google button only appears when both are set.
+
+## Testing
+
+```bash
+npm test                              # unit + API integration tests (needs Postgres and Redis)
+RUN_SANDBOX_TESTS=1 npm test          # also runs real sandboxes (needs Docker and the images)
+npm run lint && npm run typecheck && npm run format:check
+```
+
+The API tests use a separate database (`TEST_DATABASE_URL`, which defaults to `postgresql://beatcode:beatcode@localhost:5432/beatcode_test`). It is created and migrated automatically before the tests run.
+
+## Deployment
+
+The simplest option is to run everything on one Docker host:
+
+```bash
+npm run images:build                        # the sandbox images must exist on the host
+docker compose --profile app up -d --build  # app on http://localhost:8080
+docker compose exec api node dist/seed.js   # load problems (safe to re-run)
+```
+
+In this setup the `web` container serves the app with nginx and proxies `/api` and `/socket.io` to the API, so everything is same-origin. The API applies pending migrations on start. Set `PUBLIC_URL` to your public origin and put a TLS-terminating proxy in front.
+
+If the web app and the API are on **different domains** (for example, the web app on Netlify):
+
+- Build the web app with `VITE_API_URL=https://api.example.com`.
+- Set `WEB_ORIGIN` to the web origin.
+- Set `COOKIE_SAMESITE=none`, which requires HTTPS.
+
+**Runner isolation.** The runner talks to the Docker engine through its socket, which is root-equivalent on that host. In production, run the runner and its sandboxes on a dedicated VM. It only needs to reach Redis. For video calls between users behind strict NATs, configure a TURN server with `VITE_ICE_SERVERS`.
+
+## Adding a problem
+
+Problems are defined in `apps/api/prisma/problems/catalog.ts`. Each one has:
+
+- a function signature, from which starter code and the stdin driver are generated for every language
+- a TypeScript reference implementation, which computes all expected outputs
+- tests, where `sample: true` marks the public examples
+- a reference solution per language
+
+Run `npm run db:seed` afterwards. Seeding is idempotent.
 
 ## Screenshots
 
-1. Question Page![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/question.png)
-2. Practice Problems List
-   ![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/practice-problems.png)
-3. Successfull Submission
-   ![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/successful.png)
-4. Code Room
-   ![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/coderoom.png)
-5. Online Compiler
-   ![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/compiler.png)
-6. Leaderboard Page
-   ![App Screenshot](https://github.com/PalashChitnavis/BeatCode/blob/master/frontend/public/leaderboard.png)
-
-## Prerequisites
-
-- docker
-
-```bash
-	curl -fsSL https://get.docker.com -o get-docker.sh
-```
-
-```bash
-	sudo sh get-docker.sh
-```
-
-## Run Locally
-
-Clone the project
-
-```bash
-	git clone https://github.com/PalashChitnavis/BeatCode
-```
-
-Go to the backend project directory
-
-```bash
-	cd BeatCode/backend
-```
-
-Install dependencies
-
-```bash
-	npm install
-```
-
-Build the Docker images
-
-```bash
-	cd BeatCode/backend/DockerFiles
-```
-
-```bash
-	sudo docker build -t java:v1 ./java
-```
-
-```bash
-	sudo docker build -t cpp:v1 ./cpp
-```
-
-```bash
-	sudo docker build -t py:v1 ./python
-```
-
-## Usage
-
-- To start the backend server in Development mode
-
-```bash
-	cd BeatCode/backend
-	npm run dev
-```
-
-- To start the frontend server in Development mode
-
-```bash
-	cd BeatCode/frontend
-	npm run dev
-```
-
-## Environment Variables
-
-Create a **.env** file , in both backend and frontend .
-
-**Frontend** **.env**
-
-        VITE_FRONTEND_URL=http://localhost:5173
-        VITE_BACKEND_URL=http://localhost:3000
-
-**Backend** **.env**
-
-        PORT=3000
-        DB_URL=mongodb://localhost:27017/BeatCodeSample
-        GOOGLE_CLIENT_ID=YouCannotHaveGoogleSignUpInTheSample
-        GOOGLE_CLIENT_SECRET=GoWatch12AngryMen
-        FRONTEND_URL=http://localhost:5173
-        BACKEND_URL=http://localhost:3000
-
-**You cannot have Google Authentication when you run the project locally**
-
----
+| Problem workspace                     | Code room with video                      |
+| ------------------------------------- | ----------------------------------------- |
+| ![Problem](docs/images/problem.png)   | ![Room](docs/images/room.png)             |
+| **Problems**                          | **Playground**                            |
+| ![Problems](docs/images/problems.png) | ![Playground](docs/images/playground.png) |
