@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import confetti from "canvas-confetti";
-import { CloudUpload, FileText, History, Lightbulb, Play, Users } from "lucide-react";
+import { CloudUpload, FileText, History, Lightbulb, Play, Sparkles, Users } from "lucide-react";
 import { useCallback, useState } from "react";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { useParams } from "react-router";
@@ -9,6 +9,8 @@ import type { Language, SubmissionDTO } from "@beatcode/shared";
 import { ErrorState, LoadingState } from "@/components/states";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AiPanel } from "@/features/ai/AiPanel";
+import { useAiChats } from "@/features/ai/store";
 import { useAuthDialog } from "@/features/auth/dialogStore";
 import { useAuthStatus } from "@/features/auth/hooks";
 import { JudgeResultView, JudgingIndicator, OutputBlock } from "@/features/submissions/ResultView";
@@ -81,6 +83,12 @@ export function ProblemPage() {
     runner.run({ kind, language, code, problemSlug: slug });
   };
 
+  const askAiWhy = (submission: SubmissionDTO) => {
+    const verdict = submission.verdict === "COMPILE_ERROR" ? "a compile error" : "this verdict";
+    useAiChats.getState().queue(slug, { mode: "debug", text: `Why does my code get ${verdict}?` });
+    setLeftTab("ai");
+  };
+
   const direction = wide ? "horizontal" : "vertical";
 
   return (
@@ -101,6 +109,9 @@ export function ProblemPage() {
               <TabsTrigger value="community">
                 <Users /> Community
               </TabsTrigger>
+              <TabsTrigger value="ai">
+                <Sparkles /> AI Help
+              </TabsTrigger>
             </TabsList>
           </div>
           <div className="min-h-0 flex-1 overflow-y-auto">
@@ -115,6 +126,9 @@ export function ProblemPage() {
             </TabsContent>
             <TabsContent value="community">
               <ProblemSubmissionsPanel slug={slug} scope="accepted" />
+            </TabsContent>
+            <TabsContent value="ai" className="h-full">
+              <AiPanel slug={slug} language={language} code={code} submissionId={runner.result?.id} />
             </TabsContent>
           </div>
         </Tabs>
@@ -183,7 +197,19 @@ export function ProblemPage() {
                   {runner.running ? (
                     <JudgingIndicator />
                   ) : runner.result ? (
-                    <JudgeResultView submission={runner.result} />
+                    <div className="grid gap-4">
+                      <JudgeResultView submission={runner.result} />
+                      {runner.result.verdict !== "ACCEPTED" && (
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="justify-self-start"
+                          onClick={() => askAiWhy(runner.result!)}
+                        >
+                          <Sparkles /> Ask AI why
+                        </Button>
+                      )}
+                    </div>
                   ) : (
                     <p className="text-sm text-muted-foreground">Run your code to see results here.</p>
                   )}

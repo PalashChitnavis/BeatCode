@@ -8,3 +8,4 @@ export * from "./schemas/common";
 export * from "./schemas/problem";
 export * from "./schemas/submission";
 export * from "./schemas/room";
+export * from "./schemas/ai";

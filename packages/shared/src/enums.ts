@@ -44,3 +44,14 @@ export const VERDICT_LABELS: Record<Verdict, string> = {
 
 export const PROGRESS_STATUSES = ["ATTEMPTED", "SOLVED"] as const;
 export type ProgressStatus = (typeof PROGRESS_STATUSES)[number];
+
+/** How much the AI tutor is allowed to reveal, from a gentle nudge to explaining a bug in the user's code. */
+export const AI_MODES = ["hint", "approach", "debug", "complexity"] as const;
+export type AiMode = (typeof AI_MODES)[number];
+
+export const AI_MODE_LABELS: Record<AiMode, string> = {
+  hint: "Hint",
+  approach: "Approach",
+  debug: "Debug my code",
+  complexity: "Complexity",
+};

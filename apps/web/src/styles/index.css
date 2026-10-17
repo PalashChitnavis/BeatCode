@@ -123,6 +123,28 @@
   padding: 0.1rem 0.35rem;
 }
 
+/* AI tutor answers. */
+.prose-ai > :first-child {
+  margin-top: 0;
+}
+.prose-ai ul,
+.prose-ai ol {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+  list-style: revert;
+}
+.prose-ai pre {
+  margin: 0.75rem 0;
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  background: var(--color-muted);
+  padding: 0.75rem;
+}
+.prose-ai pre code {
+  background: none;
+  padding: 0;
+}
+
 /* Remote cursors drawn by y-monaco; colours are injected per participant. */
 .yRemoteSelectionHead {
   position: absolute;

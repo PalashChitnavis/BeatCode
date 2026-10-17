@@ -7,6 +7,7 @@ Practice coding problems, run code online, and pair program in real time with a 
 - **Practice problems.** Solve problems in C, C++, Java or Python. **Run** checks your code against the sample tests, and **Submit** judges it against hidden tests and returns a verdict (Accepted, Wrong Answer, Time Limit Exceeded, and so on).
 - **Playground.** A full editor (Monaco, the editor used in VS Code) with custom input.
 - **Code rooms.** A shared editor where two people can type at the same time and see each other's cursors, with shared input and output and a peer-to-peer video call.
+- **AI tutor.** An "AI Help" tab on every problem that sees the statement, your code and your last result, and gives hints, approaches, debugging help or complexity analysis without handing over the full solution.
 - **Progress and leaderboard.** Tracks solved problems, has public profiles, and ranks users by problems solved, with harder problems breaking ties.
 
 ## Authors
@@ -110,6 +111,20 @@ The Vite dev server proxies `/api` and `/socket.io` to the API, so you don't nee
 
 Create an OAuth client in Google Cloud Console and add `${API_ORIGIN}/api/v1/auth/google/callback` as an authorized redirect URI. Then set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `apps/api/.env`. The Google button only appears when both are set.
 
+### AI tutor (optional, free)
+
+The tutor never costs money by default:
+
+1. Create a key at [Google AI Studio](https://aistudio.google.com/apikey) in a Google Cloud project **with no billing account linked**. Such a project stays on the Gemini free tier and is never charged. Over the free quota, Google returns `429` and the tutor shows a "try again later" message.
+2. Set `GEMINI_API_KEY` in `apps/api/.env`. `GEMINI_MODEL` picks any model the free tier offers (check the [pricing page](https://ai.google.dev/gemini-api/docs/pricing)).
+3. The API also enforces its own caps: `AI_DAILY_LIMIT_PER_USER`, `AI_DAILY_LIMIT_GLOBAL` (keep it below the free tier's requests per day), a 6 per minute rate limit and `AI_MAX_OUTPUT_TOKENS`.
+
+If the key can list models but every request fails with `403 PERMISSION_DENIED: Your project has been denied access`, Google has restricted the project (AI Studio shows it as "Restricted"). This is on Google's side; ask for a review from AI Studio or use Ollama. Do not link billing to lift it, since that makes the project chargeable.
+
+To run without any external service, install [Ollama](https://ollama.com), run `ollama pull qwen2.5-coder:7b`, and set `AI_PROVIDER=ollama`. `AI_PROVIDER=none` turns the tutor off.
+
+The model only sees what the student can already see: the statement, sample tests, their own code, and their own last result. Reference solutions and hidden tests are never sent. Free-tier Gemini prompts may be used by Google to improve its products, and the UI warns users not to paste secrets.
+
 ## Testing
 
 ```bash
@@ -153,8 +168,10 @@ Run `npm run db:seed` afterwards. Seeding is idempotent.
 
 ## Screenshots
 
-| Problem workspace                     | Code room with video                      |
-| ------------------------------------- | ----------------------------------------- |
-| ![Problem](docs/images/problem.png)   | ![Room](docs/images/room.png)             |
-| **Problems**                          | **Playground**                            |
-| ![Problems](docs/images/problems.png) | ![Playground](docs/images/playground.png) |
+| Problem workspace                     | Code room with video                        |
+| ------------------------------------- | ------------------------------------------- |
+| ![Problem](docs/images/problem.png)   | ![Room](docs/images/room.png)               |
+| **Problems**                          | **Playground**                              |
+| ![Problems](docs/images/problems.png) | ![Playground](docs/images/playground.png)   |
+| **AI tutor**                          | **Leaderboard**                             |
+| ![AI tutor](docs/images/ai-tutor.png) | ![Leaderboard](docs/images/leaderboard.png) |

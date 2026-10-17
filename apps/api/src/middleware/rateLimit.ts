@@ -28,3 +28,4 @@ export const authLimiter = limiter("auth", { windowMs: 15 * 60_000, limit: 20 })
 export const submissionLimiter = limiter("submit", { windowMs: 60_000, limit: 20 });
 export const roomLimiter = limiter("room", { windowMs: 60 * 60_000, limit: 30 });
 export const apiLimiter = limiter("api", { windowMs: 60_000, limit: 300 });
+export const aiLimiter = limiter("ai", { windowMs: 60_000, limit: 6 });

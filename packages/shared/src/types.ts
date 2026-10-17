@@ -147,3 +147,16 @@ export interface RoomDTO {
   createdAt: string;
   expiresAt: string;
 }
+
+export interface AiStatusDTO {
+  enabled: boolean;
+  /** Questions the signed-in user can still ask today. */
+  remainingToday: number;
+  dailyLimit: number;
+}
+
+/** Server-sent events streamed by POST /ai/chat. */
+export type AiStreamEvent =
+  | { type: "delta"; text: string }
+  | { type: "done"; remainingToday: number }
+  | { type: "error"; message: string };

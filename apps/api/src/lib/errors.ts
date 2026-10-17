@@ -19,3 +19,4 @@ export const forbidden = (message = "You do not have access to this resource") =
 export const notFound = (message = "Not found") => new AppError(404, "NOT_FOUND", message);
 export const conflict = (message: string) => new AppError(409, "CONFLICT", message);
 export const tooManyRequests = (message: string) => new AppError(429, "TOO_MANY_REQUESTS", message);
+export const serviceUnavailable = (message: string) => new AppError(503, "SERVICE_UNAVAILABLE", message);

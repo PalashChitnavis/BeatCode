@@ -10,6 +10,7 @@ import { redis } from "./config/redis";
 import { optionalAuth } from "./middleware/auth";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 import { apiLimiter } from "./middleware/rateLimit";
+import { aiRouter } from "./modules/ai/ai.routes";
 import { authRouter } from "./modules/auth/auth.routes";
 import { leaderboardRouter } from "./modules/leaderboard/leaderboard.routes";
 import { problemsRouter } from "./modules/problems/problems.routes";
@@ -51,6 +52,7 @@ export function createApp() {
   api.use("/users", usersRouter);
   api.use("/leaderboard", leaderboardRouter);
   api.use("/rooms", roomsRouter);
+  api.use("/ai", aiRouter);
   app.use("/api/v1", api);
 
   app.use(notFoundHandler);

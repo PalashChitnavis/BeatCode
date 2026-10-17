@@ -5,3 +5,6 @@ export const ROOM_CAPACITY = 2;
 export const ROOM_CODE_LENGTH = 8;
 export const PAGE_SIZE_DEFAULT = 20;
 export const PAGE_SIZE_MAX = 100;
+export const AI_MAX_MESSAGE_LENGTH = 2000;
+/** Earlier turns sent back with each question; older ones are dropped by the client. */
+export const AI_MAX_HISTORY = 12;
