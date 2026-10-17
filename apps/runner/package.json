@@ -1,0 +1,28 @@
+{
+  "name": "@beatcode/runner",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=.env src/index.ts",
+    "build": "tsup",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "images:build": "sh images/build.sh"
+  },
+  "dependencies": {
+    "@beatcode/shared": "*",
+    "bullmq": "^5.61.0",
+    "ioredis": "^5.8.0",
+    "pino": "^9.9.0",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.0",
+    "pino-pretty": "^13.1.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.0",
+    "vitest": "^3.2.0"
+  }
+}

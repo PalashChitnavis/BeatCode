@@ -1,0 +1,37 @@
+{
+  "name": "beatcode",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Practice problems, an online compiler and collaborative code rooms.",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "npm run dev --workspace @beatcode/api & npm run dev --workspace @beatcode/runner & npm run dev --workspace @beatcode/web & wait",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run test --workspaces --if-present",
+    "db:migrate": "npm run db:migrate --workspace @beatcode/api",
+    "db:seed": "npm run db:seed --workspace @beatcode/api",
+    "images:build": "npm run images:build --workspace @beatcode/runner"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "eslint": "^9.39.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.0.0",
+    "prettier": "^3.6.0",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.46.0"
+  }
+}

@@ -1,0 +1,88 @@
+# Local infrastructure:            docker compose up -d
+# Full stack (API, runner, web):   docker compose --profile app up -d --build
+name: beatcode
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: beatcode
+      POSTGRES_PASSWORD: beatcode
+      POSTGRES_DB: beatcode
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U beatcode"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    profiles: ["app"]
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    # Secrets (JWT_ACCESS_SECRET, OAUTH_STATE_SECRET, Google credentials) come from this file.
+    env_file:
+      - path: apps/api/.env
+        required: false
+    environment:
+      NODE_ENV: production
+      LOG_LEVEL: info
+      DATABASE_URL: postgresql://beatcode:beatcode@postgres:5432/beatcode
+      REDIS_URL: redis://redis:6379
+      # Served through the web container's nginx, so web and API share one origin.
+      WEB_ORIGIN: ${PUBLIC_URL:-http://localhost:8080}
+      API_ORIGIN: ${PUBLIC_URL:-http://localhost:8080}
+      TRUST_PROXY: 1
+      COOKIE_SAMESITE: lax
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  runner:
+    profiles: ["app"]
+    build:
+      context: .
+      dockerfile: apps/runner/Dockerfile
+    environment:
+      NODE_ENV: production
+      REDIS_URL: redis://redis:6379
+      CONCURRENCY: 2
+    volumes:
+      # The runner starts sandbox containers on the host's Docker engine.
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  web:
+    profiles: ["app"]
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres-data:
+  redis-data:
